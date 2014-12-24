@@ -1,10 +1,21 @@
+-- CREATE DATABASE
+CREATE DATABASE IF NOT EXISTS mini_blog
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
+
+-- USE DATABASE CREATED
+USE mini_blog;
+
+-- SET ENCODING
+SET NAMES utf8;
+
 --
 -- Table `user`
 --
 
 -- CREATE TABLE
 
-CREATE TABLE user(
+CREATE TABLE IF NOT EXISTS user(
 	id int(11) NOT NULL AUTO_INCREMENT,
 	username VARCHAR(64) NOT NULL,
 	password VARCHAR(64) NOT NULL,
@@ -13,12 +24,12 @@ CREATE TABLE user(
 	avatar VARCHAR(100),
 	gender TINYINT NOT NULL DEFAULT 1,
 	birthday DATE,
-	created_dt DATETIME NOT NULL,
-	updated_dt DATETIME NOT NULL,
 	address VARCHAR(200),
 	city VARCHAR(30),
 	email VARCHAR(50) NOT NULL,
-	mobile VARCHAR(20),
+	mobile VARCHAR(20),	
+	created_dt DATETIME NOT NULL,
+	updated_dt DATETIME NOT NULL,
 
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -29,16 +40,16 @@ CREATE TABLE user(
 
 -- CREATE TABLE
 
-CREATE TABLE post(
+CREATE TABLE IF NOT EXISTS post(
 	id int(11) NOT NULL AUTO_INCREMENT,
 	title VARCHAR(100) NOT NULL,
 	description TINYTEXT NOT NULL,
 	content LONGTEXT NOT NULL,
 	image VARCHAR(100),
+	user_id int(11) NOT NULL,
 	status TINYINT NOT NULL,
 	created_dt DATETIME NOT NULL,
 	updated_dt DATETIME NOT NULL,
-	user_id int(11) NOT NULL,
 
 	PRIMARY KEY(id),
 	FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE
@@ -50,13 +61,13 @@ CREATE TABLE post(
 
 -- CREATE TABLE
 
-CREATE TABLE comment(
+CREATE TABLE IF NOT EXISTS comment(
 	id int(11) NOT NULL AUTO_INCREMENT,
 	content VARCHAR(250) NOT NULL,
-	updated_dt DATETIME NOT NULL,
-	created_dt DATETIME NOT NULL,
 	user_id int(11) NOT NULL,
 	post_id int(11) NOT NULL,
+	created_dt DATETIME NOT NULL,
+	updated_dt DATETIME NOT NULL,
 	
 	PRIMARY KEY(id),
 	FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE,
