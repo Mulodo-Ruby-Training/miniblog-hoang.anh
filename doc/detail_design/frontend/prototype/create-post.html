@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Create Post</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script src="js/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+</head>
+<body>
+	
+	<div class="container-fluid" style="background-color: #28AAE0;border-color: #28AAE0;">
+		<div class="container">
+				<div class="navbar-header col-md-3">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="glyphicon glyphicon-align-justify" style="color:#fff"></span>
+					</button>
+					<a class="logo" href="index.html">Mini Blog</a>
+				</div>
+				<div class="col-md-5" style="margin-top: 8px;">
+					<form role="form" action="searchUser.html">
+						
+					<div class="input-group">
+						<input name="word" class="form-control" placeholder="Firstname, Lastname, Username" type="text">
+						<span class="input-group-btn">
+							<input class="btn btn-primary" value="Search" type="submit">
+						</span>
+		
+					</div><!-- /input-group -->
+			
+					</form>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse col-md-4">
+	
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Blog</a></li>
+						<li class="dropdown active">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">My Account<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="UpdateUserInfo.html">Update Info</a></li>
+								<li><a href="change-password.html">Change Password</a></li>
+								<li class="active"><a href="#">Manage Post</a></li>
+								<li><a href="index.html">Log out</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="container">
+		<div class="row" style="margin-top:10px;">
+			<ol class="breadcrumb">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="manage-post.html">Manage Post</a></li>
+				<li>Create Post</li>
+			</ol>
+			<!--Content-->
+			<div class="container-fluid">
+				<form role="form">
+					<div class="alert alert-success" role="alert">
+						<button type="button" class="close" data-dismiss="alert">
+							<span aria-hidden="true">&times;</span>
+							<span class="sr-only">Close</span>
+						</button>
+						Create successfully!
+					</div>
+					<div class="alert alert-danger" role="alert">
+						<button type="button" class="close" data-dismiss="alert">
+							<span aria-hidden="true">&times;</span>
+							<span class="sr-only">Close</span>
+						</button>
+						Create unsuccessfully!
+					</div>
+				  <div class="form-group">
+				    <label for="Title">Title</label>
+				    <input type="text" class="form-control" id="title" placeholder="Enter title">
+				  </div>
+				  <div class="form-group">
+				    <label for="Description">Description</label>
+				    <textarea class="form-control" rows="3"></textarea>
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputFile">Image</label>
+				    <input type="file" id="exampleInputFile">
+				  </div>
+				  <div class="form-group">
+				    <label for="Content">Content</label>
+				    <textarea class="form-control" id="content" rows="7"></textarea>
+				    <script>
+
+						// This call can be placed at any point after the
+						// <textarea>, or inside a <head><script> in a
+						// window.onload event handler.
+			
+						// Replace the <textarea id="editor"> with an CKEditor
+						// instance, using default configurations.
+			
+						CKEDITOR.replace( 'content' );
+			
+					</script>
+				  </div>
+				  <div class="checkbox">
+				    <label>
+				      <input type="checkbox"> Enable
+				    </label>
+				  </div>
+				  <button type="submit" class="btn btn-primary">Add</button>
+				  <button type="reset" class="btn btn-primary">Cancel</button>
+				  <a href="#preview"><button type="button" class="btn btn-primary preview">Preview</button></a>
+				</form>
+			</div>
+			<!--End Content-->
+		</div><br>
+		
+		<div id="preview" class="content_preview">
+			<div class="panel panel-info">
+		      <div class="panel-heading">
+		        <h3 class="panel-title">Preview </h3>
+		      </div>
+		      <div class="panel-body">
+		        <div class="title"></div>
+				<div class="date"></div>
+				<div class="description"></div>
+		      </div>
+			</div>
+			
+		</div>
+
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('.content_preview').hide();
+		$('.preview').click(function(){
+			title = $('#title').val();
+			if(title == '')
+				title = 'Blog 1';
+			title = "<a href='#'>"+title+"</a>";
+			date = '17/12/2014 13:43:00';
+			content = CKEDITOR.instances.content.getData();
+			if(content == ''){
+				content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
+				content += " Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. ";
+			}
+			$('.title').html(title);
+			$('.date').text(date);
+			$('.description').html(content);
+			$('.content_preview').show();
+		});
+
+	});
+</script>
+	</div>
+</body>
+</html>

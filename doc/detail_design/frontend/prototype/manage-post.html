@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Manage Post</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+	
+	<div class="container-fluid" style="background-color: #28AAE0;border-color: #28AAE0;">
+		<div class="container">
+				<div class="navbar-header col-md-3">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="glyphicon glyphicon-align-justify" style="color:#fff"></span>
+					</button>
+					<a class="logo" href="index.html">Mini Blog</a>
+				</div>
+				<div class="col-md-5" style="margin-top: 8px;">
+					<form role="form" action="searchUser.html">
+						
+					<div class="input-group">
+						<input name="word" class="form-control" placeholder="Firstname, Lastname, Username" type="text">
+						<span class="input-group-btn">
+							<input class="btn btn-primary" value="Search" type="submit">
+						</span>
+		
+					</div><!-- /input-group -->
+			
+					</form>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse col-md-4">
+	
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Blog</a></li>
+						<li class="dropdown active">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">My Account<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="UpdateUserInfo.html">Update Info</a></li>
+								<li><a href="change-password.html">Change Password</a></li>
+								<li class="active"><a href="#">Manage Post</a></li>
+								<li><a href="index.html">Log out</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="container">
+		<div class="row" style="margin-top:10px;">
+			<ol class="breadcrumb">
+				<li><a href="index.html">Home</a></li>
+				<li>Manage Post</li>
+			</ol>
+			<!--Content-->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-5">
+						<form role="form" action="#">
+							<div class="input-group">
+								<input name="word" class="form-control" placeholder="Title, Description, Content" type="text">
+								<span class="input-group-btn">
+									<input class="btn btn-primary" value="Search" type="submit">
+								</span>
+							</div><!-- /input-group -->
+						</form>
+					</div>
+					<div class="col-md-7">
+						<a href="create-post.html"><button type="button" class="btn btn-primary pull-right">Create Post</button></a>
+					</div>
+				</div><br>
+				
+				<table class="table table-bordered table-hover table-striped tablesorter">
+					<thead>
+						<tr>
+							<th class="header headerSortUp">Id</th>
+							<th class="header">Title</th>
+							<th class="header">Date Created</th>
+							<th class="header">Date Updated</th>
+							<th class="header">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						<tr>
+							<td>12</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>23-09-2014 11:03:06</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>11</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>27-06-2014 11:32:25</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>27-06-2014 11:30:25</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>9</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>27-06-2014 11:28:29</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>27-06-2014 11:26:16</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>27-06-2014 11:25:45</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>27-06-2014 11:20:59</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>27-06-2014 11:19:18</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>26-06-2014 15:53:19</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>26-06-2014 15:51:38</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>24-06-2014 00:00:00</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td><a href="edit-post.html">Blog 1</a></td>
+							<td>24-06-2014 00:00:00</td>
+							<td>23-09-2014 11:03:06</td>
+							<td>
+								<a href="edit-post.html">Edit </a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span> | </span>
+								<a href="" class="bt_del" >Delete </a><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<nav>
+			      <ul class="pagination">
+			        <li class="disabled"><a href="#">Prev</a></li>
+			        <li class="active"><a href="#">1 </a></li>
+			        <li><a href="#">2</a></li>
+			        <li><a href="#">3</a></li>
+			        <li><a href="#">4</a></li>
+			        <li><a href="#">5</a></li>
+			        <li><a href="#">Next</a></li>
+			     </ul>
+			   </nav>
+			</div>
+			<!--End Content-->
+		</div>
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('.bt_del').click(function(){
+			id = $(this).attr('id');
+			var r = confirm("Are you sure delete post?");
+			if(r == true)
+			{
+				alert('Deleted');
+			}
+			else{
+				alert('Cancel delete');
+			}
+		});
+
+	});
+</script>
+	</div>
+</body>
+</html>

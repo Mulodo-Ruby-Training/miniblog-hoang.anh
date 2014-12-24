@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Detail Blog</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<style>
+		.styled-textarea{
+			resize: none;
+			width:100%;
+			border-top:1px solid #D6D6D6;
+			border-right:1px solid #D6D6D6;
+			border-left:1px solid #D6D6D6;
+			border-bottom: 0px;
+			height: 120px;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+		.styled-comment{
+			border:1px solid #D6D6D6;
+			margin-top:-5px;
+			vertical-align: middle;
+			padding-top:5px;
+			padding-bottom:5px;
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}
+		.container-content-comment{
+			display: flex;
+		}
+		.content-user-comment{
+			margin-top:5px;
+			margin-left:10px;
+			width:90%;
+		}
+		.name-user-comment-mobile,
+		.name-user-comment-desktop{
+			font-weight:bold
+		}
+		.name-user-comment-desktop{
+			display: inline;
+		}
+		.name-user-comment-mobile{
+			display: none;
+		}
+		.container-menu-icon{
+			text-align:right;
+			font-size:25px
+		}
+		@media (max-width: 768px) {
+			.container-content-comment{
+				display: inline;
+			}
+			
+			.container-content-comment .avatar-user-comment{
+				width: 100%;
+				background-color: #ddd;
+			}
+			.content-user-comment{
+				width: 100%;
+				margin-left: 0;
+				margin-top: 0;
+				padding: 5px;
+				border-right: 1px solid #ddd;
+				border-left: 1px solid #ddd;
+				border-bottom: 1px solid #ddd;
+				border-top: 0;
+			}
+			.name-user-comment-desktop{
+				display: none;
+			}
+			.name-user-comment-mobile{
+				display: inline;
+			}
+			.container-menu-icon{
+				text-align:left;
+			}
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="container-fluid" style="background-color: #28AAE0;border-color: #28AAE0;">
+		<div class="container">
+			<div class="navbar-header col-md-3">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="glyphicon glyphicon-align-justify" style="color:#fff"></span>
+				</button>
+				<a class="logo" href="home.html">Mini Blog</a>
+			</div>
+			<div class="col-md-5" style="margin-top: 8px;">
+				<form role="form" >
+
+					<div class="input-group">
+						<input name="word" class="form-control txtSearch" placeholder="Firstname, Lastname, Username" type="text">
+						<span class="input-group-btn">
+							<input class="btn btn-primary" value="Search" type="submit">
+						</span>
+
+					</div><!-- /input-group -->
+
+				</form>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse col-md-4">
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="#">Blog</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">My Account<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Update Info</a></li>
+							<li><a href="#">Change Password</a></li>
+							<li><a href="#">Manage Post</a></li>
+							<li><a href="#">Log out</a></li>
+						</ul>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="container">
+		<div class="row" style="margin-top:10px;">
+			<ol class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Blog</a></li>
+				<li class="active">Detail</li>
+			</ol>
+			<!--Content-->
+			<div class="container">
+				<!--About blog-->
+				
+				<div class="row">
+
+					<div class="col-md-12">
+						<h2 style="margin-top:0;margin-bottom:0">Title blog</h2>
+						<i class="glyphicon glyphicon-calendar"></i><span class="date"> 17/12/2014 8:49</span>
+						<hr>
+					</div>
+					<div class="col-md-4">
+						
+						
+						<div class="col-md-5">
+							<a href="#">
+								<img data-holder-rendered="true" src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" alt="Avatar" class="img-thumbnail img-responsive" style="width:100px;height:100px;">
+							</a>
+						</div>
+						<div class="col-md-7" style="margin-left:-35px">	
+							<a href="#">Unknown</a><br/>
+							<span class="date"> Date join: 12/12/2014</span>
+						</div>
+					</div>
+
+				</div>
+				<hr>
+				<!-- End about blog -->
+
+				<!-- Content blog -->
+				<div class="row">
+					<div class="col-md-12">
+						<p>
+							Cupcake ipsum dolor sit. Amet halvah jelly jujubes jelly beans donut. Carrot cake cookie sweet roll sesame snaps topping. Jelly-o I love cake biscuit oat cake. Tiramisu gummies powder dessert I love. Lollipop soufflé tart chocolate bar gummi bears wafer chocolate bar pastry caramels. I love dragée carrot cake danish tart cookie tart halvah. Cupcake marshmallow dessert lollipop chocolate bar. Gingerbread I love gingerbread soufflé tootsie roll halvah. Sweet oat cake jelly beans I love jelly beans dragée. Biscuit cookie gummies cookie candy. Jelly-o sweet gummi bears pie bear claw jelly. I love cookie fruitcake.
+						</p>
+						<p>
+							Brownie cake candy canes sweet gummi bears I love caramels toffee. Cupcake donut I love croissant mo mo.com applicake wafer powder. Danish mo mo.com apple pie bear claw toffee. Bear claw jelly beans bonbon dragée danish dessert I love. Gummies muffin jelly beans sweet I love marshmallow jelly-o dragée. Biscuit jelly-o biscuit jujubes. Jelly beans dessert carrot cake macaroon dessert pie. Sweet marshmallow gingerbread I love bear claw. Gummies topping tootsie roll gummi bears I love sesame snaps. mo mo.com gingerbread chocolate bar marshmallow jelly applicake. Caramels I love I love applicake oat cake jelly beans candy I love candy. Sugar plum I love bonbon I love donut chocolate bar.
+						</p>
+						<p style="margin-left:auto;margin-right:auto;text-align:center">
+							<img style="width:80%;" src="http://k14.vcmedia.vn/k:LJ9BRCA2SwO2i2yoqIMzIMq9QI2QMI/Image/2014/12/ca13-d55f6/man-nhan-voi-bo-anh-ve-loai-cao-trong-mua-dong-lanh-gia.jpg" alt="Image of content">
+						</p>
+						<p>
+							I love tootsie roll I love pudding dessert. Pudding jelly-o chocolate bar marshmallow sweet sugar plum dragée. I love pastry caramels I love candy canes candy lollipop I love applicake. Jelly apple pie cotton candy chocolate cake brownie. Halvah gummi bears lemon drops biscuit wafer. Tart caramels soufflé gingerbread gummies marzipan I love icing. Tart carrot cake jelly jelly sweet roll. Biscuit powder chupa chups pie. Dragée wafer liquorice. Chocolate bar tart applicake oat cake caramels bear claw chocolate toffee caramels. Carrot cake macaroon muffin liquorice. Cupcake tootsie roll brownie tootsie roll soufflé.
+						</p>
+						<p>
+							Pie liquorice pastry sugar plum I love. Liquorice cheesecake jelly chupa chups. Cheesecake oat cake applicake I love marzipan brownie toffee lemon drops. Sesame snaps icing chupa chups I love bear claw tootsie roll marzipan I love. Soufflé mo mo.com powder bonbon biscuit apple pie oat cake danish liquorice. Gummi bears jelly pie croissant. Tart bear claw dragée dessert tiramisu I love cotton candy. I love dragée tootsie roll. I love sweet roll applicake fruitcake. Chocolate cake chupa chups jujubes. Lemon drops jelly halvah toffee lollipop. Caramels pudding brownie sugar plum cotton candy gummi bears powder jelly. I love dessert biscuit cake fruitcake I love.
+						</p>
+						<p style="margin-left:auto;margin-right:auto;text-align:center">
+							<img style="width:80%;" src="http://k14.vcmedia.vn/k:LJ9BRCA2SwO2i2yoqIMzIMq9QI2QMI/Image/2014/12/ca3-d55f6/man-nhan-voi-bo-anh-ve-loai-cao-trong-mua-dong-lanh-gia.jpg" alt="Image of content"><br>
+							<i>The fox in the winter</i>
+						</p>
+						<p>
+							Topping brownie marzipan danish I love fruitcake dessert jelly-o. Brownie pie jujubes sugar plum dessert oat cake bear claw. Bonbon candy canes bonbon carrot cake carrot cake. Macaroon wafer I love marzipan sweet roll candy canes croissant ice cream I love. Biscuit sesame snaps marshmallow oat cake halvah pudding. I love lollipop lemon drops halvah gummies tiramisu sugar plum. Candy canes liquorice cheesecake sugar plum pastry sweet roll. Dragée biscuit bear claw sugar plum. mo mo.com croissant bonbon cupcake bonbon muffin dessert wafer dragée. mo mo.com tootsie roll brownie danish I love croissant muffin gummi bears. Jelly I love sweet roll. I love sesame snaps caramels pastry lollipop. Ice cream carrot cake caramels jujubes brownie caramels.
+						</p>
+						<hr>
+					</div>
+				</div>
+				<!-- End content blog -->
+
+				<!-- Tool for commenting -->
+				<div class="row">
+					<div class="col-md-12">
+						<form action="" method="get" accept-charset="utf-8">
+							<textarea id="text-create-comment" class="styled-textarea" name="comment" placeholder="Type your comment..."></textarea>
+							<div class="container-fluid">
+								<div class="row styled-comment">
+									<div class="col-md-7 col-sm-6 col-xs-12" style="margin-top:7px;">
+										<span style="color:#85C994">
+											You have created a comment successfully
+										</span>
+										<span style="color:#EF4A36">
+											You have created a comment unsuccessfully
+										</span>
+									</div>
+									<div class="col-md-2 col-sm-3 col-xs-12 container-menu-icon">
+										<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="icon-smiley"></span><span class="caret"></span></a>
+										<ul class="dropdown-menu menu-icon-create-comment" role="menu">
+											<li>
+												<a role="button">
+													<span class="icon-smiley"></span>
+													<span>SMILEY</span>
+												</a>
+											</li>
+											<li>
+												<a role="button">
+													<span class="icon-happy"></span>
+													<span>HAPPY</span>
+												</a>
+											</li>
+											<li>
+												<a role="button">
+													<span class="icon-tongue"></span>
+													<span>TONGUE</span>
+												</a>
+											</li>
+											<li>
+												<a role="button">
+													<span class=" icon-sad"></span>
+													<span>SAD</span>
+												</a>
+											</li>
+											<li>
+												<a role="button">
+													<span class="icon-wink"></span>
+													<span>WINK</span>
+												</a>
+											</li>
+											<li>
+												<a role="button">
+													<span class="icon-grin"></span>
+													<span>GRIN</span>
+												</a>
+											</li>
+											<li>
+												<a role="button">
+													<span class="icon-evil"></span>
+													<span>EVIL</span>
+												</a>
+											</li>
+											<li>
+												<a role="button">
+													<span class="icon-shocked"></span>
+													<span>SHOCKED</span>
+												</a>
+											</li>
+											<li>
+												<a role="button">
+													<span class="icon-confused"></span>
+													<span>CONFUSED</span>
+												</a>
+											</li>
+											<li>
+												<a role="button">
+													<span class="icon-neutral"></span>
+													<span>NEUTRAL</span>
+												</a>
+											</li>
+											<li>
+												<a role="button">
+													<span class="icon-wondering"></span>
+													<span>WONDERING</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-12">
+										<button type="submit" class="btn btn-primary" style="width:100%;">Create</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- /*End tool for commenting*/ -->
+
+				<!-- Comments -->
+				<div class="row">
+					<div class="col-md-12">
+						<h4>This post has 30 comments:</h4>
+						<hr>
+					</div>
+				</div>
+
+				<div class="row" style="margin-top:20px;">
+					<div class="col-md-12 container-content-comment">
+						<div class="avatar-user-comment">
+							<img src="img/200x200.gif" alt="Avatar"style="width:80px;height:80px;">
+							<span class="name-user-comment-mobile">
+								<a href="#">Hoang Anh</a>
+							</span>
+						</div>
+						<div class="content-user-comment">
+							<span class="name-user-comment-desktop">
+								<a href="#">Hoang Anh</a>
+							</span>
+							<span class="content-comment">
+								Cupcake ipsum dolor sit amet chupa chups jelly sesame snaps. Applicake caramels cheesecake icing croissant candy canes donut. Caramels biscuit jujubes icing. Donut cotton candy toffee. Croissant cotton candy applicake cotton candy. Jelly candy canes brownie icing. Danish bonbon carrot cake. Fruitcake jelly beans jelly danish.
+								Cupcake ipsum dolor sit amet chupa chups jelly sesame snaps. Applicake caramels cheesecake icing croissant candy canes donut. Caramels biscuit jujubes icing. Donut cotton candy toffee. Croissant cotton candy applicake cotton candy. Jelly candy canes brownie icing. Danish bonbon carrot cake. Fruitcake jelly beans jelly danish.<span class="icon-tongue"></span>
+							</span>
+							<p>
+								<a class="edit-comment" href="#" role="button" data-toggle="modal" data-target="#myModal">Edit</a>&nbsp;-
+								<a class="delete-comment" href="#" role="button" data-toggle="modal" data-target="#myModal2">Delete</a>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" style="margin-top:20px;">
+					<div class="col-md-12 container-content-comment">
+						<div class="avatar-user-comment">
+							<img src="https://fbstatic-a.akamaihd.net/rsrc.php/v2/yz/r/kXXi0ldSHWi.png" alt="Avatar" style="width:80px;height:80px;">
+							<span class="name-user-comment-mobile">
+								<a href="#">Pham Tam</a>
+							</span>
+						</div>
+						<div class="content-user-comment">
+							<span class="name-user-comment-desktop">
+								<a href="#">Pham Tam</a>
+							</span>
+							<span class="content-comment">
+								Cupcake ipsum dolor sit amet oat cake cotton candy. Cheesecake topping chocolate marzipan oat cake bear claw oat cake bear claw. Icing pastry chocolate bar candy canes chocolate bar gummi bears lollipop jelly-o muffin.
+								Sweet jelly beans powder jujubes chocolate fruitcake carrot cake. Candy icing tootsie roll jelly-o cheesecake tiramisu. Carrot cake jelly wafer jelly biscuit gummies brownie.
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" style="margin-top:20px;">
+					<div class="col-md-12 container-content-comment">
+						<div class="avatar-user-comment">
+							<img src="img/200x200.gif" alt="Avatar" style="width:80px;height:80px;">
+							<span class="name-user-comment-mobile">
+								<a href="#">Hoang Anh</a>
+							</span>
+						</div>
+						<div class="content-user-comment">
+							<span class="name-user-comment-desktop">
+								<a href="#">Hoang Anh</a>
+							</span>
+							<span class="content-comment">
+								Cupcake ipsum dolor sit amet caramels bonbon croissant. mo mo.com donut soufflé carrot cake caramels icing. Croissant lemon drops caramels bear claw sweet roll. Danish cupcake sweet roll tart. Chocolate cake gummi bears topping. Liquorice croissant donut wafer cake powder. Cake mo mo.com halvah. Marshmallow wafer chocolate wafer sugar plum cake gummi bears sweet. Sweet roll marshmallow icing brownie gingerbread wafer.
+								Marshmallow jujubes toffee halvah. Brownie chupa chups lemon drops croissant pie muffin gummi bears tart. Dessert bear claw carrot cake mo mo.com muffin cookie. Gummies apple pie candy sweet cake. Bonbon tiramisu oat cake chocolate bar applicake apple pie jujubes jujubes. Sweet roll fruitcake gingerbread bear claw liquorice. Pudding applicake jelly-o chocolate cake fruitcake caramels caramels chocolate cake. Chupa chups bear claw pudding carrot cake cookie tiramisu cotton candy. Dragée applicake apple pie. Gingerbread ice cream cake bear claw tootsie roll wafer sweet roll soufflé croissant.
+								Gummies dessert chocolate fruitcake sugar plum soufflé biscuit liquorice wafer. Dragée bear claw chocolate bar bear claw jelly-o chocolate chocolate bar oat cake. Halvah powder applicake oat cake wafer chocolate tart sesame snaps. Macaroon jelly-o powder toffee tiramisu icing bonbon powder tootsie roll. Chocolate cake macaroon fruitcake jelly beans chocolate cake halvah toffee. mo mo.com gummi bears chocolate.
+							</span>
+							<p>
+								<a class="edit-comment" href="#" role="button" data-toggle="modal" data-target="#myModal">Edit</a>&nbsp;-
+								<a class="delete-comment" href="#" role="button" data-toggle="modal" data-target="#myModal2">Delete</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<!-- End comments -->
+				
+				<!-- Pagination -->
+				<div style="margin-left:auto;margin-right:auto;text-align:center;margin:20px;font-size:15px;">
+					<a role="button">Show more</a>
+				</div>
+				<!-- End pagination -->
+
+				<!--Modal Edit-->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content"  style="padding:25px;">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+								<h4 class="modal-title" id="myModalLabel">Edit below comment</h4>
+							</div>
+							<div class="modal-body">
+								<div class="container-fluid">
+									<div class="row">
+										<!-- <div class="col-md-12"> -->
+										<form action="" method="get" accept-charset="utf-8">
+											<textarea id="text-edit-comment" class="styled-textarea" name="comment" placeholder="Type your comment..."></textarea>
+											<div class="container-fluid">
+												<div class="row styled-comment">
+													<div class="col-md-7 col-xs-12" style="margin-top:7px;">
+														<span style="color:#85C994">
+															You have created a comment successfully
+														</span>
+													</div>
+													<div class="col-md-2 col-xs-12 container-menu-icon">
+														<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="icon-smiley"></span><span class="caret"></span></a>
+														<ul class="dropdown-menu menu-icon-edit-comment" role="menu">
+															<li>
+																<a role="button">
+																	<span class="icon-smiley"></span>
+																	<span>SMILEY</span>
+																</a>
+															</li>
+															<li>
+																<a role="button">
+																	<span class="icon-happy"></span>
+																	<span>HAPPY</span>
+																</a>
+															</li>
+															<li>
+																<a role="button">
+																	<span class="icon-tongue"></span>
+																	<span>TONGUE</span>
+																</a>
+															</li>
+															<li>
+																<a role="button">
+																	<span class=" icon-sad"></span>
+																	<span>SAD</span>
+																</a>
+															</li>
+															<li>
+																<a role="button">
+																	<span class="icon-wink"></span>
+																	<span>WINK</span>
+																</a>
+															</li>
+															<li>
+																<a role="button">
+																	<span class="icon-grin"></span>
+																	<span>GRIN</span>
+																</a>
+															</li>
+															<li>
+																<a role="button">
+																	<span class="icon-evil"></span>
+																	<span>EVIL</span>
+																</a>
+															</li>
+															<li>
+																<a role="button">
+																	<span class="icon-shocked"></span>
+																	<span>SHOCKED</span>
+																</a>
+															</li>
+															<li>
+																<a role="button">
+																	<span class="icon-confused"></span>
+																	<span>CONFUSED</span>
+																</a>
+															</li>
+															<li>
+																<a role="button">
+																	<span class="icon-neutral"></span>
+																	<span>NEUTRAL</span>
+																</a>
+															</li>
+															<li>
+																<a role="button">
+																	<span class="icon-wondering"></span>
+																	<span>WONDERING</span>
+																</a>
+															</li>
+														</ul>
+													</div>
+													<div class="col-md-3 col-xs-12">
+														<button type="submit" class="btn btn-primary" style="width:100%;">Update</button>
+													</div>
+												</div>
+											</div>
+										</form>
+										<!-- </div> -->
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer"></div>
+						</div>
+					</div>
+				</div>
+				<!-- End modal edit -->
+
+				<!--Modal Delete-->
+				<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content"  style="padding:25px;">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+								<h4 class="modal-title" id="myModalLabel">Comfirm delete?</h4>
+							</div>
+							<div class="modal-body" style="text-align:center">
+								Are you sure delete this comment?
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary">OK</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--End modal Delete-->
+
+			</div>
+			<!--End Content-->
+		</div>
+
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script>
+			//GET CONTENT OF COMMENT TO EDIT
+			$('.edit-comment').click(function() {
+				var temp_content_comment = $(this).parent().parent().find($('.content-comment')).html();
+				var content_comment = temp_content_comment.trim();
+				$("#text-edit-comment").val(content_comment);
+			});
+
+			//ADD A EMOTION TO TEXTAREA CREATE COMMENT
+			$('.menu-icon-create-comment li a').click(function() {
+				addEmotion($('#text-create-comment'),$(this));
+			});
+
+			//ADD A EMOTION TO TEXTAREA EDIT COMMENT
+			$('.menu-icon-edit-comment li a').click(function() {
+				addEmotion($('#text-edit-comment'),$(this));
+			});
+
+			function addEmotion(container,selector){
+				var val_emotion = selector.find($('span:first-child')).attr('class');
+				// container.val(container.val()+' ['+val_emotion+"] ");
+				container.insertAtCaret(" ["+val_emotion+"] ");
+			}
+
+			// INSERTING TEXT AFTER CURSOR POSITION
+			jQuery.fn.extend({
+				insertAtCaret: function(myValue){
+					return this.each(function(i){
+						if (document.selection){
+      //For browsers like Internet Explorer
+      this.focus();
+      var sel = document.selection.createRange();
+      sel.text = myValue;
+      this.focus();
+  }
+  else if (this.selectionStart || this.selectionStart == '0') {
+      //For browsers like Firefox and Webkit based
+      var startPos = this.selectionStart;
+      var endPos = this.selectionEnd;
+      var scrollTop = this.scrollTop;
+      this.value = this.value.substring(0, startPos)+myValue+this.value.substring(endPos,this.value.length);
+      this.focus();
+      this.selectionStart = startPos + myValue.length;
+      this.selectionEnd = startPos + myValue.length;
+      this.scrollTop = scrollTop;
+  } else {
+  	this.value += myValue;
+  	this.focus();
+  }
+});
+				}
+			});
+		</script>
+	</div>
+</body>
+</html>
