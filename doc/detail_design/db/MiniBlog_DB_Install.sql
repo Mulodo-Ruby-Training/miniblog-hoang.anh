@@ -13,12 +13,12 @@ CREATE TABLE user(
 	avatar VARCHAR(100),
 	gender TINYINT NOT NULL DEFAULT 1,
 	birthday DATE,
-	created_dt DATETIME NOT NULL,
-	updated_dt DATETIME NOT NULL,
 	address VARCHAR(200),
 	city VARCHAR(30),
 	email VARCHAR(50) NOT NULL,
-	mobile VARCHAR(20),
+	mobile VARCHAR(20),	
+	created_dt DATETIME NOT NULL,
+	updated_dt DATETIME NOT NULL,
 
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -35,10 +35,10 @@ CREATE TABLE post(
 	description TINYTEXT NOT NULL,
 	content LONGTEXT NOT NULL,
 	image VARCHAR(100),
+	user_id int(11) NOT NULL,
 	status TINYINT NOT NULL,
 	created_dt DATETIME NOT NULL,
 	updated_dt DATETIME NOT NULL,
-	user_id int(11) NOT NULL,
 
 	PRIMARY KEY(id),
 	FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE
@@ -53,10 +53,10 @@ CREATE TABLE post(
 CREATE TABLE comment(
 	id int(11) NOT NULL AUTO_INCREMENT,
 	content VARCHAR(250) NOT NULL,
-	updated_dt DATETIME NOT NULL,
-	created_dt DATETIME NOT NULL,
 	user_id int(11) NOT NULL,
 	post_id int(11) NOT NULL,
+	created_dt DATETIME NOT NULL,
+	updated_dt DATETIME NOT NULL,
 	
 	PRIMARY KEY(id),
 	FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE,
