@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS user(
 	created_dt DATETIME NOT NULL,
 	updated_dt DATETIME NOT NULL,
 
-	FULLTEXT INDEX(username, firstname,lastname),
+	FULLTEXT INDEX(username, firstname, lastname),
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS post(
 	created_dt DATETIME NOT NULL,
 	updated_dt DATETIME NOT NULL,
 
-	FULLTEXT INDEX(title, description,content),
+	FULLTEXT INDEX(title, description, content),
 	PRIMARY KEY(id),
 	FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
