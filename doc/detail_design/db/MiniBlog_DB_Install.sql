@@ -20,6 +20,7 @@ CREATE TABLE user(
 	email VARCHAR(50) NOT NULL,
 	mobile VARCHAR(20),
 
+	FULLTEXT INDEX(username, firstname,lastname),
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -40,6 +41,7 @@ CREATE TABLE post(
 	updated_dt DATETIME NOT NULL,
 	user_id int(11) NOT NULL,
 
+	FULLTEXT INDEX(title, description,content),
 	PRIMARY KEY(id),
 	FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
