@@ -1,4 +1,4 @@
-miniblog-pham.tam-hoang.anh
+miniblog-hoang.anh
 ===========================
 
-Mini blog system PHP training (Tam Pham + Anh Hoang) 
+Mini blog system for Ruby training (Anh Hoang) 
