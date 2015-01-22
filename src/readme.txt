@@ -1,1 +1,1 @@
-keep place
+Source for Mini Blog project
