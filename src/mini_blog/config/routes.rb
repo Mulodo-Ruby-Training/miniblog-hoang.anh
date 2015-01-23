@@ -58,6 +58,7 @@ Rails.application.routes.draw do
     resources :users
     get "users", to: "users#index"
     get "users/:id", to: "users#show"
+    post "users/login", to: "users#login"
     post "users", to: "users#create"
     put "users", to: "users#update"
   end

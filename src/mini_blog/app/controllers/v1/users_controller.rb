@@ -20,5 +20,27 @@ module V1
       #Call function insert_user from model V1:User and render result to json
       render json: V1::User.insert_user(data_input)
     end
+
+    def login
+      username = params[:username]
+      password = params[:password]
+      if V1::User.check_login(session[:id],session[:token]) == false
+        result = V1::User.login(username,password)
+        session[:id] = (result[:data][:id]) rescue nil
+        session[:token] = (result[:data][:token]) rescue nil
+        render json: result
+      else
+        render json:{
+        meta:{
+          code: 2001,
+          description: "This username is already in used",
+          messages: "Already login"
+          },
+          data: nil
+        }
+      end
+      # session.clear
+      # render json: session[:token]
+    end
   end
 end
