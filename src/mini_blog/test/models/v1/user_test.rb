@@ -51,6 +51,35 @@ module V1
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 
+    #function to test checking username && password existed or not
+    def test_function_check_username_and_password_existed
+      username = "viet-anh-mulodo"
+      password = "hoangvietanh91"
+      actual = V1::User.check_username_and_password_existed(username,password)
+      expected = true
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
+    #function to test login successfully function
+    def test_function_login_successfully
+      username = "viet-anh-mulodo"
+      password = "hoangvietanh91"
+      result = V1::User.login(username,password)
+      actual = result[:meta][:code]
+      expected = 200
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
+    #function to test login unsuccessfully function
+    def test_function_login_unsuccessfully
+      username = "viet-anh-mulodo"
+      password = "abc"
+      result = V1::User.login(username,password)
+      actual = result[:meta][:code]
+      expected = 1003
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
     private
       #function to show name of method which is excuted
       def this_method_name

@@ -51,41 +51,37 @@ module V1
 
     #function to user can login to their account
     def self.login(username,password)
-      get_user_by_username = self.where(username: username).limit(1)
       #check username && password existed
-      if get_user_by_username.count() > 0 && get_user_by_username[0][:password] == BCrypt::Engine.hash_secret(
-        password,get_user_by_username[0][:salt_password])
-
+      if self.check_username_and_password_existed(username,password)
         #Create token
-        str = get_user_by_username[0][:id].to_s+get_user_by_username[0][:username]+DateTime.parse(Time.now.to_s).to_s
+        str = @get_user_by_username[0][:id].to_s+@get_user_by_username[0][:username]+DateTime.parse(Time.now.to_s).to_s
         str_token = Digest::MD5.hexdigest str
 
         #Update token
-        get_user_by_id = self.find(get_user_by_username[0][:id])
+        get_user_by_id = self.find(@get_user_by_username[0][:id])
         get_user_by_id[:token] = str_token
         if(get_user_by_id.save rescue nil)
           data = {
-          id: get_user_by_id[:id],
-          token: get_user_by_id[:token],
-          username: get_user_by_id[:username],
-          firstname: get_user_by_id[:firstname],
-          lastname: get_user_by_id[:lastname],
-          avatar: get_user_by_id[:avatar]
-        }
+            id: get_user_by_id[:id],
+            token: get_user_by_id[:token],
+            username: get_user_by_id[:username],
+            firstname: get_user_by_id[:firstname],
+            lastname: get_user_by_id[:lastname],
+            avatar: get_user_by_id[:avatar]
+          }
           self.return_result({code:200, description:"Login successfully",
           messages:"Successful",data:data})
         else
           self.return_result({code:1005, description:"Update token failed",
           messages:"Update token failed",data:nil})
         end 
-
       else
         self.return_result({code:1003, description:"User or password incorrect",
           messages:"Unsuccessful",data:nil})
       end
     end
 
-    #function check user logined in or not(true=>logined)
+    #function to check user logined in or not(true=>logined)
     def self.check_login(session_id,session_token)
       #check session id & session token existed
       if session_id && session_token
@@ -128,6 +124,17 @@ module V1
         self.salt_password = BCrypt::Engine.generate_salt
         #create hash password
         self.password = BCrypt::Engine.hash_secret(password,salt_password)
+      end
+    end
+
+    #function to check username && password existed (true=>existed)
+    def self.check_username_and_password_existed(username,password)
+      @get_user_by_username = self.where(username: username).limit(1)
+      if @get_user_by_username.count() > 0 && 
+      @get_user_by_username[0][:password] == BCrypt::Engine.hash_secret(password,@get_user_by_username[0][:salt_password])
+        return true
+      else
+        return false
       end
     end
 

@@ -39,8 +39,6 @@ module V1
           data: nil
         }
       end
-      # session.clear
-      # render json: session[:token]
     end
   end
 end
