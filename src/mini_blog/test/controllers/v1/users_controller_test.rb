@@ -46,6 +46,32 @@ module V1
       puts this_method_name + " - " + result.to_s
     end
 
+     # funtion to test login function when it's successful
+    def test_login_successful
+      data = {
+        username:"viet-anh-mulodo",
+        password: "hoangvietanh91"
+      }
+      expected = 200
+      resp = Net::HTTP.post_form(URI.parse('http://localhost:3000/v1/users/login'),data)
+      actual = JSON.parse(resp.body)
+      result = assert_equal(expected,actual['meta']['code'])
+      puts this_method_name + " - " + result.to_s
+    end
+
+     # funtion to test login function when it's unsuccessful
+    def test_login_unsuccessful
+      data = {
+        username:"viet-anh-mulodo",
+        password: "wrong-password"
+      }
+      expected = 1003
+      resp = Net::HTTP.post_form(URI.parse('http://localhost:3000/v1/users/login'),data)
+      actual = JSON.parse(resp.body)
+      result = assert_equal(expected,actual['meta']['code'])
+      puts this_method_name + " - " + result.to_s
+    end
+
 
    private
    #function to show name of method which is excuted
