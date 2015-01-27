@@ -80,6 +80,56 @@ module V1
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 
+    #function to test update user's info successfully
+    def test_function_update_user_successfully
+      data = {
+        firstname: "Anh",
+        lastname: "Hoang",
+        avatar: "avatar.png",
+        address: "111D Ly Chinh Thang",
+        city: "Ho Chi Minh",
+        email: "anh@gmallds.sl",
+        mobile: "0309433343545",
+        gender: 1,
+        birthday: "1991/10/10"
+      }
+      user_id = 28
+      #Call function insert_user in model V1::User
+      user = V1::User.update_user(user_id,data)
+
+      #Get value code which is returned when call function insert_user
+      actual = user[:meta][:code]
+
+      expected = 200
+      #Show result of this function(true=>pass)
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
+    #function to test update user's info unsuccessfully
+    def test_function_update_user_unsuccessfully
+      data = {
+        firstname: "",
+        lastname: "Hoang",
+        avatar: "avatar.png",
+        address: "111D Ly Chinh Thang",
+        city: "Ho Chi Minh",
+        email: "anh@gmallds.sl",
+        mobile: "0309433343545",
+        gender: 1,
+        birthday: "1991/10/10"
+      }
+      user_id = 28
+      #Call function insert_user in model V1::User
+      user = V1::User.update_user(user_id,data)
+
+      #Get value code which is returned when call function insert_user
+      actual = user[:meta][:code]
+
+      expected = 1001
+      #Show result of this function(true=>pass)
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
     private
       #function to show name of method which is excuted
       def this_method_name
