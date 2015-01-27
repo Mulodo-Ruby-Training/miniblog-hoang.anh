@@ -97,6 +97,33 @@ module V1
       end    
     end
 
+    #function to update user' s info
+    def self.update_user(user_id,data)
+      user = self.find(user_id)
+      if(user.update(data) rescue nil)
+        data_input = {
+          id: user.id,
+          username: user.username,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          avatar: user.avatar,
+          address: user.address,
+          city: user.city,
+          email: user.email,
+          mobile: user.mobile,
+          gender: user.gender,
+          birthday: user.birthday,
+          created_at: user.created_at,
+          updated_at: user.updated_at
+        }
+        return_result({code:200,description:"Update user info successfully",
+          messages:"Successful",data:data_input})
+      else
+        return_result({code:1001,description:"Update user info unsuccessfully",
+          messages:user.errors,data:nil})
+      end
+    end
+
     private
     #function to check birthday is day type(using for validate) 
     def check_birthday_valid

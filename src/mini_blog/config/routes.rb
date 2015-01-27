@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     get "users/:id", to: "users#show"
     post "users/login", to: "users#login"
     post "users", to: "users#create"
-    put "users", to: "users#update"
+    put "users/:id", to: "users#update"
   end
 end
 

@@ -4,8 +4,17 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+record_1:
+  id: 28
+  salt_password: $2a$10$Mp7xI.zQ56QLtD6/93GuCu
+  password: $2a$10$Mp7xI.zQ56QLtD6/93GuCu.2X/.aaT3XmlfoXGe2WgXsoaSo3E.MO
+  username: viet-anh-mulodo
+  firstname: Viet Anh
+  lastname: Hoang
+  avatar: avatar.png
+  address: 111D Ly Chinh Thang, District 3
+  city: Ho Chi Minh
+  email: viet.anh@mulodo.sl
+  mobile: 0309433343545
+  gender: 1
+  birthday: 1991-10-10
