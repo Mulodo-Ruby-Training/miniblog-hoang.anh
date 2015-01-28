@@ -130,6 +130,27 @@ module V1
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 
+    #function to test update token successfully
+    def test_function_update_token_successfully
+      user_id = 28
+      #Get value boolean which is returned when call function update_token
+      actual = V1::User.update_token(user_id)
+
+      expected = true
+      #Show result of this function(true=>pass)
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
+    #function to test update token unsuccessfully
+    def test_function_update_token_unsuccessfully
+      user_id = "wrong-id"
+      #Get value boolean which is returned when call function update_token
+      actual = V1::User.update_token(user_id)
+
+      expected = false
+      #Show result of this function(true=>pass)
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
     private
       #function to show name of method which is excuted
       def this_method_name

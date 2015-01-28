@@ -47,7 +47,7 @@ module V1
       end
     end
 
-    #function to update user's info
+    # function to update user's info
     def update
       data_input = {
         firstname: params[:firstname],
@@ -70,6 +70,33 @@ module V1
           meta:{
             code: 1002,
             description: "Token invalid",
+            messages: "Unsuccessful"
+            },
+          data: nil
+        }
+      end
+    end
+
+    #function to logout for user
+    def logout
+      #Update token to null
+      if V1::User.update_token(params[:id])
+        #Destroy all session
+        session.clear
+
+        render json:{
+          meta:{
+            code: 200,
+            description: "Logout successfully",
+            messages: "Successful"
+            },
+          data: nil
+        }
+      else
+        render json:{
+          meta:{
+            code: 1005,
+            description: "Update token fails",
             messages: "Unsuccessful"
             },
           data: nil

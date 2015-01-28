@@ -124,6 +124,21 @@ module V1
       end
     end
 
+    #function to update token to nil
+    def self.update_token(user_id)
+      user = self.find(user_id) rescue nil
+      if user
+        user.token = ""
+        if(user.save rescue nil)
+          return true
+        else
+          return false
+        end
+      else
+        return false
+      end
+    end
+
     private
     #function to check birthday is day type(using for validate) 
     def check_birthday_valid
