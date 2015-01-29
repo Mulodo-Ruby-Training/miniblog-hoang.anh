@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     # put "users/:id", to: "users#update"
     # get "users", to: "users#index"
     # get "users/:id", to: "users#show"
+    put "users/:id/password", to: "users#change_password"
     post "users/login", to: "users#login"
     post "users", to: "users#create"
     post "users/logout", to: "users#logout"

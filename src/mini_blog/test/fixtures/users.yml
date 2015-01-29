@@ -6,8 +6,8 @@
 #
 record_1:
   id: 28
-  salt_password: $2a$10$Mp7xI.zQ56QLtD6/93GuCu
-  password: $2a$10$Mp7xI.zQ56QLtD6/93GuCu.2X/.aaT3XmlfoXGe2WgXsoaSo3E.MO
+  salt_password: $10$3icFzePlX58iORUT0uHyoO
+  password: $10$3icFzePlX58iORUT0uHyoOyW650x5NY4VAdWJlofLOVFt5/JlwOgW
   username: viet-anh-mulodo
   firstname: Viet Anh
   lastname: Hoang

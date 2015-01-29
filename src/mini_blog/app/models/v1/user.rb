@@ -4,7 +4,7 @@ module V1
   class User < ActiveRecord::Base
     # attr_accessor :password
     #Encrypt password(using salt & hash) before info of user is saved
-    before_create :encrypt_password, :on => :create
+    before_create :encrypt_password
 
     #validate values not allow null
     validates_presence_of :username
@@ -18,7 +18,7 @@ module V1
     validates :username, length: {minimum: 3}
     validates :password, length: {minimum: 6}
 
-    #validate retype password match password
+    #validate retype password & new password match password
     validates :password, confirmation: true
 
     #validate only exist one value
@@ -137,6 +137,59 @@ module V1
       else
         return false
       end
+    end
+
+    #function to user can change their password
+    # def self.change_user_password(user_id,current_password,new_password,confirm_password)
+    def self.change_user_password(user_id,data)
+      user = (self.find(user_id) rescue nil)
+
+      #Check current password
+      if user && user.password == BCrypt::Engine.hash_secret(data[:current_password],user.salt_password)
+
+        #Create new salt password
+        salt_password = BCrypt::Engine.generate_salt
+
+        #Create new password
+        if data[:password] != "" #check new password is null
+          if data[:password].length >=6 #check length of new password >=6 
+            password = BCrypt::Engine.hash_secret(data[:password],salt_password)
+          else
+            password = data[:password]
+          end
+        else
+          password = ""
+        end
+
+        #Create new password confirmation
+        if data[:password_confirmation] != "" #check new password confirmation is null
+          if data[:password_confirmation].length >=6 #check length of new password confirmation >=6
+            retype_password = BCrypt::Engine.hash_secret(data[:password_confirmation],salt_password)
+          else
+            retype_password = data[:password_confirmation]
+          end
+        else
+          retype_password = ""
+        end
+
+        data = {
+          salt_password: salt_password,
+          password: password,
+          password_confirmation: retype_password
+        }
+
+        #Update new password
+        if((user.update(data) rescue nil))
+          return return_result({code:200,description:"Change password successfully",
+          messages:"Successful",data:nil})
+        else
+          return return_result({code:1001,description:"Change password failed",
+          messages:user.errors,data:nil})
+        end
+      else
+        return return_result({code:1004,description:"Password incorrect",
+          messages:"Unsuccessful",data:nil})
+      end      
     end
 
     private
