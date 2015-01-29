@@ -2,7 +2,7 @@ require 'date'
 require "digest"
 module V1
   class User < ActiveRecord::Base
-    # attr_accessor :password
+    
     #Encrypt password(using salt & hash) before info of user is saved
     before_create :encrypt_password
 
@@ -190,6 +190,32 @@ module V1
         return return_result({code:1004,description:"Password incorrect",
           messages:"Unsuccessful",data:nil})
       end      
+    end
+
+    def self.get_user_info(user_id)
+      user = (self.find(user_id) rescue nil)
+      if user
+        data = {
+          id: user.id,
+          username:user.username,
+          firstname:user.firstname,
+          lastname:user.lastname,
+          avatar:user.avatar,
+          birthday:user.birthday,
+          gender:user.gender,
+          email:user.email,
+          address:user.address,
+          city:user.city,
+          mobile:user.mobile,
+          created_at:user.created_at,
+          updated_at:user.updated_at
+        }
+        return_result({code:200,description:"Get user info successfully",
+          messages:"Successful",data:data})
+      else
+        return_result({code:2004,description:"Get information of a user failed",
+          messages:"Unsuccessful",data:nil})
+      end
     end
 
     private

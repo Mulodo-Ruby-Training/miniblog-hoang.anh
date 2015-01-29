@@ -55,10 +55,8 @@ Rails.application.routes.draw do
   #   end
  
   namespace :v1, defaults: {format: 'json'} do
+    get "users/search", to: "users#search"
     resources :users
-    # put "users/:id", to: "users#update"
-    # get "users", to: "users#index"
-    # get "users/:id", to: "users#show"
     put "users/:id/password", to: "users#change_password"
     post "users/login", to: "users#login"
     post "users", to: "users#create"
