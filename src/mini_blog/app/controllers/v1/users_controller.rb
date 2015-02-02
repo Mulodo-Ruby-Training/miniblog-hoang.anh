@@ -120,5 +120,9 @@ module V1
       render json: V1::User.get_user_info(id)
     end
 
+    def search
+      keyword = params[:keyword]
+      render json: V1::User.search_user_by_name(keyword)
+    end
   end
 end
