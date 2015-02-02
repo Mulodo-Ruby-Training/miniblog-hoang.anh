@@ -188,6 +188,25 @@ module V1
       puts this_method_name + " - " + result.to_s
     end
 
+    # funtion to test get user info function when it's successful
+    def test_show_user_info_successful
+      user_id = 34
+      expected = 200
+      response = Net::HTTP.get(URI.parse('http://localhost:3000/v1/users/'+user_id))
+      actual = JSON.parse(response.body)
+      result = assert_equal(expected,actual['meta']['code'])
+      puts this_method_name + " - " + result.to_s
+    end
+
+    # funtion to test get user info function when it's unsuccessful
+    def test_show_user_info_unsuccessful
+      user_id = "wrong-id"
+      expected = 2004
+      response = Net::HTTP.get(URI.parse('http://localhost:3000/v1/users/'+user_id))
+      actual = JSON.parse(response.body)
+      result = assert_equal(expected,actual['meta']['code'])
+      puts this_method_name + " - " + result.to_s
+    end
    private
    #function to show name of method which is excuted
    def this_method_name

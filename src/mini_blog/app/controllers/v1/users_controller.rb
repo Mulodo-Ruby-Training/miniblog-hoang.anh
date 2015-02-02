@@ -115,5 +115,10 @@ module V1
       render json: result
     end
 
+    def show
+      id = params[:id]
+      render json: V1::User.get_user_info(id)
+    end
+
   end
 end

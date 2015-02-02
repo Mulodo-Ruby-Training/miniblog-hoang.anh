@@ -152,6 +152,7 @@ module V1
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 
+    #function to test change user password successfully
     def test_function_change_user_password_successfully
       data = {
         current_password: "1234567890",
@@ -170,6 +171,7 @@ module V1
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 
+    #function to test change user password unsuccessfully
     def test_function_change_user_password_unsuccessfully
       data = {
         current_password: "1234567890",
@@ -187,7 +189,37 @@ module V1
       #Show result of this function(true=>pass)
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
-      
+
+    #function to test get user info successfully
+    def test_function_get_user_info_successfully
+      user_id = 28
+
+      #Call function get_user_info in model V1::User
+      user = V1::User.get_user_info(user_id)
+
+      #Get value code which is returned when call function get_user_info
+      actual = user[:meta][:code]
+
+      expected = 200
+      #Show result of this function(true=>pass)
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
+    #function to test get user info unsuccessfully
+    def test_function_get_user_info_unsuccessfully
+      user_id = 28
+
+      #Call function get_user_info in model V1::User
+      user = V1::User.get_user_info(user_id)
+
+      #Get value code which is returned when call function get_user_info
+      actual = user[:meta][:code]
+
+      expected = 2004
+      #Show result of this function(true=>pass)
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
     private
       #function to show name of method which is excuted
       def this_method_name
