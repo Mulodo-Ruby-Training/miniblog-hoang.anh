@@ -5,7 +5,12 @@ module V1
     
     #Encrypt password(using salt & hash) before info of user is saved
     before_create :encrypt_password
-
+    search_syntax do
+      search_by :text do |scope, phrases|
+        columns = [:firstname, :lastname, :username]
+        scope.where_like(columns => phrases)
+      end
+    end
     #validate values not allow null
     validates_presence_of :username
     validates_presence_of :password
@@ -215,6 +220,23 @@ module V1
       else
         return_result({code:2004,description:"Get information of a user failed",
           messages:"Unsuccessful",data:nil})
+      end
+    end
+
+    def self.search_user_by_name(keyword)
+      if keyword.present?
+        users = User.search(keyword)
+        data = []
+        for user in users
+          temp_data = {id: user.id, username: user.username, firstname: user.firstname,
+            lastname: user.lastname, avatar: user.avatar}
+          data << temp_data
+        end
+        return_result({code:200,description:"Get user info successfully",
+          messages:"Successful",data:data})
+      else
+        return_result({code:1001,description:"Get user info unsuccessfully",
+          messages:"Keyword is blank",data:nil})
       end
     end
 

@@ -207,6 +207,26 @@ module V1
       result = assert_equal(expected,actual['meta']['code'])
       puts this_method_name + " - " + result.to_s
     end
+
+    # funtion to test search user function when it's successful
+    def test_search_user_successful
+      keyword = "anh"
+      expected = 200
+      response = Net::HTTP.get(URI.parse('http://localhost:3000/v1/users/search/'+keyword))
+      actual = JSON.parse(response.body)
+      result = assert_equal(expected,actual['meta']['code'])
+      puts this_method_name + " - " + result.to_s
+    end
+
+    # funtion to test search user function when it's unsuccessful
+    def test_search_user_unsuccessful
+      keyword = ""
+      expected = 1001
+      response = Net::HTTP.get(URI.parse('http://localhost:3000/v1/users/search/'+keyword))
+      actual = JSON.parse(response.body)
+      result = assert_equal(expected,actual['meta']['code'])
+      puts this_method_name + " - " + result.to_s
+    end
    private
    #function to show name of method which is excuted
    def this_method_name
