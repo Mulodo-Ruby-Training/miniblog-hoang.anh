@@ -62,6 +62,9 @@ Rails.application.routes.draw do
     post "users/login", to: "users#login"
     post "users", to: "users#create"
     post "users/logout", to: "users#logout"
+
+    resources :posts
+    post "posts", to: "posts#create"
     
   end
 end

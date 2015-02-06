@@ -2,7 +2,10 @@ require 'date'
 require "digest"
 module V1
   class User < ActiveRecord::Base
-    
+    #Relationship to posts and comments
+    has_many :post, dependent: :destroy
+    has_many :comment, dependent: :destroy
+
     #Encrypt password(using salt & hash) before info of user is saved
     before_create :encrypt_password
     search_syntax do
@@ -86,22 +89,6 @@ module V1
       end
     end
 
-    #function to check user logined in or not(true=>logined)
-    def self.check_login(session_id,session_token)
-      #check session id & session token existed
-      if session_id && session_token
-        user = self.find(session_id)
-        #check session token match token from DB(true=>match)
-        if user && user.token == session_token
-          return true
-        else
-          return false
-        end
-      else
-        return false
-      end    
-    end
-
     #function to update user' s info
     def self.update_user(user_id,data)
       user = self.find(user_id)
@@ -145,7 +132,6 @@ module V1
     end
 
     #function to user can change their password
-    # def self.change_user_password(user_id,current_password,new_password,confirm_password)
     def self.change_user_password(user_id,data)
       user = (self.find(user_id) rescue nil)
 
@@ -197,6 +183,7 @@ module V1
       end      
     end
 
+    #function to get a user's info
     def self.get_user_info(user_id)
       user = (self.find(user_id) rescue nil)
       if user
@@ -223,6 +210,7 @@ module V1
       end
     end
 
+    #function to get all user by keyword
     def self.search_user_by_name(keyword)
       if keyword.present?
         users = User.search(keyword)
@@ -240,12 +228,20 @@ module V1
       end
     end
 
-    private
-    #function to check birthday is day type(using for validate) 
-    def check_birthday_valid
-      if((Date.parse(birthday.to_s) rescue ArgumentError) == ArgumentError)
-        errors.add(:birthday, 'must be a valid day')
-      end
+    #function to check user logined in or not(true=>logined)
+    def self.check_login(session_id,session_token)
+      #check session id & session token existed
+      if session_id && session_token
+        user = self.find(session_id)
+        #check session token match token from DB(true=>match)
+        if user && user.token == session_token
+          return true
+        else
+          return false
+        end
+      else
+        return false
+      end    
     end
 
     #function to return hash result
@@ -258,6 +254,14 @@ module V1
           },
           data: options[:data]
       }
+    end
+
+    private
+    #function to check birthday is day type(using for validate) 
+    def check_birthday_valid
+      if((Date.parse(birthday.to_s) rescue ArgumentError) == ArgumentError)
+        errors.add(:birthday, 'must be a valid day')
+      end
     end
 
     #fucntion to encrypt password before saving
