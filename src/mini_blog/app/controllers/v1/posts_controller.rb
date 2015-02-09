@@ -22,5 +22,22 @@ module V1
       end    
     end
 
+    def update
+      if V1::User.check_login(session[:id],session[:token])
+        post_id = params[:id]
+        data = {
+          title: params[:title],
+          content: params[:content],
+          description: params[:description],
+          image: params[:image],
+          status: params[:status],
+        }
+        render json: V1::Post.update_post(post_id,data)
+      else
+        render json: V1::User.return_result({code:1002,description:"Token invalid",
+          messages:"Unsuccessful",data: nil})
+      end
+    end
+
   end
 end
