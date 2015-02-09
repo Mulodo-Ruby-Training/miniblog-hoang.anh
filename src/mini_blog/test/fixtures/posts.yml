@@ -4,20 +4,20 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-# record_1:
-# 	title: Diary Of A Wimpy Kid Box Of Books
-# 	content: Jelly gummi bears sesame snaps chocolate bar chocolate bar jelly-o. Caramels dessert tiramisu halvah pie candy ice cream jujubes. Tart biscuit topping brownie marshmallow dessert muffin icing fruitcake. Gingerbread sugar plum applicake cotton candy sesame snaps apple pie. Croissant soufflé lollipop gummies jelly-o fruitcake. Danish wafer cake jelly carrot cake gummies cotton candy danish liquorice. Candy canes chupa chups pie. Jelly pie topping cheesecake jujubes cookie. Toffee pudding applicake sugar plum. Caramels cupcake caramels sesame snaps cheesecake sweet fruitcake. Muffin gingerbread cheesecake candy caramels caramels. Cookie oat cake wafer. Tart topping jelly bean bear claw candy canes sugar plum topping macaroon. Ice cream apple pie chupa chups sweet liquorice.
-# Topping fruitcake donut sweet fruitcake chocolate bar pastry. Oat cake topping dessert. Cotton candy ice cream dragée toffee gummi bears. Wafer jujubes wafer candy canes. Candy canes candy topping. Lemon drops fruitcake muffin bear claw chupa chups. Sweet roll apple pie icing candy canes croissant bear claw apple pie ice cream. Tootsie roll lollipop croissant ice cream muffin gummies pudding cheesecake. Sugar plum ice cream sugar plum tart. Cheesecake jelly bean candy jelly bean chupa chups fruitcake. Caramels tootsie roll powder marzipan liquorice pastry wafer fruitcake. Powder tart cupcake chocolate cake jelly-o pudding jelly carrot cake.
-#     description: Jelly gummi bears sesame snaps chocolate bar chocolate
-#     image: image.png
-#     status: 1
-#     user_id: 28
+record_1:
+	id: 1
+	title: Diary Of A Wimpy Kid Box Of Books
+	content: Jelly gummi bears sesame snaps chocolate bar chocolate bar jelly-o. Caramels dessert tiramisu halvah pie candy ice cream jujubes. Tart biscuit topping brownie marshmallow dessert muffin icing fruitcake. Gingerbread sugar plum applicake cotton candy sesame snaps apple pie.
+    description: Jelly gummi bears sesame snaps chocolate bar chocolate
+    image: image.png
+    status: 1
+    user_id: 28
 
-# record_2:
-# title: Gingerbread bear claw muffin
-# 	content: Gingerbread bear claw muffin danish danish marzipan. Toffee lollipop wafer carrot cake dessert cheesecake ice cream powder. Brownie halvah apple pie bonbon gummi bears jelly-o macaroon. Chocolate ice cream halvah marzipan. Chocolate cake jelly beans marzipan gummi bears. Jelly-o cotton candy macaroon unerdwear.com chocolate. Gingerbread dessert cupcake applicake sugar plum tiramisu dragée sugar plum. Lollipop sugar plum ice cream jelly jelly beans liquorice. Cake bonbon muffin muffin unerdwear.com powder caramels. Unerdwear.com toffee candy. Fruitcake cake applicake. Croissant chupa chups liquorice unerdwear.com cupcake fruitcake.
-# Chocolate tootsie roll lemon drops. Chupa chups chocolate bar apple pie sesame snaps cheesecake caramels. Tart bonbon applicake jujubes jelly-o candy canes carrot cake caramels. Cake powder oat cake sweet pudding. Sesame snaps soufflé jelly beans tart lollipop. Sweet roll bear claw muffin powder candy carrot cake applicake jelly-o sweet roll. Sweet roll candy gummies applicake jujubes biscuit. Danish biscuit dessert oat cake sesame snaps chupa chups sweet roll marzipan gingerbread. Jelly beans muffin gummies chupa chups. Brownie marshmallow donut liquorice macaroon fruitcake candy applicake tart. Fruitcake candy dessert jelly fruitcake jujubes brownie sweet roll. Sesame snaps carrot cake muffin caramels. Carrot cake oat cake dragée donut lemon drops sugar plum gingerbread. Chocolate sugar plum donut bonbon bear claw carrot cake sugar plum pudding sesame snaps.
-#     description: Jelly gummi bears
-#     image: image2.png
-#     status: 1
-#     user_id: 28
+record_2:
+	id: 2
+	title: Gingerbread bear claw muffin
+	content: Gingerbread bear claw muffin danish danish marzipan. Toffee lollipop wafer carrot cake dessert cheesecake ice cream powder. Brownie halvah apple pie
+    description: Jelly gummi bears
+    image: image2.png
+    status: 1
+    user_id: 28
