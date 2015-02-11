@@ -45,7 +45,7 @@ module V1
           content: "Gingerbread bear claw muffin danish danish marzipan. Toffee lollipop wafer carrot cake dessert.",
           description: "Chocolate tootsie roll lemon drops. Chupa chups chocolate bar apple pie",
           image: "chocolate.png",
-          status: 1,
+          status: 1
       }
       post = V1::Post.update_post(post_id,data)
       actual = post[:meta][:code]
@@ -61,9 +61,27 @@ module V1
           content: "Gingerbread bear claw muffin danish danish marzipan. Toffee lollipop wafer carrot cake dessert.",
           description: "Chocolate tootsie roll lemon drops. Chupa chups chocolate bar apple pie",
           image: "chocolate.png",
-          status: 1,
+          status: 1
       }
       post = V1::Post.update_post(post_id,data)
+      actual = post[:meta][:code]
+      expected = 1001
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
+    # funtion to test delete a post successfully
+    def test_delete_post_successfully
+      post_id = 1
+      post = V1::Post.delete_post(post_id)
+      actual = post[:meta][:code]
+      expected = 200
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
+    # funtion to test delete a post unsuccessfully
+    def test_delete_post_unsuccessfully
+      post_id = 1
+      post = V1::Post.delete_post(post_id)
       actual = post[:meta][:code]
       expected = 1001
       puts this_method_name + " - " +assert_equal(expected, actual).to_s

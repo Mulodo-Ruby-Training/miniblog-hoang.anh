@@ -65,6 +65,7 @@ Rails.application.routes.draw do
 
     resources :posts
     post "posts", to: "posts#create"
+    delete "posts/:id", to: "posts#destroy"
     
   end
 end
