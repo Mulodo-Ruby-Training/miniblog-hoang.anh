@@ -31,7 +31,19 @@ module V1
         V1::User.return_result({code: 1001, description:"Post is updated unsuccessfully",
             messages:post.errors,data: nil})
       end
-
     end
+
+    # function to delete post from database
+    def self.delete_post(post_id)
+      post = self.find(post_id)
+      if(post.destroy() rescue nil)
+        V1::User.return_result({code: 200, description:"Post is deleted successfully",
+              messages:"Successful",data: nil})
+      else
+        V1::User.return_result({code: 2504, description:"Post is deleted unsuccessfully",
+              messages:"Unsuccessful",data: nil})
+      end
+    end
+
   end
 end

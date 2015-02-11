@@ -22,6 +22,7 @@ module V1
       end    
     end
 
+    #function to user can update a existed post
     def update
       if V1::User.check_login(session[:id],session[:token])
         post_id = params[:id]
@@ -39,5 +40,15 @@ module V1
       end
     end
 
+    #function to user can delete a existed post
+    def destroy
+      if V1::User.check_login(session[:id],session[:token])
+        post_id = params[:id]
+        render json: V1::Post.delete_post(post_id)
+      else
+        render json: V1::User.return_result({code:1002,description:"Token invalid",
+          messages:"Unsuccessful",data: nil})
+      end
+    end
   end
 end
