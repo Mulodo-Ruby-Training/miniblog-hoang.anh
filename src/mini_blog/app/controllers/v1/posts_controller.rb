@@ -19,7 +19,7 @@ module V1
       else
         render json: V1::User.return_result({code:1002,description:"Token invalid",
           messages:"Unsuccessful",data: nil})
-      end    
+      end
     end
 
     #function to user can update a existed post
@@ -50,5 +50,18 @@ module V1
           messages:"Unsuccessful",data: nil})
       end
     end
+
+    #function to user can active or deactive their post
+    def change_status
+      if V1::User.check_login(session[:id],session[:token])
+        post_id = params[:id]
+        status = params[:status]
+        render json: V1::Post.active_or_deactive_post(post_id,status)
+      else
+        render json: V1::User.return_result({code:1002,description:"Token invalid",
+          messages:"Unsuccessful",data: nil})
+      end
+    end
+
   end
 end

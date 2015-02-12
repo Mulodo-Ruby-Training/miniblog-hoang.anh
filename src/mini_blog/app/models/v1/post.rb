@@ -45,5 +45,20 @@ module V1
       end
     end
 
+    def self.active_or_deactive_post(post_id,status)
+      if post_id == "" || status == ""
+        V1::User.return_result({code: 1001, description:"Post is updated unsuccessfully",
+              messages:"Post id or status not input",data: nil})
+      end
+      post = self.find(post_id)
+      if(post.update_attribute('status', status) rescue nil)
+        V1::User.return_result({code: 200, description:"Post is updated successfully",
+              messages:"Successful",data: nil})
+      else
+        V1::User.return_result({code: 2503, description:"Post is updated unsuccessfully",
+              messages:"Unsuccessful",data: nil})
+      end
+    end
+
   end
 end
