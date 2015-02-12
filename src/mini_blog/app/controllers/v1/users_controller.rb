@@ -36,7 +36,7 @@ module V1
         session[:token] = (result[:data][:token]) rescue nil
         render json: result
       else
-        render json: V1::User.return_result({code:2001,description:"This username is already in used",
+        render json: V1::User.return_result({code:ERROR_USERNAME_EXIST,description:MSG_USERNAME_EXIST,
           messages:"Already login",data: nil})
       end
     end
@@ -60,7 +60,7 @@ module V1
         #Call function update_user from model V1:User and render result to json
         render json: V1::User.update_user(params[:id],data_input)
       else
-        render json: V1::User.return_result({code:1002,description:"Token invalid",
+        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
           messages:"Unsuccessful",data: nil})
       end
     end
@@ -74,7 +74,7 @@ module V1
 
         render json:{
           meta:{
-            code: 200,
+            code: STATUS_OK,
             description: "Logout successfully",
             messages: "Successful"
             },
@@ -83,8 +83,8 @@ module V1
       else
         render json:{
           meta:{
-            code: 1005,
-            description: "Update token fails",
+            code: ERROR_UPDATE_TOKEN,
+            description: MSG_UPDATE_TOKEN,
             messages: "Unsuccessful"
             },
           data: nil
@@ -92,25 +92,34 @@ module V1
       end
     end
 
+    #function to user change their password
     def change_password
-      user_id = params[:id]
-      data = {
-        current_password: params[:current_password],
-        password: params[:password],
-        password_confirmation: params[:password_confirmation]
-      }
-      result = V1::User.change_user_password(user_id, data)
-      render json: result
+      if V1::User.check_login(session[:id],session[:token])
+        user_id = params[:id]
+        data = {
+          current_password: params[:current_password],
+          password: params[:password],
+          password_confirmation: params[:password_confirmation]
+        }
+        result = V1::User.change_user_password(user_id, data)
+        render json: result
+      else
+        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
+          messages:"Unsuccessful",data: nil})
+      end
     end
 
+    #function to show infor of a existed user
     def show
       id = params[:id]
       render json: V1::User.get_user_info(id)
     end
 
+    #function to search all user by name
     def search
       keyword = params[:keyword]
       render json: V1::User.search_user_by_name(keyword)
     end
+    
   end
 end

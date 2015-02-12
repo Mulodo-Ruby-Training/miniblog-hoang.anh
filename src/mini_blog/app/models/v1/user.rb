@@ -49,10 +49,10 @@ module V1
           firstname: user.firstname,
           lastname: user.lastname
         }
-        self.return_result({code: 200, description:"Account is created successfully",
+        self.return_result({code: STATUS_OK, description:"Account is created successfully",
           messages:"Successful",data: data})
       else
-        self.return_result({code: 1001, description:"Account is created unsuccessfully",
+        self.return_result({code: ERROR_VALIDATE, description:MSG_VALIDATE,
           messages:user.errors,data:nil})
       end
     end
@@ -77,14 +77,14 @@ module V1
             lastname: get_user_by_id[:lastname],
             avatar: get_user_by_id[:avatar]
           }
-          self.return_result({code:200, description:"Login successfully",
+          self.return_result({code:STATUS_OK, description:"Login successfully",
           messages:"Successful",data:data})
         else
-          self.return_result({code:1005, description:"Update token failed",
+          self.return_result({code:ERROR_UPDATE_TOKEN, description:MSG_UPDATE_TOKEN,
           messages:"Update token failed",data:nil})
         end 
       else
-        self.return_result({code:1003, description:"User or password incorrect",
+        self.return_result({code:ERROR_LOGIN_FAILED, description:MSG_LOGIN_FAILED,
           messages:"Unsuccessful",data:nil})
       end
     end
@@ -108,10 +108,10 @@ module V1
           created_at: user.created_at,
           updated_at: user.updated_at
         }
-        return_result({code:200,description:"Update user info successfully",
+        return_result({code:STATUS_OK,description:"Update user info successfully",
           messages:"Successful",data:data_input})
       else
-        return_result({code:1001,description:"Update user info unsuccessfully",
+        return_result({code:ERROR_VALIDATE,description:MSG_VALIDATE,
           messages:user.errors,data:nil})
       end
     end
@@ -171,14 +171,14 @@ module V1
 
         #Update new password
         if((user.update(data) rescue nil))
-          return return_result({code:200,description:"Change password successfully",
+          return return_result({code:STATUS_OK,description:"Change password successfully",
           messages:"Successful",data:nil})
         else
-          return return_result({code:1001,description:"Change password failed",
+          return return_result({code:ERROR_VALIDATE,description:MSG_VALIDATE,
           messages:user.errors,data:nil})
         end
       else
-        return return_result({code:1004,description:"Password incorrect",
+        return return_result({code:ERROR_PASSWORD_INCORRECT,description:MSG_PASSWORD_INCORRECT,
           messages:"Unsuccessful",data:nil})
       end      
     end
@@ -202,10 +202,10 @@ module V1
           created_at:user.created_at,
           updated_at:user.updated_at
         }
-        return_result({code:200,description:"Get user info successfully",
+        return_result({code:STATUS_OK,description:"Get user info successfully",
           messages:"Successful",data:data})
       else
-        return_result({code:2004,description:"Get information of a user failed",
+        return_result({code:ERROR_GET_USER,description:MSG_GET_USER,
           messages:"Unsuccessful",data:nil})
       end
     end
@@ -220,10 +220,10 @@ module V1
             lastname: user.lastname, avatar: user.avatar}
           data << temp_data
         end
-        return_result({code:200,description:"Get user info successfully",
+        return_result({code:STATUS_OK,description:"Get user info successfully",
           messages:"Successful",data:data})
       else
-        return_result({code:1001,description:"Get user info unsuccessfully",
+        return_result({code:ERROR_VALIDATE,description:MSG_VALIDATE,
           messages:"Keyword is blank",data:nil})
       end
     end
