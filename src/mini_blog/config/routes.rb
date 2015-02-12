@@ -65,6 +65,7 @@ Rails.application.routes.draw do
 
     resources :posts
     post "posts", to: "posts#create"
+    put "posts/:id/status", to: "posts#change_status"
     delete "posts/:id", to: "posts#destroy"
     
   end

@@ -51,6 +51,22 @@ module V1
       puts this_method_name + " - " + result.to_s
     end
 
+    def test_change_status
+      expected = 200
+      post_id = 1
+      data = {
+        status: 1
+      }
+      uri = URI.parse('http://localhost:3000/v1/posts/'+post_id.to_s+'/status')
+      http = Net::HTTP.new(uri.host,uri.port)
+      request = Net::HTTP::Put.new(uri.path)
+      request.set_form_data(data)
+      response = http.request(request)
+      actual = JSON.parse(response.body)
+      result = assert_equal(expected,actual['meta']['code'])
+      puts this_method_name + " - " + result.to_s
+    end
+
     private
       #function to show name of method which is excuted
       def this_method_name
