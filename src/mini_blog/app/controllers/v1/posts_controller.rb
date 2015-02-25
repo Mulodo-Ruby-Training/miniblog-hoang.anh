@@ -63,5 +63,10 @@ module V1
       end
     end
 
+    #function to show all posts
+    def index
+      render json: V1::Post.get_all_post
+    end
+
   end
 end

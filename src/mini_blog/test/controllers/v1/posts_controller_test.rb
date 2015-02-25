@@ -51,6 +51,7 @@ module V1
       puts this_method_name + " - " + result.to_s
     end
 
+    # funtion to test change status of post
     def test_change_status
       expected = 200
       post_id = 1
@@ -62,6 +63,15 @@ module V1
       request = Net::HTTP::Put.new(uri.path)
       request.set_form_data(data)
       response = http.request(request)
+      actual = JSON.parse(response.body)
+      result = assert_equal(expected,actual['meta']['code'])
+      puts this_method_name + " - " + result.to_s
+    end
+
+    # funtion to test get all posts successful
+    def test_function_get_all_posts_successfully
+      expected = 200
+      response = Net::HTTP.get(URI.parse('http://localhost:3000/v1/posts'))
       actual = JSON.parse(response.body)
       result = assert_equal(expected,actual['meta']['code'])
       puts this_method_name + " - " + result.to_s
