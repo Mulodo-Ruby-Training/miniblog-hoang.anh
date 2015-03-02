@@ -256,6 +256,18 @@ module V1
       }
     end
 
+    # function to get all posts of a user
+    def self.get_all_post_user(user_id)
+      posts = (V1::Post.where("user_id = #{user_id}") rescue nil)
+      if posts
+        return_result({code:STATUS_OK,description:"Get user info successfully",
+          messages:"Successful",data:posts})
+      else
+        return_result({code:ERROR_GET_ALL_POST_USER_FAILED,description:MSG_GET_ALL_POST_USER_FAILED,
+          messages:"Unsuccessful",data:nil})
+      end
+    end
+
     private
     #function to check birthday is day type(using for validate) 
     def check_birthday_valid

@@ -1,3 +1,11 @@
+# Not found
+ERROR_NOT_FOUND = 404
+MSG_NOT_FOUND = 'Not found'
+
+# Internal Server Error
+ERROR_INTERNAL_SERVER = 500
+MSG_INTERNAL_SERVER = 'Internal Server Error' 
+
 # Status OK
 STATUS_OK = 200
 
@@ -36,6 +44,10 @@ MSG_INSERT_USER = 'Create new user failed'
 # GET USER ERROR
 ERROR_GET_USER = 2004
 MSG_GET_USER = 'Get information of a user failed'
+
+# GET ALL POST USER ERROR
+ERROR_GET_ALL_POST_USER_FAILED = 2500
+MSG_GET_ALL_POST_USER_FAILED = 'Get all post of user error'
 
 # GET ALL POST ERROR
 ERROR_GET_ALL_POST_FAILED = 2501

@@ -53,10 +53,13 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
- 
+  match '/404/', to: 'errors#not_found', via: :all
+  match '/500/', to: 'errors#exception', via: :all
+
   namespace :v1, defaults: {format: 'json'} do
     get "/users/search/", to: "users#search"
     get "/users/search/:keyword", to: "users#search"
+    get "users/:id/posts", to: "users#show_posts_user"
     resources :users
     put "users/:id/password", to: "users#change_password"
     post "users/login", to: "users#login"
@@ -64,6 +67,7 @@ Rails.application.routes.draw do
     post "users/logout", to: "users#logout"
 
     resources :posts
+
     post "posts", to: "posts#create"
     put "posts/:id/status", to: "posts#change_status"
     delete "posts/:id", to: "posts#destroy"
