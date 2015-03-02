@@ -121,5 +121,10 @@ module V1
       render json: V1::User.search_user_by_name(keyword)
     end
     
+    def show_posts_user
+      user_id = params[:id]
+      render json: V1::User.get_all_post_user(user_id)
+    end
+
   end
 end

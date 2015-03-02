@@ -72,6 +72,5 @@ module V1
               messages:"Unsuccessful",data: nil})
       end
     end
-
   end
 end

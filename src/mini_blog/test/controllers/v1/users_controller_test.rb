@@ -227,6 +227,17 @@ module V1
       result = assert_equal(expected,actual['meta']['code'])
       puts this_method_name + " - " + result.to_s
     end
+
+    # funtion to test get all posts of user successful
+    def test_show_posts_user
+      expected = 200
+      user_id = 34
+      response = Net::HTTP.get(URI.parse('http://localhost:3000/v1/users/'+user_id+'/posts'))
+      actual = JSON.parse(response.body)
+      result = assert_equal(expected,actual['meta']['code'])
+      puts this_method_name + " - " + result.to_s
+    end
+
    private
    #function to show name of method which is excuted
    def this_method_name

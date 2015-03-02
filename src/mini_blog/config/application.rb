@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module MiniBlog
   class Application < Rails::Application
+    config.exceptions_app = self.routes
     # config.i18n.load_paths += Dir["#{RAILS_ROOT}/app/models/[a-z]*"]
     # config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**/}')]
     # Settings in config/environments/* take precedence over those specified here.
