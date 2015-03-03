@@ -68,5 +68,10 @@ module V1
       render json: V1::Post.get_all_post
     end
 
+    #function to get all comments of a certain post
+    def show_all_comments_post
+      #code
+    end
+
   end
 end

@@ -268,6 +268,11 @@ module V1
       end
     end
 
+    # function to get all comments of a user
+    def self.get_all_comments_user(user_id)
+      #code
+    end
+
     private
     #function to check birthday is day type(using for validate) 
     def check_birthday_valid
