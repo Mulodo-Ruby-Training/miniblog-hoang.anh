@@ -1,5 +1,7 @@
 module V1
   class CommentsControllerTest < ActionController::TestCase
+
+    # function to test creating comment which happens successfully
     def test_create_successfully
       data = {
         user_id: 28,
@@ -13,6 +15,7 @@ module V1
       puts this_method_name + " - " + result.to_s
     end
 
+     # function to test creating comment which happens unsuccessfully
     def test_create_unsuccessfully
       data = {
         user_id: "wrong-id",

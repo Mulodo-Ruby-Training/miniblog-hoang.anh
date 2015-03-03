@@ -35,6 +35,7 @@ module V1
     end
 
     private
+    # function check user_id exists from database
     def user_id_exists
       begin
         User.find(self.user_id)
@@ -44,6 +45,7 @@ module V1
       end
     end
 
+    #function check post_id exists from database
     def post_id_exists
       begin
         Post.find(self.post_id)
