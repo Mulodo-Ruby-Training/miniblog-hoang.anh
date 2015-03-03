@@ -126,5 +126,10 @@ module V1
       render json: V1::User.get_all_post_user(user_id)
     end
 
+    #function to get all comments of a certain user
+    def show_all_comments_user
+      #code
+    end
+
   end
 end

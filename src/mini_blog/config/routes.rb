@@ -57,17 +57,26 @@ Rails.application.routes.draw do
   match '/500/', to: 'errors#exception', via: :all
 
   namespace :v1, defaults: {format: 'json'} do
+
+    get "posts/:id/comments", to: "users#show_all_comments_post"
+    #comment route
+    post "comments", to: "comments#create"
+    put "comments/:id", to: "comments#edit"
+    delete "comments/:id", to: "comments#delete"
+
+    #user route
     get "/users/search/", to: "users#search"
     get "/users/search/:keyword", to: "users#search"
     get "users/:id/posts", to: "users#show_posts_user"
+    get "users/:id/comments", to: "users#show_all_comments_user"
     resources :users
     put "users/:id/password", to: "users#change_password"
     post "users/login", to: "users#login"
     post "users", to: "users#create"
     post "users/logout", to: "users#logout"
 
+    #post route
     resources :posts
-
     post "posts", to: "posts#create"
     put "posts/:id/status", to: "posts#change_status"
     delete "posts/:id", to: "posts#destroy"

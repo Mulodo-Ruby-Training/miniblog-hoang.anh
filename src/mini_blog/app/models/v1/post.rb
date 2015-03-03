@@ -68,9 +68,15 @@ module V1
         V1::User.return_result({code: STATUS_OK, description:"Get all posts successfully",
               messages:"Successful",data: users})
       else
-        V1::User.return_result({code: ERROR_GET_ALL_POST_FAILED, description:MSG_GET_ALL_POST_FAILED,
+        V1::User.return_result({code: ERROR_CREATE_COMMENT_FAILED, description:MSG_GET_ALL_POST_FAILED,
               messages:"Unsuccessful",data: nil})
       end
     end
+
+    # function to get all comments of a post
+    def self.get_all_comments_post(post_id)
+      #code
+    end
+
   end
 end
