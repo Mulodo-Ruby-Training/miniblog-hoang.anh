@@ -75,7 +75,14 @@ module V1
 
     # function to get all comments of a post
     def self.get_all_comments_post(post_id)
-      #code
+      comments = (V1::Comment.where("post_id = #{post_id}") rescue nil)
+      if comments
+        return_result({code:STATUS_OK,description:"Get all comments successfully",
+          messages:"Successful",data:comments})
+      else
+        return_result({code:ERROR_GET_ALL_COMMENT_POST_ERROR,description:MSG_GET_ALL_COMMENT_POST_ERROR,
+          messages:"Unsuccessful",data:nil})
+      end
     end
 
   end

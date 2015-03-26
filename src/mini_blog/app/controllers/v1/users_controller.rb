@@ -56,13 +56,13 @@ module V1
       }
 
       #Call function check_login from model V1::User
-      if V1::User.check_login(session[:id],session[:token])
+      # if V1::User.check_login(session[:id],session[:token])
         #Call function update_user from model V1:User and render result to json
         render json: V1::User.update_user(params[:id],data_input)
-      else
-        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
-          messages:"Unsuccessful",data: nil})
-      end
+      # else
+      #   render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
+      #     messages:"Unsuccessful",data: nil})
+      # end
     end
 
     #function to logout for user
@@ -128,7 +128,8 @@ module V1
 
     #function to get all comments of a certain user
     def show_all_comments_user
-      #code
+      user_id = params[:id]
+      render json: V1::User.get_all_comments_user(user_id)
     end
 
   end

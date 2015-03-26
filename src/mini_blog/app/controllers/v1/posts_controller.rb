@@ -70,7 +70,8 @@ module V1
 
     #function to get all comments of a certain post
     def show_all_comments_post
-      #code
+      post_id = params[:id]
+      render json: V1::Post.get_all_comments_post(post_id)
     end
 
   end

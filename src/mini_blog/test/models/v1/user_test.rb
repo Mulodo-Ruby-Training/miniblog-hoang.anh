@@ -263,6 +263,21 @@ module V1
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 
+    #function to test get all comment of user successfully
+    def test_function_get_all_comment_user_successfully
+
+      user_id = 28
+      
+      posts = V1::User.get_all_comments_user(user_id)
+
+      actual = posts[:meta][:code]
+
+      expected = 200
+      
+      #Show result of this function(true=>pass)
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
     private
       #function to show name of method which is excuted
       def this_method_name

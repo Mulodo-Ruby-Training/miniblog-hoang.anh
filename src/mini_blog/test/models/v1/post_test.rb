@@ -80,7 +80,7 @@ module V1
 
     # funtion to test delete a post unsuccessfully
     def test_delete_post_unsuccessfully
-      post_id = 1
+      post_id = "wrong-id"
       post = V1::Post.delete_post(post_id)
       actual = post[:meta][:code]
       expected = 1001
@@ -111,6 +111,21 @@ module V1
     def test_function_get_all_post_successfully
 
       posts = V1::User.get_all_post
+
+      actual = posts[:meta][:code]
+
+      expected = 200
+      
+      #Show result of this function(true=>pass)
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
+    #function to test get all comment of post successfully
+    def test_function_get_all_comment_post_successfully
+
+      post_id = 1
+      
+      posts = V1::Post.get_all_comments_post(post_id)
 
       actual = posts[:meta][:code]
 

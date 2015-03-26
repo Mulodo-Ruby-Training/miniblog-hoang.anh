@@ -27,11 +27,59 @@ module V1
 
     # funtion to edit a existed comment
     def self.edit_comment(comment_id,data)
-      #code
+      begin
+        comment = Comment.find(comment_id)
+      rescue ActiveRecord::RecordNotFound
+        return V1::User.return_result({code: ERROR_GET_ID_COMMENT_NOT_EXIST,
+          description:MSG_GET_ID_COMMENT_NOT_EXIST,
+          messages:"Unsuccessful",data: nil})
+      end
+
+      # Check comment belongs to user and post
+      if data[:user_id].to_i != comment[:user_id].to_i ||
+        data[:post_id].to_i != comment[:post_id].to_i
+        return V1::User.return_result({code: ERROR_ID_USER_OR_ID_POST_IS_WRONG,
+          description:MSG_ID_USER_OR_ID_POST_IS_WRONG,
+          messages:"Unsuccessful",data: nil})
+      end
+
+      # Check updating comment
+      if comment.update(data)
+        return V1::User.return_result({code: STATUS_OK,
+          description:MSG_UPDATE_COMMENT_SUCCESS,
+          messages:"Successful",data: nil}) 
+      else
+        return V1::User.return_result({code: ERROR_UPDATE_COMMENT_FAILED,
+          description:MSG_UPDATE_COMMENT_FAILED,
+          messages:"Successful",data: nil}) 
+      end
     end
 
-    def self.delete_comment(comment_id)
-      #code
+    def self.delete_comment(comment_id,user_id)
+      begin
+        comment = Comment.find(comment_id)
+      rescue ActiveRecord::RecordNotFound
+        return V1::User.return_result({code: ERROR_GET_ID_COMMENT_NOT_EXIST,
+          description:MSG_GET_ID_COMMENT_NOT_EXIST,
+          messages:"Unsuccessful",data: nil})
+      end
+
+      if comment[:user_id].to_i != user_id.to_i
+        return V1::User.return_result({code: ERROR_ID_USER_OR_ID_POST_IS_WRONG,
+          description:MSG_ID_USER_OR_ID_POST_IS_WRONG,
+          messages:"Unsuccessful",data: nil})
+      end
+
+      if(comment.destroy rescue nil)
+        return V1::User.return_result({code:STATUS_OK,
+          description:MSG_DELETE_COMMENT_SUCCESS,
+          messages:"Successful",data: nil})
+      else
+        return V1::User.return_result({code:ERROR_DELETE_COMMENT_FAILED,
+          description:MSG_DELETE_COMMENT_FAILED,
+          messages:"Unsuccessful",data: nil})
+      end
+
     end
 
     private
