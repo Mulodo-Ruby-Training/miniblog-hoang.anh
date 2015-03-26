@@ -53,8 +53,8 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  match '/404/', to: 'errors#not_found', via: :all
-  match '/500/', to: 'errors#exception', via: :all
+  match '404', to: 'errors#not_found', via: :all
+  match '500', to: 'errors#exception', via: :all
 
   namespace :v1, defaults: {format: 'json'} do
 

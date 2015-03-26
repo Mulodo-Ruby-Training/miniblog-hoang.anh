@@ -56,6 +56,26 @@ module V1
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 
+    #function to test deleting comment successfully
+    def test_function_delete_comment_successfully
+      comment_id = 1
+      user_id = 28
+      comment = V1::Comment.delete_comment(comment_id,user_id)
+      actual = comment[:meta][:code]
+      expected = 200
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
+    #function to test deleting comment unsuccessfully
+    def test_function_delete_comment_unsuccessfully
+      comment_id = "wrong_id"
+      user_id = "wrong_id"
+      comment = V1::Comment.delete_comment(comment_id,user_id)
+      actual = comment[:meta][:code]
+      expected = 200
+      puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    end
+
     private
       #function to show name of method which is excuted
       def this_method_name

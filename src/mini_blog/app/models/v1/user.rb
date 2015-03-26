@@ -1,5 +1,6 @@
 require 'date'
 require "digest"
+require 'carrierwave/orm/activerecord'
 module V1
   class User < ActiveRecord::Base
     #Relationship to posts and comments
@@ -14,6 +15,9 @@ module V1
         scope.where_like(columns => phrases)
       end
     end
+
+    mount_uploader :avatar, ImageUploader
+
     #validate values not allow null
     validates_presence_of :username
     validates_presence_of :password
@@ -43,14 +47,8 @@ module V1
       user = self.new(data)
       #check saving user is successfull(fail=>null)
       if((user.save rescue nil))
-        data = {
-          id: user.id,
-          username: user.username,
-          firstname: user.firstname,
-          lastname: user.lastname
-        }
         self.return_result({code: STATUS_OK, description:"Account is created successfully",
-          messages:"Successful",data: data})
+          messages:"Successful",data: nil})
       else
         self.return_result({code: ERROR_VALIDATE, description:MSG_VALIDATE,
           messages:user.errors,data:nil})
@@ -93,23 +91,8 @@ module V1
     def self.update_user(user_id,data)
       user = self.find(user_id)
       if(user.update(data) rescue nil)
-        data_input = {
-          id: user.id,
-          username: user.username,
-          firstname: user.firstname,
-          lastname: user.lastname,
-          avatar: user.avatar,
-          address: user.address,
-          city: user.city,
-          email: user.email,
-          mobile: user.mobile,
-          gender: user.gender,
-          birthday: user.birthday,
-          created_at: user.created_at,
-          updated_at: user.updated_at
-        }
         return_result({code:STATUS_OK,description:"Update user info successfully",
-          messages:"Successful",data:data_input})
+          messages:"Successful",data:nil})
       else
         return_result({code:ERROR_VALIDATE,description:MSG_VALIDATE,
           messages:user.errors,data:nil})
@@ -260,7 +243,7 @@ module V1
     def self.get_all_post_user(user_id)
       posts = (V1::Post.where("user_id = #{user_id}") rescue nil)
       if posts
-        return_result({code:STATUS_OK,description:"Get user info successfully",
+        return_result({code:STATUS_OK,description:"Get all post successfully",
           messages:"Successful",data:posts})
       else
         return_result({code:ERROR_GET_ALL_POST_USER_FAILED,description:MSG_GET_ALL_POST_USER_FAILED,
@@ -270,7 +253,14 @@ module V1
 
     # function to get all comments of a user
     def self.get_all_comments_user(user_id)
-      #code
+      comments = (V1::Comment.where("user_id = #{user_id}") rescue nil)
+      if comments
+        return_result({code:STATUS_OK,description:"Get all comments successfully",
+          messages:"Successful",data:comments})
+      else
+        return_result({code:ERROR_GET_ALL_COMMENT_USER_ERROR,description:MSG_GET_ALL_COMMENT_USER_ERROR,
+          messages:"Unsuccessful",data:nil})
+      end
     end
 
     private
