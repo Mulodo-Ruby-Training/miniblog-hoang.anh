@@ -62,8 +62,14 @@ module V1
     end
 
     # function to get all posts    
-    def self.get_all_post
-      users = (self.all rescue nil)
+    def self.get_all_post(page,per_page)
+       if !(page.present?)
+        page = 1
+      end
+      if !(per_page.present?)
+        per_page = 20
+      end
+      users = (self.all.page(page).per(per_page) rescue nil)
       if users
         V1::User.return_result({code: STATUS_OK, description:"Get all posts successfully",
               messages:"Successful",data: users})
