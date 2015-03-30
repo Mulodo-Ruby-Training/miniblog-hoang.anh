@@ -103,7 +103,7 @@ module V1
       status = ""
       post = V1::Post.active_or_deactive_post(post_id,status)
       actual = post[:meta][:code]
-      expected = 2503
+      expected = 1001
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 

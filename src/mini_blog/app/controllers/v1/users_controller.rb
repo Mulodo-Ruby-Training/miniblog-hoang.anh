@@ -118,7 +118,9 @@ module V1
     #function to search all user by name
     def search
       keyword = params[:keyword]
-      render json: V1::User.search_user_by_name(keyword)
+      page = params[:page]
+      per_page = params[:per_page]
+      render json: V1::User.search_user_by_name(keyword,page,per_page)
     end
     
     def show_posts_user

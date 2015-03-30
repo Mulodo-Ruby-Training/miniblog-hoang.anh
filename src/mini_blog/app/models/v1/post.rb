@@ -48,7 +48,7 @@ module V1
     # function to change status of post
     def self.active_or_deactive_post(post_id,status)
       if post_id == "" || status == ""
-        V1::User.return_result({code: ERROR_VALIDATE, description:MSG_VALIDATE,
+        return V1::User.return_result({code: ERROR_VALIDATE, description:MSG_VALIDATE,
               messages:"Post id or status not input",data: nil})
       end
       post = self.find(post_id)
