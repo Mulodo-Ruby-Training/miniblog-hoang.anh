@@ -5,9 +5,9 @@ module V1
    # funtion to test create user account
     def test_create_user
       data = {
-        username: "hoang.anh",
-        password: "hoangvietanh91",
-        password_confirmation: "hoangvietanh91",
+        username: "ladywind2",
+        password: "1234567890",
+        password_confirmation: "1234567890",
         firstname: "Anh",
         lastname: "Hoang",
         avatar: "avatar.png",
@@ -28,8 +28,8 @@ module V1
     def test_validate_user_info
       data = {
         username: "",
-        password: "hoangvietanh91",
-        password_confirmation: "hoangvietanh",
+        password: "1234567890",
+        password_confirmation: "1234567890",
         firstname: "Anh",
         lastname: "Hoang",
         avatar: "avatar.png",
@@ -53,8 +53,8 @@ module V1
 
     #function to test checking username && password existed or not
     def test_function_check_username_and_password_existed
-      username = "viet-anh-mulodo"
-      password = "hoangvietanh91"
+      username = "ladywind"
+      password = "1234567890"
       actual = V1::User.check_username_and_password_existed(username,password)
       expected = true
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
@@ -62,8 +62,8 @@ module V1
 
     #function to test login successfully function
     def test_function_login_successfully
-      username = "viet-anh-mulodo"
-      password = "hoangvietanh91"
+      username = "ladywind"
+      password = "1234567890"
       result = V1::User.login(username,password)
       actual = result[:meta][:code]
       expected = 200
@@ -76,7 +76,7 @@ module V1
       password = "abc"
       result = V1::User.login(username,password)
       actual = result[:meta][:code]
-      expected = 1003
+      expected = 1004
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 
@@ -253,7 +253,9 @@ module V1
     #function to test get all post of user successfully
     def test_function_get_all_post_user_successfully
 
-      posts = V1::User.get_all_post_user
+      user_id = 28
+
+      posts = V1::User.get_all_post_user(user_id)
 
       actual = posts[:meta][:code]
 

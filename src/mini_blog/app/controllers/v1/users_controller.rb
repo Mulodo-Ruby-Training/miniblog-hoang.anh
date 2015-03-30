@@ -95,7 +95,7 @@ module V1
     #function to user change their password
     def change_password
       if V1::User.check_login(session[:id],session[:token])
-        user_id = params[:id]
+        user_id = session[:id]
         data = {
           current_password: params[:current_password],
           password: params[:password],

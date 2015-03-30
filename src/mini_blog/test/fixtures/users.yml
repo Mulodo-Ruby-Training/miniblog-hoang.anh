@@ -5,17 +5,17 @@
 # below each fixture, per the syntax in the comments below
 #
 record_1:
-  id: 28
-  salt_password: $10$3icFzePlX58iORUT0uHyoO
-  password: $10$3icFzePlX58iORUT0uHyoOyW650x5NY4VAdWJlofLOVFt5/JlwOgW
-  username: ladywind
-  firstname: Viet Anh
-  lastname: Hoang
-  avatar: avatar.png
-  address: 111D Ly Chinh Thang, District 3
-  token: 123
-  city: Ho Chi Minh
-  email: viet.anh@mulodo.sl
-  mobile: 0309433343545
-  gender: 1
-  birthday: 1991-10-10
+ id: 28
+ salt_password: $2a$10$7EciFcg68mE0UBBMNOTfhO
+ password: $2a$10$7EciFcg68mE0UBBMNOTfhOiLs9a03y6XZwmTsXmPPpuVFCDASL21O
+ username: ladywind
+ firstname: Viet Anh
+ lastname: Hoang
+ avatar: avatar.png
+ address: 111D Ly Chinh Thang, District 3
+ token: 123
+ city: Ho Chi Minh
+ email: viet.anh@mulodo.sl
+ mobile: 0309433343545
+ gender: 1
+ birthday: 1991-10-10

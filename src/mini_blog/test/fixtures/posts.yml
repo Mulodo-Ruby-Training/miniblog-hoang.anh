@@ -5,19 +5,19 @@
 # below each fixture, per the syntax in the comments below
 #
 record_1:
-	id: 1
-	title: Diary Of A Wimpy Kid Box Of Books
-	content: Jelly gummi bears sesame snaps chocolate bar chocolate bar jelly-o. Caramels dessert tiramisu halvah pie candy ice cream jujubes. Tart biscuit topping brownie marshmallow dessert muffin icing fruitcake. Gingerbread sugar plum applicake cotton candy sesame snaps apple pie.
-    description: Jelly gummi bears sesame snaps chocolate bar chocolate
-    image: image.png
-    status: 1
-    user_id: 28
+ id: 1
+ title: Diary Of A Wimpy Kid Box Of Books
+ content: Jelly gummi bears sesame snaps chocolate bar chocolate bar jelly-o. Caramels dessert tiramisu halvah pie candy ice cream jujubes. Tart biscuit topping brownie marshmallow dessert muffin icing fruitcake. Gingerbread sugar plum applicake cotton candy sesame snaps apple pie.
+ description: Jelly gummi bears sesame snaps chocolate bar chocolate
+ image: image.png
+ status: 1
+ user_id: 28
 
 record_2:
-	id: 2
-	title: Gingerbread bear claw muffin
-	content: Gingerbread bear claw muffin danish danish marzipan. Toffee lollipop wafer carrot cake dessert cheesecake ice cream powder. Brownie halvah apple pie
-    description: Jelly gummi bears
-    image: image2.png
-    status: 1
-    user_id: 28
+ id: 2
+ title: Gingerbread bear claw muffin
+ content: Gingerbread bear claw muffin danish danish marzipan. Toffee lollipop wafer carrot cake dessert cheesecake ice cream powder. Brownie halvah apple pie
+ description: Jelly gummi bears
+ image: image2.png
+ status: 1
+ user_id: 28

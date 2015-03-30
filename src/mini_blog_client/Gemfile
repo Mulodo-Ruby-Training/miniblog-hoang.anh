@@ -37,15 +37,3 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
-
-gem 'mysql2'
-
-gem 'bcrypt-ruby', :require => 'bcrypt'
-
-gem 'dusen'
-
-gem "carrierwave"
-
-# gem 'doorkeeper', github: 'stas/doorkeeper', branch: 'rails4'
-
-gem 'kaminari'
