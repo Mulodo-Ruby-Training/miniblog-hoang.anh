@@ -35,8 +35,8 @@ module V1
 
     # function to delete post from database
     def self.delete_post(post_id)
-      post = self.find(post_id)
-      if(post.destroy() rescue nil)
+      post = (self.find(post_id) rescue nil)
+      if(post && post.destroy() rescue nil)
         V1::User.return_result({code: STATUS_OK, description:"Post is deleted successfully",
               messages:"Successful",data: nil})
       else
@@ -77,10 +77,10 @@ module V1
     def self.get_all_comments_post(post_id)
       comments = (V1::Comment.where("post_id = #{post_id}") rescue nil)
       if comments
-        return_result({code:STATUS_OK,description:"Get all comments successfully",
+        V1::User.return_result({code:STATUS_OK,description:"Get all comments successfully",
           messages:"Successful",data:comments})
       else
-        return_result({code:ERROR_GET_ALL_COMMENT_POST_ERROR,description:MSG_GET_ALL_COMMENT_POST_ERROR,
+        V1::User.return_result({code:ERROR_GET_ALL_COMMENT_POST_ERROR,description:MSG_GET_ALL_COMMENT_POST_ERROR,
           messages:"Unsuccessful",data:nil})
       end
     end

@@ -83,7 +83,7 @@ module V1
       post_id = "wrong-id"
       post = V1::Post.delete_post(post_id)
       actual = post[:meta][:code]
-      expected = 1001
+      expected = 2504
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 
@@ -110,7 +110,7 @@ module V1
     #function to test get all post successfully
     def test_function_get_all_post_successfully
 
-      posts = V1::User.get_all_post
+      posts = V1::Post.get_all_post
 
       actual = posts[:meta][:code]
 
