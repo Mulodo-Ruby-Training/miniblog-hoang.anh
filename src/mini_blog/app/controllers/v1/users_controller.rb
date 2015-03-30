@@ -124,8 +124,10 @@ module V1
     end
     
     def show_posts_user
+      page = params[:page]
+      per_page = params[:per_page]
       user_id = params[:id]
-      render json: V1::User.get_all_post_user(user_id)
+      render json: V1::User.get_all_post_user(user_id,page,per_page)
     end
 
     #function to get all comments of a certain user

@@ -255,8 +255,14 @@ module V1
     end
 
     # function to get all posts of a user
-    def self.get_all_post_user(user_id)
-      posts = (V1::Post.where("user_id = #{user_id}") rescue nil)
+    def self.get_all_post_user(user_id,page,per_page)
+      if !(page.present?)
+        page = 1
+      end
+      if !(per_page.present?)
+        per_page = 20
+      end
+      posts = (V1::Post.where("user_id = #{user_id}").page(page).per(per_page) rescue nil)
       if posts
         return_result({code:STATUS_OK,description:"Get all post successfully",
           messages:"Successful",data:posts})
