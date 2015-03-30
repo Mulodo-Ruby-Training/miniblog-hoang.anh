@@ -194,9 +194,15 @@ module V1
     end
 
     #function to get all user by keyword
-    def self.search_user_by_name(keyword)
+    def self.search_user_by_name(keyword,page,per_page)
+      if !(page.present?)
+        page = 1
+      end
+      if !(per_page.present?)
+        per_page = 2
+      end
       if keyword.present?
-        users = User.search(keyword)
+        users = User.search(keyword).page(page).per(per_page)
         data = []
         for user in users
           temp_data = {id: user.id, username: user.username, firstname: user.firstname,
@@ -206,8 +212,17 @@ module V1
         return_result({code:STATUS_OK,description:"Get user info successfully",
           messages:"Successful",data:data})
       else
-        return_result({code:ERROR_VALIDATE,description:MSG_VALIDATE,
-          messages:"Keyword is blank",data:nil})
+        # return_result({code:ERROR_VALIDATE,description:MSG_VALIDATE,
+        #   messages:"Keyword is blank",data:nil})
+        users = User.page(page).per(per_page)
+        data = []
+        for user in users
+          temp_data = {id: user.id, username: user.username, firstname: user.firstname,
+            lastname: user.lastname, avatar: user.avatar}
+          data << temp_data
+        end
+        return_result({code:STATUS_OK,description:"Get user info successfully",
+          messages:"Successful",data:data}) 
       end
     end
 

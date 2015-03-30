@@ -207,7 +207,7 @@ module V1
 
     #function to test get user info unsuccessfully
     def test_function_get_user_info_unsuccessfully
-      user_id = 28
+      user_id = "wrong-id"
 
       #Call function get_user_info in model V1::User
       user = V1::User.get_user_info(user_id)
@@ -236,19 +236,19 @@ module V1
     end
 
     #function to test search user info unsuccessfully
-    def test_function_search_user_unsuccessfully
-      keyword = ""
+    # def test_function_search_user_unsuccessfully
+      # keyword = ""
 
       #Call function search_user_by_name in model V1::User
-      user = V1::User.search_user_by_name(keyword)
+      # user = V1::User.search_user_by_name(keyword)
 
       #Get value code which is returned when call function search_user_by_name
-      actual = user[:meta][:code]
+      # actual = user[:meta][:code]
 
-      expected = 1001
+      # expected = 1001
       #Show result of this function(true=>pass)
-      puts this_method_name + " - " +assert_equal(expected, actual).to_s
-    end
+    #   puts this_method_name + " - " +assert_equal(expected, actual).to_s
+    # end
 
     #function to test get all post of user successfully
     def test_function_get_all_post_user_successfully
