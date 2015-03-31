@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MiniBlogClient</title>
+  <title><%= yield(:title) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="container-fluid" style="background-color: #28AAE0;border-color: #28AAE0;">
+    <div class="container">
 
-<%= yield %>
+      <div class="navbar-header col-md-3">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="glyphicon glyphicon-align-justify" style="color:#fff"></span>
+        </button>
+        <a class="logo" href="#">Mini Blog</a>
+      </div>
+
+      <div class="col-md-5" style="margin-top: 8px;">
+        <form role="form" action="searchUser.html">
+          <div class="input-group">
+            <input name="word" class="form-control" value="" type="text">
+            <span class="input-group-btn">
+              <input class="btn btn-primary" value="Search" type="submit">
+            </span>
+          </div><!-- /input-group -->
+        </form>
+      </div>
+
+      <div id="navbar" class="navbar-collapse collapse col-md-4">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="list-all-posts.html">Blog</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="#">Create a account</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="container">
+    <div class="row" style="margin-top:10px;">
+      <%= yield %>
+    </div>
+  </div>
 
 </body>
 </html>

@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  get "users/signup", to: "users#signup"
+  get "signup", to: "users#signup"
+  post "users/create", to: "users#create"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  # root 'users#signup'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

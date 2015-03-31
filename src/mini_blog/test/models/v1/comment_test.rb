@@ -72,7 +72,7 @@ module V1
       user_id = "wrong_id"
       comment = V1::Comment.delete_comment(comment_id,user_id)
       actual = comment[:meta][:code]
-      expected = 200
+      expected = 3001
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 
