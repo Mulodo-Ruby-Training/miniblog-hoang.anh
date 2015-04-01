@@ -1,0 +1,20 @@
+<div class="row" style="margin-top:10px;">
+  <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li>Login</li>
+  </ol>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+      <% if flash[:notice].present? %>
+        <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
+      <% end %>
+      <% if flash[:errors].present? %>
+        <div class="alert alert-danger" role="alert"><%= flash[:errors] %></div>
+      <% end %>
+        <%= render partial: "form_signin"  %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -65,9 +65,10 @@ module V1
 
     #function to show all posts
     def index
+      limit = params[:limit]
       page = params[:page]
       per_page = params[:per_page]
-      render json: V1::Post.get_all_post(page,per_page)
+      render json: V1::Post.get_all_post(limit,page,per_page)
     end
 
     #function to get all comments of a certain post

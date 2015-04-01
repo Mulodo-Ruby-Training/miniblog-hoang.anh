@@ -27,16 +27,17 @@ module V1
     def login
       username = params[:username]
       password = params[:password]
-
+      session_id = params[:session_id]
+      session_token = params[:session_token]
       #Call function check_login from model V1::User
-      if V1::User.check_login(session[:id],session[:token]) == false
+      if V1::User.check_login(session_id,session_token) == false
         #Call function login from model V1::User
         result = V1::User.login(username,password)
-        session[:id] = (result[:data][:id]) rescue nil
-        session[:token] = (result[:data][:token]) rescue nil
+        # session[:id] = (result[:data][:id]) rescue nil
+        # session[:token] = (result[:data][:token]) rescue nil
         render json: result
       else
-        render json: V1::User.return_result({code:ERROR_USERNAME_EXIST,description:MSG_USERNAME_EXIST,
+        render json: V1::User.return_result({code:ERROR_USERNAME_USED,description:MSG_USERNAME_USED,
           messages:"Already login",data: nil})
       end
     end
@@ -56,19 +57,20 @@ module V1
       }
 
       #Call function check_login from model V1::User
-      # if V1::User.check_login(session[:id],session[:token])
+      if V1::User.check_login(session[:id],session[:token])
         #Call function update_user from model V1:User and render result to json
         render json: V1::User.update_user(params[:id],data_input)
-      # else
-      #   render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
-      #     messages:"Unsuccessful",data: nil})
-      # end
+      else
+        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
+          messages:"Unsuccessful",data: nil})
+      end
     end
 
     #function to logout for user
     def logout
+      session_id = params[:session_id]
       #Update token to null
-      if V1::User.update_token(params[:id])
+      if V1::User.update_token(session_id)
         #Destroy all session
         session.clear
 

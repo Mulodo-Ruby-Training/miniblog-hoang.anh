@@ -21,4 +21,32 @@ class UsersController < ApplicationController
 
     redirect_to({action:'signup'})
   end
+
+  def login
+    params[:user][:session_id] = session[:id]
+    params[:user][:session_token] = session[:token]
+    data_input = params[:user]
+    resp = Net::HTTP.post_form(URI.parse('http://localhost:3000/v1/users/login'),data_input)
+    data_output = JSON.parse(resp.body)
+    if data_output["meta"]["code"].to_i == 200
+      session[:id] = data_output["data"]["id"]
+      session[:token] = data_output["data"]["token"]
+      flash[:notice] = data_output["meta"]["description"]
+    else
+      flash[:errors] = data_output["meta"]["description"]
+    end
+    redirect_to({action:'signin'})
+  end
+
+  def logout
+    resp = Net::HTTP.post_form(URI.parse('http://localhost:3000/v1/users/logout'),
+      {session_id:session[:id]})
+    data_output = JSON.parse(resp.body)
+    if data_output["meta"]["code"].to_i == 200
+      flash[:notice] = data_output["meta"]["description"]
+    else
+      flash[:errors] = data_output["meta"]["description"]
+    end
+    redirect_to({action:'signin'})
+  end
 end

@@ -62,19 +62,21 @@ module V1
     end
 
     # function to get all posts    
-    def self.get_all_post(page,per_page)
+    def self.get_all_post(limit,page,per_page)
        if !(page.present?)
         page = 1
       end
       if !(per_page.present?)
         per_page = 20
       end
-      users = (self.all.page(page).per(per_page) rescue nil)
-      if users
+      posts = (self.joins(:user)
+        .select("posts.id, user_id,title,description,image,status,posts.created_at,firstname, lastname")
+        .all.limit(limit).order('id desc').page(page).per(per_page) rescue nil)
+      if posts
         V1::User.return_result({code: STATUS_OK, description:"Get all posts successfully",
-              messages:"Successful",data: users})
+              messages:"Successful",data: posts})
       else
-        V1::User.return_result({code: ERROR_CREATE_COMMENT_FAILED, description:MSG_GET_ALL_POST_FAILED,
+        V1::User.return_result({code: ERROR_GET_ALL_POST_FAILED, description:MSG_GET_ALL_POST_FAILED,
               messages:"Unsuccessful",data: nil})
       end
     end
