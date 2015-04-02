@@ -6,7 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body style="padding-bottom:70px">
   <div class="container-fluid" style="background-color: #28AAE0;border-color: #28AAE0;">
     <div class="container">
 
@@ -15,7 +15,8 @@
           <span class="sr-only">Toggle navigation</span>
           <span class="glyphicon glyphicon-align-justify" style="color:#fff"></span>
         </button>
-        <a class="logo" href="#">Mini Blog</a>
+        <!-- <a class="logo" href="#">Mini Blog</a> -->
+        <%= link_to("Mini Blog", {controller: 'posts', action: 'index'}, class: 'logo') %>
       </div>
 
       <div class="col-md-5" style="margin-top: 8px;">
@@ -31,9 +32,27 @@
 
       <div id="navbar" class="navbar-collapse collapse col-md-4">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="list-all-posts.html">Blog</a></li>
-          <li><a href="login.html">Login</a></li>
-          <li><a href="#">Create a account</a></li>
+          <li class="disabled"><a href="#">Blogs</a></li>
+          <li>
+            <% if !session[:id] && !session[:token] %>
+            <%= link_to("Login", controller: 'users', action: 'signin') %>
+            <% else %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">My Account&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><%= link_to("Update Info", controller: 'users', action: 'edit') %></li>
+                <li class="disabled"><a href="#">Change Password</a></li>
+                <li class="disabled"><a href="#">Manage Post</a></li>
+                <li><%= link_to("Logout", controller: 'users', action: 'logout') %></li>
+              </ul>
+            </li>
+            <% end %>
+          </li>
+          <li>
+            <% if !session[:id] && !session[:token] %>
+            <%= link_to("Create a account", controller: 'users', action: 'signup') %>
+            <% end %>
+          </li>
         </ul>
       </div>
 
@@ -48,5 +67,21 @@
     </div>
   </div>
 
+  <div class="clearfix"></div>
+
+  <div class="navbar navbar-fixed-bottom" style="background-color: #28AAE0;border-color: #28AAE0;padding:15px;">
+    <div class="container">
+      <span style="color:#fff;margin:5px;font-size:1em">Mulodo 2015</span>
+      <i id="go-to-top" class="glyphicon glyphicon-arrow-up pull-right" style="color:#fff;margin:5px;"></i>
+    </div>
+  </div>
+  <script>
+    $("body").nanoScroller();
+    $("#go-to-top").click(function() {
+      jQuery('html,body').animate({scrollTop:0}, '500', 'swing')
+
+    });
+    
+  </script>
 </body>
 </html>

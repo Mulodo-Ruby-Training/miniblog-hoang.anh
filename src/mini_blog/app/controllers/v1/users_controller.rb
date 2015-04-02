@@ -44,6 +44,8 @@ module V1
 
     # function to update user's info
     def update
+      session_id = params[:session_id]
+      session_token = params[:session_token]
       data_input = {
         firstname: params[:firstname],
         lastname: params[:lastname],
@@ -57,11 +59,11 @@ module V1
       }
 
       #Call function check_login from model V1::User
-      if V1::User.check_login(session[:id],session[:token])
+      if V1::User.check_login(session_id,session_token)
         #Call function update_user from model V1:User and render result to json
-        render json: V1::User.update_user(params[:id],data_input)
+        render json: V1::User.update_user(session_id,data_input)
       else
-        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
+        render json: V1::User.return_result({code:ERROR_NOT_LOGIN,description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
       end
     end
@@ -106,7 +108,7 @@ module V1
         result = V1::User.change_user_password(user_id, data)
         render json: result
       else
-        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
+        render json: V1::User.return_result({code:ERROR_NOT_LOGIN,description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
       end
     end

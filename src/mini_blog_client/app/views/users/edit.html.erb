@@ -1,7 +1,8 @@
-<% title "Sign up - Mini blog" %>
+<% title "Edit my account - Mini blog" %>
 <ol class="breadcrumb">
   <li><%= link_to("Home", {controller: 'posts', action: 'index'}) %></li>
-  <li class="active">Register</li>
+  <li><a href="#">My account</a></li>
+  <li class="active">Update information</li>
 </ol>
 
 <div class="container-fluid" style="padding-top:15px;padding-bottom:20px">
@@ -35,7 +36,7 @@
   </div>
   <% end %>
 
-  <%= render partial: "form_signup"  %>
+  <%= render partial: "form_update_info"  %>
 </div>
 <script>
   $('#mobile').keypress(function(evt) {

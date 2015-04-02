@@ -90,7 +90,7 @@ module V1
     #function to update user' s info
     def self.update_user(user_id,data)
       user = self.find(user_id)
-      if(user.update(data) rescue nil)
+      if(user && user.update(data) rescue nil)
         return_result({code:STATUS_OK,description:"Update user info successfully",
           messages:"Successful",data:nil})
       else

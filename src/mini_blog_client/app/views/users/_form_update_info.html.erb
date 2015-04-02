@@ -1,0 +1,105 @@
+<%= form_tag({controller: "users", action: "update"}, multipart: true, method: "put", class: "form-horizontal",role: "form") do %>
+<!-- <form action="/users/create" method="post" accept-charset="utf-8" class="form-horizontal" role="form"> -->
+  <div class="row">
+    <div class="col-md-12">
+      <span class="btn btn-primary blue-tab no-blue-border-top">Basic info</span>
+    </div>
+  </div>
+
+
+  <div class="container-fluid blue-border">
+    <div class="col-md-6 col-md-offset-1" style="margin-top:10px">
+      <div class="form-group">
+        <label for="first-name" class="col-md-3 control-label">First name</label>
+        <div class="col-md-9">
+          <%= text_field(:user,:firstname,id:"first-name",class:"form-control", value:@data_view['firstname']) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="last-name" class="col-md-3 control-label">Last name</label>
+        <div class="col-md-9">
+          <%= text_field(:user,:lastname,id:"last-name",class:"form-control", value:@data_view['lastname']) %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="gender" class="col-md-3 control-label">Gender</label>
+        <div class="col-md-9">
+          <% selected = 1 if @data_view['gender'] %>
+          <% selected = 0 if !@data_view['gender'] %>
+          <%= select(:user,:gender,
+          options_for_select([['Female',0],['Male',1]],
+          selected),
+          {},{id:'gender',class:'styled-select'}) %>            
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="birthday" class="col-md-3 control-label">Birthday</label>
+        <div class="col-md-9" style="display:inline-flex">
+          <% birthday = Date.parse(@data_view["birthday"]) %>
+          <%= date_select(:user,:birthday,{order:[:day,:month,:year],prompt:{day:"Day",month:"Month",year:"Year"},selected: birthday,use_month_numbers:true,start_year:1920,end_year:Time.now.year - 6},{class:'styled-select'}) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3" style="margin-top:10px">
+      <div class="fileUpload btn btn-primary">  
+        <span>Upload Avatar</span>
+        <%= file_field(:user,:avatar,class:"upload",onchange:"handlerInputFileChange(this)") %>
+      </div>
+      <%=  image_tag("system/200x200.gif",class:"img-thumbnail",id:"image-upload",style:"width:150px;height:150px;",alt:"Avatar User") %>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top:20px;">
+    <div class="col-md-12">
+      <span class="btn btn-primary blue-tab no-blue-border-top">Contact info</span>
+    </div>
+  </div>
+
+  <div class="container-fluid blue-border">
+    <div class="col-md-6 col-md-offset-1" style="margin-top:10px">
+      <div class="form-group">
+        <label for="address" class="col-md-3 control-label">Addreess</label>
+        <div class="col-md-9">
+          <%= text_field(:user,:address,id:"address",class:"form-control", value:@data_view['address']) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="city" class="col-md-3 control-label">City</label>
+        <div class="col-md-9">
+          <%= select(:user,:city,
+          options_for_select([['Ha Noi','Ha Noi'],['Da Nang','Da Nang'],['Ho Chi Minh','Ho Chi Minh']],
+          @data_view['city']),
+          {},{id:'city',class:'styled-select'}) %>                   
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="col-md-3 control-label">Email</label>
+        <div class="col-md-9">
+          <%= email_field(:user,:email,id:"email",class:"form-control", value:@data_view['email']) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="mobile" class="col-md-3 control-label">Mobile</label>
+        <div class="col-md-9">
+          <%= text_field(:user,:mobile,id:"mobile",class:"form-control", value:@data_view['mobile']) %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top:20px">
+    <div class="col-md-12">
+      <span class="btn btn-primary blue-tab no-blue-border-top">Comfirm</span>
+    </div>
+  </div>
+  <div class="container-fluid blue-border">
+    <div class="col-md-12" style="margin-top:10px;margin-bottom:10px;margin-left:auto;margin-right:auto;text-align:center">
+      <button type="submit" class="btn btn-primary" style="border-radius:0px;">OK</button>
+      <button class="btn btn-primary" style="border-radius:0px;">CANCEL</button>
+    </div>
+  </div>
+<% end %>

@@ -14,8 +14,8 @@ module V1
         }
         render json: V1::Comment.create_comment(data)
       else
-        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,
-          description:MSG_TOKEN_EXPIRED,
+        render json: V1::User.return_result({code:ERROR_NOT_LOGIN,
+          description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
       end
     end
@@ -32,8 +32,8 @@ module V1
         }
         render json: V1::Comment.edit_comment(comment_id,data)
       else
-        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,
-          description:MSG_TOKEN_EXPIRED,
+        render json: V1::User.return_result({code:ERROR_NOT_LOGIN,
+          description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
       end
     end
@@ -45,8 +45,8 @@ module V1
         comment_id = params[:id]
         render json: V1::Comment.delete_comment(comment_id,user_id), 
       else
-        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,
-          description:MSG_TOKEN_EXPIRED,
+        render json: V1::User.return_result({code:ERROR_NOT_LOGIN,
+          description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
       end
     end
