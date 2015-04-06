@@ -63,6 +63,47 @@ class UsersController < ApplicationController
       redirect_to({action:'signin'})
     end
   end
+  def change_password
+    if !session[:id] && !session[:token]
+      redirect_to({action:'signin'})
+    end
+  end
+  def update_password
+    if session[:id] && session[:token]
+      params[:user][:session_id] = session[:id]
+      params[:user][:session_token] = session[:token]
+      data_input = params[:user]
+      uri = URI.parse('http://localhost:3000/v1/users/'+session[:id].to_s+'/password')
+      http = Net::HTTP.new(uri.host,uri.port)
+      request = Net::HTTP::Put.new(uri.path)
+      request.set_form_data(data_input)
+      response = http.request(request)
+      data_output = JSON.parse(response.body)
+      if data_output["meta"]["code"].to_i == 200
+        flash[:notice] = data_output["meta"]["description"]
+      else
+        if data_output["meta"]["code"].to_i == 1001       
+          flash[:errors] = data_output["meta"]["messages"]
+        else
+          flash[:error] = data_output["meta"]["description"]
+        end  
+      end
+      redirect_to({action:'change_password'})
+    else
+      redirect_to({action:'signin'})
+    end
+  end
+
+  def search
+    @keyword = (params[:user][:keyword] rescue "")
+    @page = (params[:page].to_s rescue "")
+    @per_page = (params[:per_page].to_s rescue "")
+    response = Net::HTTP.get(URI.parse('http://localhost:3000/v1/users/search/?keyword='+@keyword+
+      '&page='+@page+'&per_page='+@per_page))
+    result = JSON.parse(response)
+    @data_view = result["data"]["source"]
+    @pagination = result["data"]["pagination"]
+  end
 
   def login
     params[:user][:session_id] = session[:id]
@@ -73,7 +114,6 @@ class UsersController < ApplicationController
     if data_output["meta"]["code"].to_i == 200
       session[:id] = data_output["data"]["id"]
       session[:token] = data_output["data"]["token"]
-      flash[:notice] = data_output["meta"]["description"]
       redirect_to({controller: 'posts', action:'index'})
     else
       flash[:errors] = data_output["meta"]["description"]

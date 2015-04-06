@@ -98,14 +98,15 @@ module V1
 
     #function to user change their password
     def change_password
-      if V1::User.check_login(session[:id],session[:token])
-        user_id = session[:id]
+      session_id = params[:session_id]
+      session_token = params[:session_token]
+      if V1::User.check_login(session_id,session_token)
         data = {
           current_password: params[:current_password],
           password: params[:password],
           password_confirmation: params[:password_confirmation]
         }
-        result = V1::User.change_user_password(user_id, data)
+        result = V1::User.change_user_password(session_id, data)
         render json: result
       else
         render json: V1::User.return_result({code:ERROR_NOT_LOGIN,description:MSG_NOT_LOGIN,
