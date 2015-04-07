@@ -58,7 +58,7 @@ Rails.application.routes.draw do
 
   namespace :v1, defaults: {format: 'json'} do
 
-    get "posts/:id/comments", to: "users#show_all_comments_post"
+    get "posts/:id/comments", to: "posts#show_all_comments_post"
     #comment route
     post "comments", to: "comments#create"
     put "comments/:id", to: "comments#edit"

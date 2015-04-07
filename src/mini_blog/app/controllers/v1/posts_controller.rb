@@ -17,7 +17,7 @@ module V1
         }
         render json: V1::Post.insert_post(data)
       else
-        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
+        render json: V1::User.return_result({code:ERROR_NOT_LOGIN,description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
       end
     end
@@ -35,7 +35,7 @@ module V1
         }
         render json: V1::Post.update_post(post_id,data)
       else
-        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
+        render json: V1::User.return_result({code:ERROR_NOT_LOGIN,description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
       end
     end
@@ -46,7 +46,7 @@ module V1
         post_id = params[:id]
         render json: V1::Post.delete_post(post_id)
       else
-        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
+        render json: V1::User.return_result({code:ERROR_NOT_LOGIN,description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
       end
     end
@@ -58,16 +58,18 @@ module V1
         status = params[:status]
         render json: V1::Post.active_or_deactive_post(post_id,status)
       else
-        render json: V1::User.return_result({code:ERROR_TOKEN_EXPIRED,description:MSG_TOKEN_EXPIRED,
+        render json: V1::User.return_result({code:ERROR_NOT_LOGIN,description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
       end
     end
 
     #function to show all posts
     def index
+      limit = params[:limit]
       page = params[:page]
       per_page = params[:per_page]
-      render json: V1::Post.get_all_post(page,per_page)
+      order = params[:order]
+      render json: V1::Post.get_all_post(limit,order,page,per_page)
     end
 
     #function to get all comments of a certain post

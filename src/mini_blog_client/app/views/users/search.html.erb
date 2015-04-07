@@ -1,0 +1,125 @@
+<div class="row" style="margin-top:10px;">
+  <ol class="breadcrumb">
+    <li><%= link_to("Home", {controller: 'posts', action: 'index'}) %></li>
+    <li>Search User</li>
+  </ol>
+  <div class="container-fluid">
+    <% if @keyword == "" %>
+    <div class="col-md-12" style="margin-bottom: 10px;">
+      Find <span class="red"><%= @pagination["items"] %></span> results with keyword <span class="red"><%= @keyword %></span>
+    </div>
+    <% else %>
+    <div class="col-md-12" style="margin-bottom: 10px;">Find <span class="red"><%= @pagination["items"] %></span> results</span>
+    <% end %>
+    <% count = 1 %>
+    <% @data_view.each { |v|  %>
+      <% case count %>
+        <% when 1 %>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="col-md-5">
+              <a href="#">
+
+              <img data-holder-rendered="true" src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" style="" class="img-responsive" alt="">
+
+             </a>
+           </div>
+           <div class="col-md-7">
+            <div class="title"><%= v["username"] %></div>
+            <div class="date"> Date join: <%= v["created_at"].to_s %></div>
+            <div>Firstname: <%= v["firstname"] %></div>
+            <div>Lastname: <%= v["lastname"] %></div>
+            <div class="title"><a href="#">View all Post</a></div>
+          </div>
+        </div>
+        <% count = count + 1 %>
+
+        <% when 2 %>
+          <div class="col-md-4">
+            <div class="col-md-5">
+              <a href="#">
+
+               <img data-holder-rendered="true" src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" style="" class="img-responsive" alt="">
+
+             </a>
+           </div>
+           <div class="col-md-7">
+            <div class="title"><%= v["username"] %></div>
+            <div class="date"> Date join: <%= v["created_at"].to_s %></div>
+            <div>Firstname: <%= v["firstname"] %></div>
+            <div>Lastname: <%= v["lastname"] %></div>
+            <div class="title"><a href="listUserPost.html">View all Post</a></div>
+          </div>
+        </div>
+        <% count = count + 1 %>
+
+        <% when 3 %>
+          <div class="col-md-4">
+            <div class="col-md-5">
+              <a href="#">
+
+               <img data-holder-rendered="true" src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" style="" class="img-responsive" alt="">
+
+             </a>
+           </div>
+           <div class="col-md-7">
+            <div class="title"><%= v["username"] %></div>
+            <div class="date"> Date join: <%= v["created_at"].to_s %></div>
+            <div>Firstname: <%= v["firstname"] %></div>
+            <div>Lastname: <%= v["lastname"] %></div>
+            <div class="title"><a href="#">View all Post</a></div>
+          </div>
+        </div>
+        </div><br/>
+        <% count = 1 %>
+      <% end %>
+    <% } %>
+    </div>
+   
+
+<nav>
+  <ul class="pagination">
+    <!-- checking current page must be not zero or null -->
+    <% if @page == 0 || @page == "" %>
+      <% @page = 1 %>
+    <% end %>
+
+    <!-- Pre Button -->
+    <% pre_page = @page.to_i %>
+    <% if pre_page <= 1 %>
+      <% pre_page = 1 %>
+      <li class="disabled"><a href="#">Prev</a></li>
+    <% else %>
+      <% pre_page = pre_page - 1 %>
+      <li><a href=<%='/search-user?utf8=✓&user%5Bkeyword%5D='+@keyword+'&page='+pre_page.to_s+'&per_page='+@per_page %>>Pre</a></li>
+    <% end %>
+
+    <!-- List pages -->
+    <% for i in 1..@pagination["pages"].to_i %>
+      <% if @page.to_i == i  %>
+        <li class="active">
+          <a href="#"><%= i %></a>
+        </li>
+      <% else %>
+        <li>
+          <a href=<%='/search-user?utf8=✓&user%5Bkeyword%5D='+@keyword+'&page='+i.to_s+'&per_page='+@per_page %>>
+            <%= i %>
+          </a>
+        </li>
+      <% end %>
+    <% end %>
+    
+    <!-- Next button -->
+    <% next_page = @page.to_i %>
+    <% if next_page >= @pagination["pages"].to_i%>
+      <% next_page = @pagination["pages"].to_i %>
+      <li class="disabled"><a href="#">Next</a></li>
+    <% else %>
+      <% next_page = next_page + 1 %>
+      <li><a href=<%='/search-user?utf8=✓&user%5Bkeyword%5D='+@keyword+'&page='+next_page.to_s+'&per_page='+@per_page %>>Next</a></li>
+    <% end %>
+  </ul>
+</nav>
+</div>
+<!--End Content-->
+</div>

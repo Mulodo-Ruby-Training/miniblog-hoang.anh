@@ -76,10 +76,10 @@ module V1
             avatar: get_user_by_id[:avatar]
           }
           self.return_result({code:STATUS_OK, description:"Login successfully",
-          messages:"Successful",data:data})
+            messages:"Successful",data:data})
         else
           self.return_result({code:ERROR_UPDATE_TOKEN, description:MSG_UPDATE_TOKEN,
-          messages:"Update token failed",data:nil})
+            messages:"Update token failed",data:nil})
         end 
       else
         self.return_result({code:ERROR_LOGIN_FAILED, description:MSG_LOGIN_FAILED,
@@ -90,7 +90,7 @@ module V1
     #function to update user' s info
     def self.update_user(user_id,data)
       user = self.find(user_id)
-      if(user.update(data) rescue nil)
+      if(user && user.update(data) rescue nil)
         return_result({code:STATUS_OK,description:"Update user info successfully",
           messages:"Successful",data:nil})
       else
@@ -155,10 +155,10 @@ module V1
         #Update new password
         if((user.update(data) rescue nil))
           return return_result({code:STATUS_OK,description:"Change password successfully",
-          messages:"Successful",data:nil})
+            messages:"Successful",data:nil})
         else
           return return_result({code:ERROR_VALIDATE,description:MSG_VALIDATE,
-          messages:user.errors,data:nil})
+            messages:user.errors,data:nil})
         end
       else
         return return_result({code:ERROR_PASSWORD_INCORRECT,description:MSG_PASSWORD_INCORRECT,
@@ -199,30 +199,41 @@ module V1
         page = 1
       end
       if !(per_page.present?)
-        per_page = 2
+        per_page = 3
       end
+      
       if keyword.present?
         users = User.search(keyword).page(page).per(per_page)
+        count_total_items = users.total_count
+        if count_total_items % per_page == 0
+          count_total_pages = count_total_items / per_page
+        else
+          count_total_pages = count_total_items / per_page + 1
+        end
         data = []
         for user in users
           temp_data = {id: user.id, username: user.username, firstname: user.firstname,
-            lastname: user.lastname, avatar: user.avatar}
-          data << temp_data
+            lastname: user.lastname, avatar: user.avatar, created_at: user.created_at.strftime("%d-%m-%Y")}
+            data << temp_data
         end
-        return_result({code:STATUS_OK,description:"Get user info successfully",
-          messages:"Successful",data:data})
+          return_result({code:STATUS_OK,description:"Get user info successfully",
+            messages:"Successful",data:data,pagination:{items:count_total_items,pages:count_total_pages}})
       else
-        # return_result({code:ERROR_VALIDATE,description:MSG_VALIDATE,
-        #   messages:"Keyword is blank",data:nil})
         users = User.page(page).per(per_page)
+        count_total_items = users.total_count
+        if count_total_items % per_page == 0
+          count_total_pages = count_total_items / per_page
+        else
+          count_total_pages = count_total_items / per_page + 1
+        end
         data = []
         for user in users
           temp_data = {id: user.id, username: user.username, firstname: user.firstname,
-            lastname: user.lastname, avatar: user.avatar}
+            lastname: user.lastname, avatar: user.avatar, created_at: user.created_at.strftime("%d-%m-%Y")}
           data << temp_data
         end
         return_result({code:STATUS_OK,description:"Get user info successfully",
-          messages:"Successful",data:data}) 
+              messages:"Successful",data:data,pagination:{items:count_total_items,pages:count_total_pages}}) 
       end
     end
 
@@ -244,14 +255,28 @@ module V1
 
     #function to return hash result
     def self.return_result(options)
+      if options[:pagination].present?
+        return {
+          meta:{
+            code: options[:code],
+            description: options[:description],
+            messages: options[:messages]
+          },
+          data:{
+            source: options[:data],
+            pagination: options[:pagination]
+          }
+        }
+      end
       return {
-        meta:{
-          code: options[:code],
-          description: options[:description],
-          messages: options[:messages]
+          meta:{
+            code: options[:code],
+            description: options[:description],
+            messages: options[:messages]
           },
           data: options[:data]
-      }
+      } 
+    
     end
 
     # function to get all posts of a user
@@ -306,7 +331,7 @@ module V1
     def self.check_username_and_password_existed(username,password)
       @get_user_by_username = self.where(username: username).limit(1)
       if @get_user_by_username.count() > 0 && 
-      @get_user_by_username[0][:password] == BCrypt::Engine.hash_secret(password,@get_user_by_username[0][:salt_password])
+        @get_user_by_username[0][:password] == BCrypt::Engine.hash_secret(password,@get_user_by_username[0][:salt_password])
         return true
       else
         return false

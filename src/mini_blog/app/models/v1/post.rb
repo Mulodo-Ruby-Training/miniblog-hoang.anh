@@ -62,19 +62,60 @@ module V1
     end
 
     # function to get all posts    
-    def self.get_all_post(page,per_page)
-       if !(page.present?)
+    def self.get_all_post(limit,order,page,per_page)
+      if !(page.present?)
         page = 1
       end
       if !(per_page.present?)
-        per_page = 20
+        per_page = 10
       end
-      users = (self.all.page(page).per(per_page) rescue nil)
-      if users
-        V1::User.return_result({code: STATUS_OK, description:"Get all posts successfully",
-              messages:"Successful",data: users})
+
+      if !(order.present?)
+        order = 'id desc'
       else
-        V1::User.return_result({code: ERROR_CREATE_COMMENT_FAILED, description:MSG_GET_ALL_POST_FAILED,
+        case order
+        when 'newest'
+          order = 'id desc'
+        when 'most_comment'
+          order = 'most_comment'
+        when 'name'
+          order = 'title asc'
+        else
+          order = ''
+        end
+      end
+
+      if !(order.eql?('most_comment'))
+        posts = (self.joins(:user)
+        .select("posts.id, posts.user_id,title,description,image,status,posts.created_at,firstname, lastname")
+        .all
+        .limit(limit)
+        .order(order)
+        .page(page)
+        .per(per_page) rescue nil)
+      else
+        posts = (self.joins(:user, :comment)
+        .select("count(comments.id) as comment_count,posts.id, posts.user_id,title,description,image,status,posts.created_at,firstname, lastname")
+        .all
+        .limit(limit)
+        .group('posts.id')
+        .order('comment_count desc')
+        .page(page)
+        .per(per_page) rescue nil)
+      end
+      
+      count_total_items = posts.total_count
+      if count_total_items % per_page.to_i == 0
+        count_total_pages = count_total_items / per_page.to_i
+      else
+        count_total_pages = count_total_items / per_page.to_i + 1
+      end
+
+      if posts
+        V1::User.return_result({code: STATUS_OK, description:"Get all posts successfully",
+              messages:"Successful",data: posts,pagination:{items:count_total_items,pages:count_total_pages}})
+      else
+        V1::User.return_result({code: ERROR_GET_ALL_POST_FAILED, description:MSG_GET_ALL_POST_FAILED,
               messages:"Unsuccessful",data: nil})
       end
     end

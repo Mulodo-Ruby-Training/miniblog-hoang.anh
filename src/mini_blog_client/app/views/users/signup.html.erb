@@ -1,0 +1,75 @@
+<% title "Sign up - Mini blog" %>
+<ol class="breadcrumb">
+  <li><%= link_to("Home", {controller: 'posts', action: 'index'}) %></li>
+  <li class="active">Register</li>
+</ol>
+
+<div class="container-fluid" style="padding-top:15px;padding-bottom:20px">
+  <% if flash[:errors].present? %>
+  <div class="alert alert-danger" role="alert" style="margin-top:5px;">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <ul>
+      <% flash[:errors].each do |k,v|%>
+      <li><%= "#{k}:" %>
+        <ul>
+          <% v.each do |v2| %>
+          <li><%= "#{v2}" %></li>   
+          <% end %>
+        </ul>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <% if flash[:notice].present? %>
+  <div class="alert alert-success" role="alert" style="margin-top:5px;">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <%= flash[:notice] %>
+  </div>
+  <% end %>
+
+  <%= render partial: "form_signup"  %>
+</div>
+<script>
+  $('#mobile').keypress(function(evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[0-9]|\./;
+    if( !regex.test(key) ) {
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) 
+        theEvent.preventDefault();
+    }
+    if($(this).val().length-2 <= 11){
+      $(this).val(function(i, text) {
+        text = text.replace(/(\d\d\d\d)(\d\d\d\d)([0-9])/, "$1.$2.$3");
+        return text;
+      });
+    }else{
+      theEvent.returnValue = false;
+      if(theEvent.preventDefault) 
+        theEvent.preventDefault();
+    }
+  });
+  
+  function handlerInputFileChange(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#image-upload')
+        .attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
