@@ -32,7 +32,7 @@
 
       <div id="navbar" class="navbar-collapse collapse col-md-4">
         <ul class="nav navbar-nav navbar-right">
-          <li class="disabled"><a href="#">Blogs</a></li>
+          <li class="disabled"><a href="#">Blog</a></li>
           <li>
             <% if !session[:id] && !session[:token] %>
             <%= link_to("Login", controller: 'users', action: 'signin') %>

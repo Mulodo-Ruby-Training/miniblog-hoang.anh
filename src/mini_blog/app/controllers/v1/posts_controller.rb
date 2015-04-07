@@ -68,7 +68,8 @@ module V1
       limit = params[:limit]
       page = params[:page]
       per_page = params[:per_page]
-      render json: V1::Post.get_all_post(limit,page,per_page)
+      order = params[:order]
+      render json: V1::Post.get_all_post(limit,order,page,per_page)
     end
 
     #function to get all comments of a certain post
