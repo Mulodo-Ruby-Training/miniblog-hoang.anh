@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "/", to: "posts#index"
   get "blog", to: "posts#all"
+  get "user-blog", to: "users#post"
   get "signup", to: "users#signup"
   get "signin", to: "users#signin"
   get "edit-my-account", to: "users#edit"

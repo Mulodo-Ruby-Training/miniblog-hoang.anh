@@ -1,7 +1,7 @@
 <div class="row" style="margin-top:10px;">
   <ol class="breadcrumb">
     <li><%= link_to("Home", {controller: 'posts', action: 'index'}) %></li>
-    <li>Search User</li>
+    <li class="active">Search User</li>
   </ol>
   <div class="container-fluid">
     <% if @keyword == "" %>
@@ -29,7 +29,7 @@
             <div class="date"> Date join: <%= v["created_at"].to_s %></div>
             <div>Firstname: <%= v["firstname"] %></div>
             <div>Lastname: <%= v["lastname"] %></div>
-            <div class="title"><a href="#">View all Post</a></div>
+            <div class="title"><a href="<%= "/user-blog/?id=#{v["id"]}" %>">View all Post</a></div>
           </div>
         </div>
         <% count = count + 1 %>
@@ -48,7 +48,7 @@
             <div class="date"> Date join: <%= v["created_at"].to_s %></div>
             <div>Firstname: <%= v["firstname"] %></div>
             <div>Lastname: <%= v["lastname"] %></div>
-            <div class="title"><a href="listUserPost.html">View all Post</a></div>
+            <div class="title"><a href="<%= "/user-blog/?id=#{v["id"]}" %>">View all Post</a></div>
           </div>
         </div>
         <% count = count + 1 %>
@@ -67,7 +67,7 @@
             <div class="date"> Date join: <%= v["created_at"].to_s %></div>
             <div>Firstname: <%= v["firstname"] %></div>
             <div>Lastname: <%= v["lastname"] %></div>
-            <div class="title"><a href="#">View all Post</a></div>
+            <div class="title"><a href="<%= "/user-blog/?id=#{v["id"]}" %>">View all Post</a></div>
           </div>
         </div>
         </div><br/>

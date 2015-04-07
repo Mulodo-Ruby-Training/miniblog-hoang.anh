@@ -45,11 +45,7 @@
       </div>
       <div class="col-md-4">
         <div class="title"><a href="#"><%= v["title"] %></a></div>
-        <div class="date"> <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %> | Author: 
-          <a href="<%= "/user-blog/?id=#{v["user_id"]}" %>">
-            <%= v["lastname"].to_s + v["firstname"].to_s %>
-          </a>
-        </div>
+        <div class="date"> Wrote: <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %></div>
         <div class="description">
           <%= v["description"] %>
         </div>
@@ -64,11 +60,7 @@
       </div>
       <div class="col-md-4">
         <div class="title"><a href="#"><%= v["title"] %></a></div>
-        <div class="date"> <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %> | Author: 
-          <a href="<%= "/user-blog/?id=#{v["user_id"]}" %>">
-            <%= v["lastname"].to_s + v["firstname"].to_s %>
-          </a>
-        </div>
+        <div class="date"> Wrote: <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %></div>
         <div class="description">
           <%= v["description"] %>
         </div>
@@ -94,7 +86,7 @@
       <li class="disabled"><a href="#">Prev</a></li>
       <% else %>
       <% pre_page = pre_page - 1 %>
-      <li><a href=<%= "/blog/?page=#{pre_page}&per_page=#{@per_page}" %>>Pre</a></li>
+      <li><a href=<%= "/user-blog/?id=#{@id}&page=#{pre_page}&per_page=#{@per_page}" %>>Pre</a></li>
       <% end %>
 
       <!-- List pages -->
@@ -105,7 +97,7 @@
       </li>
       <% else %>
       <li>
-        <a href=<%= "/blog/?page=#{i}&per_page=#{@per_page}" %>>
+        <a href=<%= "/user-blog/?id=#{@id}&page=#{i}&per_page=#{@per_page}" %>>
           <%= i %>
         </a>
       </li>
@@ -119,7 +111,7 @@
       <li class="disabled"><a href="#">Next</a></li>
       <% else %>
       <% next_page = next_page + 1 %>
-      <li><a href=<%= "/blog/?page=#{next_page}&per_page=#{@per_page}" %>>Next</a></li>
+      <li><a href=<%= "/user-blog/?id=#{@id}&page=#{next_page}&per_page=#{@per_page}" %>>Next</a></li>
       <% end %>
     </ul>
 
@@ -133,11 +125,11 @@
 
   $("#sort-items").on('change', function() {
     v = this.value
-    window.location.href = '<%= "/blog/?page=#{@page}&per_page=#{@per_page}&order="%>'+v;
+    window.location.href = '<%= "/user-blog/?id=#{@id}&page=#{@page}&per_page=#{@per_page}&order="%>'+v;
   });
 
   $("#show-items").on('change', function() {
     v = this.value
-    window.location.href = '<%= "/blog/?page=#{@page}&per_page="%>'+v+'<%="&order=#{@order}"%>';
+    window.location.href = '<%= "/user-blog/?id=#{@id}&page=#{@page}&per_page="%>'+v+'<%="&order=#{@order}"%>';
   });
 </script>

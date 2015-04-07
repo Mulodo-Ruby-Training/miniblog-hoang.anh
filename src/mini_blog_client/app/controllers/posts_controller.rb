@@ -18,9 +18,10 @@ class PostsController < ApplicationController
     data_output = JSON.parse(response)
     if data_output["meta"]["code"].to_i == 200
       @data_view = data_output["data"]["source"]
+      @pagination = data_output["data"]["pagination"]
     else
       @error = data_output["meta"]["description"]
     end
-    @pagination = data_output["data"]["pagination"]
+    
   end
 end
