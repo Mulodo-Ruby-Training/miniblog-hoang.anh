@@ -1,0 +1,36 @@
+<% if @data_view %>
+<%= form_tag({controller: "posts", action: "update", id: params[:id]}, multipart: true, method: "put", class: "form-horizontal",role: "form") do %>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <%= text_field(:post,:title,id:"title",class:"form-control",value:@data_view['title']) %>
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <%= text_area(:post,:description,id:"description",class:"form-control",row:"3",value:@data_view['description']) %>
+  </div>
+  <div class="form-group">
+    <label for="image">Image</label>
+    <%= file_field(:post,:image,id:"image") %>
+  </div>
+  <div class="form-group">
+    <label for="content">Content</label>
+    <%= text_area(:post,:content,id:"content",class:"form-control",row:"7",value:@data_view['content']) %>
+    <script>
+      CKEDITOR.replace( 'content' );
+
+    </script>
+  </div>
+  <div class="form-group" style="margin-left: 0px;">
+    <% if @data_view["status"] == true %>
+      <%= check_box(:post, :status, class:"form-group", id:"status",checked:true) %>
+    <% else %>
+      <%= check_box(:post, :status, class:"form-group", id:"status",checked:false) %>
+    <% end %>
+
+    <span style="margin-left:15px;">Enable</span>
+  </div>
+  <button type="submit" class="btn btn-primary">Add</button>
+  <button type="reset" class="btn btn-primary">Cancel</button>
+  <a href="#preview"><button type="button" class="btn btn-primary preview">Preview</button></a>
+<% end %>
+<% end %>

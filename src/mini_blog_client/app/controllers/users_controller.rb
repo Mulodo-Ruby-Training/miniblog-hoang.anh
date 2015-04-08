@@ -16,7 +16,11 @@ class UsersController < ApplicationController
     if data_output["meta"]["code"].to_i == 1001
       flash[:errors] = data_output["meta"]["messages"]
     else
-      flash[:notice] = data_output["meta"]["description"]
+      if data_output["meta"]["code"].to_i == 200
+        flash[:notice] = data_output["meta"]["description"]
+      else
+        flash[:error] = data_output["meta"]["description"]
+      end
     end
 
     redirect_to({action:'signup'})
@@ -56,7 +60,11 @@ class UsersController < ApplicationController
       if data_output["meta"]["code"].to_i == 1001
         flash[:errors] = data_output["meta"]["messages"]
       else
-        flash[:notice] = data_output["meta"]["description"]
+        if data_output["meta"]["code"].to_i == 200
+          flash[:notice] = data_output["meta"]["description"]
+        else
+          flash[:error] = data_output["meta"]["description"]
+        end
       end
       redirect_to({action:'edit'})
     else
@@ -106,24 +114,23 @@ class UsersController < ApplicationController
   end
 
   def post
-      @page = (params[:page] rescue "")
-      @per_page = (params[:per_page] rescue "")
-      @order = (params[:order] rescue "")
-      @id = (params[:id])
+    @page = (params[:page] rescue "")
+    @per_page = (params[:per_page] rescue "")
+    @order = (params[:order] rescue "")
+    @id = (params[:id])
 
-      if !(@id.present?) || @id == "" || @id.nil?
-        redirect_to({action:'all',controller:'posts'})
-      end
+    if !(@id.present?) || @id == "" || @id.nil?
+      redirect_to({action:'all',controller:'posts'})
+    end
 
-      response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/users/#{@id}/posts?page=#{@page}&per_page=#{@per_page}&order=#{@order}"))
-      data_output = JSON.parse(response)
-      if data_output["meta"]["code"].to_i == 200
-        @data_view = data_output["data"]["source"]
-        @pagination = data_output["data"]["pagination"]
-      else
-        @error = data_output["meta"]["description"]
-      end
-      
+    response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/users/#{@id}/posts?page=#{@page}&per_page=#{@per_page}&order=#{@order}"))
+    data_output = JSON.parse(response)
+    if data_output["meta"]["code"].to_i == 200
+      @data_view = data_output["data"]["source"]
+      @pagination = data_output["data"]["pagination"]
+    else
+      @error = data_output["meta"]["description"]
+    end 
   end
 
   def login
@@ -137,7 +144,7 @@ class UsersController < ApplicationController
       session[:token] = data_output["data"]["token"]
       redirect_to({controller: 'posts', action:'index'})
     else
-      flash[:errors] = data_output["meta"]["description"]
+      flash[:error] = data_output["meta"]["description"]
       redirect_to({action:'signin'})
     end
   end

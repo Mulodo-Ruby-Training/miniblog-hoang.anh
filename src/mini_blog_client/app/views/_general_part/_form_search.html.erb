@@ -1,0 +1,12 @@
+<div class="col-md-5" style="margin-top: 8px;">
+	<%= form_tag({controller: "users", action: "search"}, method: "get", class: "form-horizontal",role: "form") do %>
+	<div class="input-group">
+		<%= text_field(:user,:keyword,id:"keyword",class:"form-control") %>
+		<span class="input-group-btn">
+			<button class="btn btn-primary" type="submit">
+				<i class="glyphicon glyphicon-search"></i> Search
+			</button>
+		</span>
+	</div>
+	<% end %>
+</div>

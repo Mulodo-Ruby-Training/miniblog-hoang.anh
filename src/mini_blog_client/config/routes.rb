@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   get "/", to: "posts#index"
   get "blog", to: "posts#all"
+  get "write-my-new-post", to: "posts#new"
+  get "edit-my-post/:id", to: "posts#edit"
+  get "manage-my-posts",to: "posts#manage"
+
   get "user-blog", to: "users#post"
   get "signup", to: "users#signup"
   get "signin", to: "users#signin"
@@ -9,10 +13,15 @@ Rails.application.routes.draw do
 
   post "users/create", to: "users#create"
   post "users/login", to: "users#login"
+  post "posts/create", to: "posts#create"
+
   put "users/update", to: "users#update"
   put "users/update-password", to: "users#update_password"
+  put "posts/update", to: "posts#update"
+
   get "logout", to: "users#logout"
   get "search-user/", to: "users#search"
+  get "search-post/", to: "posts#search"
 
 
   # get "search-user/:keyword", to: "users#search"

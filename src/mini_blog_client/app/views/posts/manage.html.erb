@@ -1,0 +1,90 @@
+<div class="row" style="margin-top:10px;">
+  <ol class="breadcrumb">
+    <li><%= link_to("Home", {controller: 'posts', action: 'index'}) %></li>
+    <li>Manage Post</li>
+  </ol>
+  <% if @data_view %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5 pull-right">
+        <%= form_tag({controller: "posts", action: "search"}, method: "get", class: "form-horizontal",role: "form") do %>
+          <div class="input-group">
+            <input name="word" class="form-control" placeholder="Title, Description, Content" type="text">
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </span>
+          </div><!-- /input-group -->
+        <% end %>
+      </div>
+    </div><br>
+
+    <table class="table table-bordered table-hover table-striped tablesorter">
+      <thead>
+        <tr>
+          <th class="header headerSortUp">Id</th>
+          <th class="header">Title</th>
+          <th class="header">Date Created</th>
+          <th class="header">Date Updated</th>
+          <th class="header">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @data_view.each { |v| %>
+        <tr>
+          <td><%= v["id"] %></td>
+          <td><a href="edit-post.html"><%= v["title"] %></a></td>
+          <td><%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %></td>
+          <td><%= Date.parse(v["updated_at"]).strftime("%d-%m-%Y") %></td>
+          <td>
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+
+            <%= link_to({controller:"posts",action:"edit",id:v["id"]}) do %>
+            <%= "Edit" %>
+            <% end %>
+
+            <span> | </span>
+
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            <a href="" class="bt_del" >Delete </a>
+            
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+
+    <nav>
+      <ul class="pagination">
+        <li class="disabled"><a href="#">Prev</a></li>
+        <li class="active"><a href="#">1 </a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">Next</a></li>
+      </ul>
+    </nav>
+  </div>
+  <% end %>
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.bt_del').click(function(){
+      id = $(this).attr('id');
+      var r = confirm("Are you sure delete post?");
+      if(r == true)
+      {
+        alert('Deleted');
+      }
+      else{
+        alert('Cancel delete');
+      }
+    });
+
+  });
+</script>

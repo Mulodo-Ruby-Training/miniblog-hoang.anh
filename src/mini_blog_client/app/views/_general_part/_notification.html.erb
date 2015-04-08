@@ -1,0 +1,39 @@
+<% if flash[:errors].present? && flash[:errors].is_a?(::Hash) %>
+  <div class="alert alert-danger" role="alert" style="margin-top:5px;">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <ul>
+      <% flash[:errors].each do |k,v|%>
+      <li><%= "#{k}:" %>
+        <ul>
+          <% v.each do |v2| %>
+          <li><%= "#{v2}" %></li>   
+          <% end %>
+        </ul>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if flash[:notice].present? %>
+  <div class="alert alert-success" role="alert" style="margin-top:5px;">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<% if flash[:error].present? %>
+  <div class="alert alert-danger" role="alert" style="margin-top:5px;">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <%= flash[:error] %>
+  </div>
+<% end %>

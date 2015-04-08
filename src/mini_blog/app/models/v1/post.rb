@@ -120,6 +120,18 @@ module V1
       end
     end
 
+    #function to get a certain post
+    def self.get_a_post(post_id)
+      post = (self.find(post_id) rescue nil)
+      if post
+        V1::User.return_result({code:STATUS_OK,description:"Get a post successfully",
+          messages:"Successful",data:post})
+      else
+        V1::User.return_result({code:ERROR_ID_USER_OR_ID_POST_IS_WRONG,description:MSG_ID_USER_OR_ID_POST_IS_WRONG,
+          messages:"Successful",data:nil})
+      end
+    end
+
     # function to get all comments of a post
     def self.get_all_comments_post(post_id)
       comments = (V1::Comment.where("post_id = #{post_id}") rescue nil)
