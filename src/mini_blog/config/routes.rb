@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   namespace :v1, defaults: {format: 'json'} do
 
     get "posts/:id/comments", to: "posts#show_all_comments_post"
+    get "posts/search/", to: "posts#search"
+
     #comment route
     post "comments", to: "comments#create"
     put "comments/:id", to: "comments#edit"
@@ -68,6 +70,7 @@ Rails.application.routes.draw do
     get "/users/search/", to: "users#search"
     get "/users/search/:keyword", to: "users#search"
     get "users/:id/posts", to: "users#show_posts_user"
+    get "users/:id/posts_status_true", to: "users#show_posts_user_status_true"
     get "users/:id/comments", to: "users#show_all_comments_user"
     resources :users
     put "users/:id/password", to: "users#change_password"

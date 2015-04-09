@@ -215,27 +215,27 @@ module V1
           temp_data = {id: user.id, username: user.username, firstname: user.firstname,
             lastname: user.lastname, avatar: user.avatar, created_at: user.created_at.strftime("%d-%m-%Y")}
             data << temp_data
-        end
-          return_result({code:STATUS_OK,description:"Get user info successfully",
+          end
+          return_result({code:STATUS_OK,description:"Get users successfully",
             messages:"Successful",data:data,pagination:{items:count_total_items,pages:count_total_pages}})
-      else
-        users = User.page(page).per(per_page)
-        count_total_items = users.total_count
-        if count_total_items % per_page.to_i == 0
-          count_total_pages = count_total_items / per_page.to_i
         else
-          count_total_pages = count_total_items / per_page.to_i + 1
-        end
-        data = []
-        for user in users
-          temp_data = {id: user.id, username: user.username, firstname: user.firstname,
-            lastname: user.lastname, avatar: user.avatar, created_at: user.created_at.strftime("%d-%m-%Y")}
-          data << temp_data
-        end
-        return_result({code:STATUS_OK,description:"Get user info successfully",
+          users = User.page(page).per(per_page)
+          count_total_items = users.total_count
+          if count_total_items % per_page.to_i == 0
+            count_total_pages = count_total_items / per_page.to_i
+          else
+            count_total_pages = count_total_items / per_page.to_i + 1
+          end
+          data = []
+          for user in users
+            temp_data = {id: user.id, username: user.username, firstname: user.firstname,
+              lastname: user.lastname, avatar: user.avatar, created_at: user.created_at.strftime("%d-%m-%Y")}
+              data << temp_data
+            end
+            return_result({code:STATUS_OK,description:"Get user info successfully",
               messages:"Successful",data:data,pagination:{items:count_total_items,pages:count_total_pages}}) 
-      end
-    end
+          end
+        end
 
     #function to check user logined in or not(true=>logined)
     def self.check_login(session_id,session_token)
@@ -261,23 +261,23 @@ module V1
             code: options[:code],
             description: options[:description],
             messages: options[:messages]
-          },
-          data:{
-            source: options[:data],
-            pagination: options[:pagination]
+            },
+            data:{
+              source: options[:data],
+              pagination: options[:pagination]
+            }
           }
-        }
-      end
-      return {
+        end
+        return {
           meta:{
             code: options[:code],
             description: options[:description],
             messages: options[:messages]
-          },
-          data: options[:data]
-      } 
-    
-    end
+            },
+            data: options[:data]
+          } 
+          
+        end
 
     # function to get all posts of a user
     def self.get_all_post_user(user_id,order,page,per_page)
@@ -290,34 +290,51 @@ module V1
 
       if !(order.present?)
         order = 'id desc'
-      else
-        case order
-        when 'newest'
-          order = 'id desc'
-        when 'most_comment'
-          order = 'most_comment'
-        when 'name'
-          order = 'title asc'
-        else
-          order = ''
-        end
       end
 
-      if !(order.eql?('most_comment'))
-        posts = (V1::Post.where("posts.user_id = #{user_id}")
-          .joins(:user)
-          .select("posts.id, posts.user_id,title,description,image,status,posts.updated_at,posts.created_at,firstname, lastname")
-          .order(order)
-          .page(page)
-          .per(per_page) rescue nil)
+      posts = (V1::Post.where("posts.user_id = #{user_id}")
+        .joins(:user)
+        .select("posts.id, posts.user_id,title,description,image,status,posts.updated_at,posts.created_at,firstname, lastname")
+        .order(order)
+        .page(page)
+        .per(per_page) rescue nil)
+
+      count_total_items = posts.total_count
+      if count_total_items % per_page.to_i == 0
+        count_total_pages = count_total_items / per_page.to_i
       else
-        posts = (V1::Post.where("posts.user_id = #{user_id}")
-          .joins(:user, :comment)
-          .select("count(comments.id) as comment_count,posts.id, posts.user_id,title,description,image,status,posts.updated_at,posts.created_at,firstname, lastname")
-          .order('comment_count desc')
-          .page(page)
-          .per(per_page) rescue nil)
+        count_total_pages = count_total_items / per_page.to_i + 1
       end
+
+      if posts
+        return_result({code:STATUS_OK,description:"Get all post successfully",
+          messages:"Successful",data:posts,pagination:{items:count_total_items,pages:count_total_pages}})
+      else
+        return_result({code:ERROR_GET_ALL_POST_USER_FAILED,description:MSG_GET_ALL_POST_USER_FAILED,
+          messages:"Unsuccessful",data:nil})
+      end
+    end
+
+    # function to get all posts of a user which status is true
+    def self.get_all_post_user_status_true(user_id,order,page,per_page)
+      if !(page.present?)
+        page = 1
+      end
+      if !(per_page.present?)
+        per_page = 10
+      end
+
+      if !(order.present?)
+        order = 'id desc'
+      end
+
+      posts = (V1::Post.where("posts.user_id = #{user_id}")
+        .where("status = 1")
+        .joins(:user)
+        .select("posts.id, posts.user_id,title,description,image,status,posts.updated_at,posts.created_at,firstname, lastname")
+        .order(order)
+        .page(page)
+        .per(per_page) rescue nil)
 
       count_total_items = posts.total_count
       if count_total_items % per_page.to_i == 0

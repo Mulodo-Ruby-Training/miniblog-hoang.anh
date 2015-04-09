@@ -225,7 +225,7 @@ module V1
       keyword = "anh"
 
       #Call function search_user_by_name in model V1::User
-      user = V1::User.search_user_by_name(keyword)
+      user = V1::User.search_user_by_name(keyword,1,10)
 
       #Get value code which is returned when call function search_user_by_name
       actual = user[:meta][:code]
@@ -255,7 +255,7 @@ module V1
 
       user_id = 28
 
-      posts = V1::User.get_all_post_user(user_id)
+      posts = V1::User.get_all_post_user(user_id,'id desc',1,10)
 
       actual = posts[:meta][:code]
 

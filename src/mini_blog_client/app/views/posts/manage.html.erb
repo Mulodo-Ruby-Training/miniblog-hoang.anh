@@ -7,9 +7,9 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-5 pull-right">
-        <%= form_tag({controller: "posts", action: "search"}, method: "get", class: "form-horizontal",role: "form") do %>
+        <%= form_tag({controller: "posts", action: "manage"}, method: "get", class: "form-horizontal",role: "form") do %>
           <div class="input-group">
-            <input name="word" class="form-control" placeholder="Title, Description, Content" type="text">
+            <input name="keyword_posts" class="form-control" placeholder="Title, Description, Content" type="text">
             <span class="input-group-btn">
               <button class="btn btn-primary" type="submit">
               <i class="glyphicon glyphicon-search"></i>
@@ -47,7 +47,12 @@
             <span> | </span>
 
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            <a href="" class="bt_del" >Delete </a>
+            <a href="" class="bt_del" >
+              Delete 
+              <%= form_tag({controller: "posts", action: "delete"}, method: "post", class: "form-horizontal",role: "form",style:"display:none") do %>
+              <%= hidden_field(:post, :post_id, value: v["id"] ) %>
+            <% end %>
+            </a>
             
           </td>
         </tr>
@@ -57,13 +62,53 @@
 
     <nav>
       <ul class="pagination">
-        <li class="disabled"><a href="#">Prev</a></li>
-        <li class="active"><a href="#">1 </a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">Next</a></li>
+        <!-- checking current page must be not zero or null -->
+      <% if @page == 0 || @page == "" || !@page.present? %>
+        <% @page = 1 %>
+      <% end %>
+
+      <% if !@keyword_posts.nil? %>
+        <% link_pagination = "/manage-my-posts?keyword_posts=#{@keyword_posts}&per_page=#{@per_page}&page=" %>
+      <% else %>
+        <% link_pagination = "/manage-my-posts?per_page=#{@per_page}&page=" %>
+      <% end %>
+
+      <!-- Pre Button -->
+      <% pre_page = @page.to_i %>
+      <% if pre_page <= 1 %>
+        <% pre_page = 1 %>
+      <li class="disabled"><a href="#">Prev</a></li>
+      <% else %>
+        <% pre_page = pre_page - 1 %>
+      <li>
+        <a href=<%= link_pagination+pre_page.to_s %>>Pre</a>
+      </li>
+      <% end %>
+
+      <!-- List pages -->
+      <% for i in 1..@pagination["pages"].to_i %>
+      <% if @page.to_i == i  %>
+      <li class="active">
+        <a href="#"><%= i %></a>
+      </li>
+      <% else %>
+      <li>
+        <a href=<%= link_pagination+i.to_s %>>
+          <%= i %>
+        </a>
+      </li>
+      <% end %>
+      <% end %>
+
+      <!-- Next button -->
+      <% next_page = @page.to_i %>
+      <% if next_page >= @pagination["pages"].to_i%>
+      <% next_page = @pagination["pages"].to_i %>
+      <li class="disabled"><a href="#">Next</a></li>
+      <% else %>
+      <% next_page = next_page + 1 %>
+      <li><a href=<%= link_pagination+next_page.to_s %>>Next</a></li>
+      <% end %>
       </ul>
     </nav>
   </div>
@@ -75,14 +120,16 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('.bt_del').click(function(){
-      id = $(this).attr('id');
-      var r = confirm("Are you sure delete post?");
+      form = $(this).find($('form'))
+      post_id = $(this).find($('input#post_post_id')).val();
+
+      var r = confirm("Are you sure delete this post?");
       if(r == true)
       {
-        alert('Deleted');
+        form.submit();
       }
       else{
-        alert('Cancel delete');
+        return false;
       }
     });
 

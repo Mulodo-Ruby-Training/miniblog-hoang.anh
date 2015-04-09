@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "write-my-new-post", to: "posts#new"
   get "edit-my-post/:id", to: "posts#edit"
   get "manage-my-posts",to: "posts#manage"
+  get "posts/:id",to: "posts#detail"
 
   get "user-blog", to: "users#post"
   get "signup", to: "users#signup"
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   post "users/create", to: "users#create"
   post "users/login", to: "users#login"
   post "posts/create", to: "posts#create"
+  post "posts/delete", to: "posts#delete"
 
   put "users/update", to: "users#update"
   put "users/update-password", to: "users#update_password"

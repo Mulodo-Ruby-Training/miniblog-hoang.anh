@@ -40,6 +40,7 @@ module V1
     # funtion to test update a post successfully
     def test_update_post_successfully
       post_id = 1
+      user_id = 28
       data = {
           title: "Roll lemon",
           content: "Gingerbread bear claw muffin danish danish marzipan. Toffee lollipop wafer carrot cake dessert.",
@@ -47,7 +48,7 @@ module V1
           image: "chocolate.png",
           status: 1
       }
-      post = V1::Post.update_post(post_id,data)
+      post = V1::Post.update_post(post_id,user_id,data)
       actual = post[:meta][:code]
       expected = 200
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
@@ -56,6 +57,7 @@ module V1
     # funtion to test update a post unsuccessfully
     def test_update_post_unsuccessfully
       post_id = 1
+      user_id = 28
       data = {
           title: "",
           content: "Gingerbread bear claw muffin danish danish marzipan. Toffee lollipop wafer carrot cake dessert.",
@@ -63,7 +65,7 @@ module V1
           image: "chocolate.png",
           status: 1
       }
-      post = V1::Post.update_post(post_id,data)
+      post = V1::Post.update_post(post_id,user_id,data)
       actual = post[:meta][:code]
       expected = 1001
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
@@ -72,7 +74,8 @@ module V1
     # funtion to test delete a post successfully
     def test_delete_post_successfully
       post_id = 1
-      post = V1::Post.delete_post(post_id)
+      user_id = 28
+      post = V1::Post.delete_post(post_id,user_id)
       actual = post[:meta][:code]
       expected = 200
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
@@ -81,7 +84,8 @@ module V1
     # funtion to test delete a post unsuccessfully
     def test_delete_post_unsuccessfully
       post_id = "wrong-id"
-      post = V1::Post.delete_post(post_id)
+      user_id = 28
+      post = V1::Post.delete_post(post_id,user_id)
       actual = post[:meta][:code]
       expected = 2504
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
@@ -110,7 +114,7 @@ module V1
     #function to test get all post successfully
     def test_function_get_all_post_successfully
 
-      posts = V1::Post.get_all_post
+      posts = V1::Post.get_all_post("","","","")
 
       actual = posts[:meta][:code]
 

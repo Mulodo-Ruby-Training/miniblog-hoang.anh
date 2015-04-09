@@ -123,7 +123,7 @@ class UsersController < ApplicationController
       redirect_to({action:'all',controller:'posts'})
     end
 
-    response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/users/#{@id}/posts?page=#{@page}&per_page=#{@per_page}&order=#{@order}"))
+    response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/users/#{@id}/posts_status_true?page=#{@page}&per_page=#{@per_page}&order=#{@order}"))
     data_output = JSON.parse(response)
     if data_output["meta"]["code"].to_i == 200
       @data_view = data_output["data"]["source"]
