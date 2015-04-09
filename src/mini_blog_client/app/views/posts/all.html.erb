@@ -1,6 +1,6 @@
 <div class="row" style="margin-top:10px;">
   <ol class="breadcrumb">
-    <li><a href="index.html">Home</a></li>
+    <li><%= link_to("Home", {controller: 'posts', action: 'index'}) %></li>
     <li class="active">Blog</li>
   </ol>
   <!--Content-->
@@ -45,7 +45,11 @@
       </div>
       <div class="col-md-4">
         <div class="title"><a href="#"><%= v["title"] %></a></div>
-        <div class="date"> <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %> | Author: <a href="#"><%= v["lastname"].to_s + v["firstname"].to_s %></a></div>
+        <div class="date"> <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %> | Author: 
+          <a href="<%= "/user-blog/?id=#{v["user_id"]}" %>">
+            <%= v["lastname"].to_s + v["firstname"].to_s %>
+          </a>
+        </div>
         <div class="description">
           <%= v["description"] %>
         </div>
@@ -60,7 +64,11 @@
       </div>
       <div class="col-md-4">
         <div class="title"><a href="#"><%= v["title"] %></a></div>
-        <div class="date"> <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %> | Author: <a href="#"><%= v["lastname"].to_s + v["firstname"].to_s %></a></div>
+        <div class="date"> <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %> | Author: 
+          <a href="<%= "/user-blog/?id=#{v["user_id"]}" %>">
+            <%= v["lastname"].to_s + v["firstname"].to_s %>
+          </a>
+        </div>
         <div class="description">
           <%= v["description"] %>
         </div>
@@ -120,7 +128,7 @@
 <script>
   jQuery(document).ready(function($) {
     $("#sort-items").val('<%= @order %>');
-    $("#sort-items").val('<%= @order %>');
+    $("#show-items").val('<%= @per_page %>');
   });
 
   $("#sort-items").on('change', function() {

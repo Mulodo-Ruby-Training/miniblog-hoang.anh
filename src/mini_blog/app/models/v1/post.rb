@@ -4,6 +4,13 @@ module V1
     has_many :comment, dependent: :destroy
     belongs_to :user
 
+    search_syntax do
+      search_by :text do |scope, phrases|
+        columns = [:title, :description, :content]
+        scope.where_like(columns => phrases)
+      end
+    end
+
     validates_presence_of :title
     validates_presence_of :content
     validates_presence_of :user_id, on: :create
@@ -22,8 +29,13 @@ module V1
     end
 
     # function to update post from database
-    def self.update_post(post_id,data)
+    def self.update_post(post_id,user_id,data)
       post = self.find(post_id)
+      if post[:user_id].to_i != user_id.to_i
+        return V1::User.return_result({code:ERROR_ID_USER_OR_ID_POST_IS_WRONG, description:MSG_ID_USER_OR_ID_POST_IS_WRONG,
+            messages:"Unsuccessful",data: nil})
+      end
+
       if(post.update(data) rescue nil)
         V1::User.return_result({code: STATUS_OK, description:"Post is updated successfully",
             messages:"Successful",data: nil})
@@ -34,8 +46,14 @@ module V1
     end
 
     # function to delete post from database
-    def self.delete_post(post_id)
+    def self.delete_post(post_id,user_id)
       post = (self.find(post_id) rescue nil)
+
+      if (post[:user_id].to_i != user_id.to_i rescue nil)
+        return V1::User.return_result({code:ERROR_ID_USER_OR_ID_POST_IS_WRONG, description:MSG_ID_USER_OR_ID_POST_IS_WRONG,
+            messages:"Unsuccessful",data: nil})
+      end
+
       if(post && post.destroy() rescue nil)
         V1::User.return_result({code: STATUS_OK, description:"Post is deleted successfully",
               messages:"Successful",data: nil})
@@ -88,7 +106,7 @@ module V1
       if !(order.eql?('most_comment'))
         posts = (self.joins(:user)
         .select("posts.id, posts.user_id,title,description,image,status,posts.created_at,firstname, lastname")
-        .all
+        .where("status= 1")
         .limit(limit)
         .order(order)
         .page(page)
@@ -96,7 +114,7 @@ module V1
       else
         posts = (self.joins(:user, :comment)
         .select("count(comments.id) as comment_count,posts.id, posts.user_id,title,description,image,status,posts.created_at,firstname, lastname")
-        .all
+        .where("status= 1")
         .limit(limit)
         .group('posts.id')
         .order('comment_count desc')
@@ -118,6 +136,42 @@ module V1
         V1::User.return_result({code: ERROR_GET_ALL_POST_FAILED, description:MSG_GET_ALL_POST_FAILED,
               messages:"Unsuccessful",data: nil})
       end
+    end
+
+    #function to get a certain post
+    def self.get_a_post(post_id)
+      posts = self.where("posts.id=#{post_id}")
+      .where("posts.status=1")
+      .joins(:user)
+      .limit(1)
+      .select("posts.id, posts.user_id,title,content,image,status,posts.created_at,
+        firstname, lastname,avatar,users.created_at as joined_at")
+      if posts
+        V1::User.return_result({code:STATUS_OK,description:"Get a post successfully",
+          messages:"Successful",data:posts})
+      else
+        V1::User.return_result({code:ERROR_ID_USER_OR_ID_POST_IS_WRONG,description:MSG_ID_USER_OR_ID_POST_IS_WRONG,
+          messages:"Unuccessful",data:nil})
+      end
+    end
+    #function to search posts
+    def self.search_posts(user_id,keyword,page,per_page)
+      if !(page.present?)
+        page = 1
+      end
+      if !(per_page.present?)
+        per_page = 10
+      end
+
+      posts = self.search(keyword).where("user_id = #{user_id}").order('id desc').page(page.to_i).per(per_page.to_i)
+      count_total_items = posts.total_count
+      if count_total_items % per_page.to_i == 0
+        count_total_pages = count_total_items / per_page.to_i
+      else
+        count_total_pages = count_total_items / per_page.to_i + 1
+      end
+      V1::User.return_result({code:STATUS_OK,description:"Get posts successfully",
+            messages:"Successful",data:posts,pagination:{items:count_total_items,pages:count_total_pages}})
     end
 
     # function to get all comments of a post

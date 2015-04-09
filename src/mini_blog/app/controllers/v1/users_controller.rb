@@ -132,7 +132,16 @@ module V1
       page = params[:page]
       per_page = params[:per_page]
       user_id = params[:id]
-      render json: V1::User.get_all_post_user(user_id,page,per_page)
+      order = params[:order]
+      render json: V1::User.get_all_post_user(user_id,order,page,per_page)
+    end
+
+    def show_posts_user_status_true
+      page = params[:page]
+      per_page = params[:per_page]
+      user_id = params[:id]
+      order = params[:order]
+      render json: V1::User.get_all_post_user_status_true(user_id,order,page,per_page)
     end
 
     #function to get all comments of a certain user

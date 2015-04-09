@@ -22,6 +22,15 @@
   url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
  }
 
+  @font-face {
+  font-family: 'icomoon';
+  src: url('../assets/icomoon.eot');
+  src: url('../assets/icomoon.eot?#iefix') format('embedded-opentype'), 
+  url('../assets/icomoon.woff') format('woff'), 
+  url('../assets/icomoon.ttf') format('truetype'), 
+  url('../assets/icomoon.svg') format('svg');
+ }
+
  .styled-select{
   height: 30px;
  }

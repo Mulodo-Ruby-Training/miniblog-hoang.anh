@@ -4,9 +4,11 @@ module V1
     skip_before_filter :verify_authenticity_token
 
     #function to user can create a post
-    def create 
-      if V1::User.check_login(session[:id],session[:token])
-        user_id = session[:id]
+    def create
+      session_id = params[:session_id]
+      session_token = params[:session_token]
+      if V1::User.check_login(session_id,session_token)
+        user_id = session_id
         data = {
           title: params[:title],
           content: params[:content],
@@ -24,7 +26,9 @@ module V1
 
     #function to user can update a existed post
     def update
-      if V1::User.check_login(session[:id],session[:token])
+      session_id = params[:session_id]
+      session_token = params[:session_token]
+      if V1::User.check_login(session_id,session_token)
         post_id = params[:id]
         data = {
           title: params[:title],
@@ -33,7 +37,7 @@ module V1
           image: params[:image],
           status: params[:status],
         }
-        render json: V1::Post.update_post(post_id,data)
+        render json: V1::Post.update_post(post_id,session_id,data)
       else
         render json: V1::User.return_result({code:ERROR_NOT_LOGIN,description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
@@ -42,9 +46,11 @@ module V1
 
     #function to user can delete a existed post
     def destroy
-      if V1::User.check_login(session[:id],session[:token])
+      session_id = params[:session_id]
+      session_token = params[:session_token]
+      if V1::User.check_login(session_id,session_token)
         post_id = params[:id]
-        render json: V1::Post.delete_post(post_id)
+        render json: V1::Post.delete_post(post_id,session_id)
       else
         render json: V1::User.return_result({code:ERROR_NOT_LOGIN,description:MSG_NOT_LOGIN,
           messages:"Unsuccessful",data: nil})
@@ -76,6 +82,20 @@ module V1
     def show_all_comments_post
       post_id = params[:id]
       render json: V1::Post.get_all_comments_post(post_id)
+    end
+
+    #function to get a certain post
+    def show
+      post_id = params[:id]
+      render json: V1::Post.get_a_post(post_id)
+    end
+
+    def search
+      page = params[:page]
+      per_page = params[:per_page]
+      keyword = params[:keyword]
+      user_id = params[:id]
+      render json: V1::Post.search_posts(user_id,keyword,page,per_page)
     end
 
   end

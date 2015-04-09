@@ -1,0 +1,137 @@
+<div class="row" style="margin-top:10px;">
+  <ol class="breadcrumb">
+    <li><%= link_to("Home", {controller: 'posts', action: 'index'}) %></li>
+    <li>Manage Post</li>
+  </ol>
+  <% if @data_view %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5 pull-right">
+        <%= form_tag({controller: "posts", action: "manage"}, method: "get", class: "form-horizontal",role: "form") do %>
+          <div class="input-group">
+            <input name="keyword_posts" class="form-control" placeholder="Title, Description, Content" type="text">
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </span>
+          </div><!-- /input-group -->
+        <% end %>
+      </div>
+    </div><br>
+
+    <table class="table table-bordered table-hover table-striped tablesorter">
+      <thead>
+        <tr>
+          <th class="header headerSortUp">Id</th>
+          <th class="header">Title</th>
+          <th class="header">Date Created</th>
+          <th class="header">Date Updated</th>
+          <th class="header">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @data_view.each { |v| %>
+        <tr>
+          <td><%= v["id"] %></td>
+          <td><a href="edit-post.html"><%= v["title"] %></a></td>
+          <td><%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %></td>
+          <td><%= Date.parse(v["updated_at"]).strftime("%d-%m-%Y") %></td>
+          <td>
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+
+            <%= link_to({controller:"posts",action:"edit",id:v["id"]}) do %>
+            <%= "Edit" %>
+            <% end %>
+
+            <span> | </span>
+
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            <a href="" class="bt_del" >
+              Delete 
+              <%= form_tag({controller: "posts", action: "delete"}, method: "post", class: "form-horizontal",role: "form",style:"display:none") do %>
+              <%= hidden_field(:post, :post_id, value: v["id"] ) %>
+            <% end %>
+            </a>
+            
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+
+    <nav>
+      <ul class="pagination">
+        <!-- checking current page must be not zero or null -->
+      <% if @page == 0 || @page == "" || !@page.present? %>
+        <% @page = 1 %>
+      <% end %>
+
+      <% if !@keyword_posts.nil? %>
+        <% link_pagination = "/manage-my-posts?keyword_posts=#{@keyword_posts}&per_page=#{@per_page}&page=" %>
+      <% else %>
+        <% link_pagination = "/manage-my-posts?per_page=#{@per_page}&page=" %>
+      <% end %>
+
+      <!-- Pre Button -->
+      <% pre_page = @page.to_i %>
+      <% if pre_page <= 1 %>
+        <% pre_page = 1 %>
+      <li class="disabled"><a href="#">Prev</a></li>
+      <% else %>
+        <% pre_page = pre_page - 1 %>
+      <li>
+        <a href=<%= link_pagination+pre_page.to_s %>>Pre</a>
+      </li>
+      <% end %>
+
+      <!-- List pages -->
+      <% for i in 1..@pagination["pages"].to_i %>
+      <% if @page.to_i == i  %>
+      <li class="active">
+        <a href="#"><%= i %></a>
+      </li>
+      <% else %>
+      <li>
+        <a href=<%= link_pagination+i.to_s %>>
+          <%= i %>
+        </a>
+      </li>
+      <% end %>
+      <% end %>
+
+      <!-- Next button -->
+      <% next_page = @page.to_i %>
+      <% if next_page >= @pagination["pages"].to_i%>
+      <% next_page = @pagination["pages"].to_i %>
+      <li class="disabled"><a href="#">Next</a></li>
+      <% else %>
+      <% next_page = next_page + 1 %>
+      <li><a href=<%= link_pagination+next_page.to_s %>>Next</a></li>
+      <% end %>
+      </ul>
+    </nav>
+  </div>
+  <% end %>
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.bt_del').click(function(){
+      form = $(this).find($('form'))
+      post_id = $(this).find($('input#post_post_id')).val();
+
+      var r = confirm("Are you sure delete this post?");
+      if(r == true)
+      {
+        form.submit();
+      }
+      else{
+        return false;
+      }
+    });
+
+  });
+</script>

@@ -1,51 +1,67 @@
 
 <div class="row" style="margin-top:10px;">
-  <ol class="breadcrumb">
+  <!-- <ol class="breadcrumb">
     <li><a href="index.html">Home</a></li>
-  </ol>
+  </ol> -->
   <!--Content-->
   <div class="container-fluid">
-    
+
     <% if @data_view.present? %>
     <% count = 1 %>
     <% @data_view.each { |v|   %>
-      <% case count %>
-        <% when 1 %>
-          <div class="row">
-            <div class="col-md-2">
-              <a href="#">
-                <!-- <img data-holder-rendered="true" src="http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png" style="" class="img-responsive" alt=""> -->
-                <%=  image_tag("system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
-              </a>  
-            </div>
-            <div class="col-md-4">
-              <div class="title"><a href="#"><%= v["title"] %></a></div>
-              <div class="date"> <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %> | Author: <a href="#"><%= v["lastname"].to_s + v["firstname"].to_s %></a></div>
-              <div class="description">
-                <%= v["description"] %>
-              </div>
-            </div>
-            <% count = count + 1 %>
-        <% when 2 %>
-            <div class="col-md-2">
-              <a href="#">
-                <!-- <img data-holder-rendered="true" src="http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png" style="" class="img-responsive" alt=""> -->
-                <%=  image_tag("system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
-              </a>  
-            </div>
-            <div class="col-md-4">
-              <div class="title"><a href="#"><%= v["title"] %></a></div>
-              <div class="date"> <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %> | Author: <a href="#"><%= v["lastname"].to_s + v["firstname"].to_s %></a></div>
-              <div class="description">
-                <%= v["description"] %>
-              </div>
-            </div>
-          </div><br/>
-          <% count = 1 %>
-      <% end %>
-      <!-- .strftime("%d-%m-%Y") -->
+    <% case count %>
+    <% when 1 %>
+    <div class="row">
+      <div class="col-md-2">
+        <a href="#">
+          <!-- <img data-holder-rendered="true" src="http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png" style="" class="img-responsive" alt=""> -->
+          <%=  image_tag("system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
+        </a>  
+      </div>
+      <div class="col-md-4">
+        <div class="title">   
+          <%= link_to({controller:"posts",action:"detail",id:v["id"]}) do %>
+              <%= v["title"] %>
+          <% end %>
+        </div>
+        <div class="date"> <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %> | Author: 
+          <a href="<%= "/user-blog/?id=#{v["user_id"]}" %>">
+            <%= v["lastname"].to_s + v["firstname"].to_s %>
+          </a>
+        </div>
+        <div class="description">
+          <%= v["description"] %>
+        </div>
+      </div>
+      <% count = count + 1 %>
+      <% when 2 %>
+      <div class="col-md-2">
+        <a href="#">
+          <!-- <img data-holder-rendered="true" src="http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png" style="" class="img-responsive" alt=""> -->
+          <%=  image_tag("system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
+        </a>  
+      </div>
+      <div class="col-md-4">
+        <div class="title">   
+          <%= link_to({controller:"posts",action:"detail",id:v["id"]}) do %>
+              <%= v["title"] %>
+          <% end %>
+        </div>
+        <div class="date"> <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %> | Author: 
+          <a href="<%= "/user-blog/?id=#{v["user_id"]}" %>">
+            <%= v["lastname"].to_s + v["firstname"].to_s %>
+          </a>
+        </div>
+        <div class="description">
+          <%= v["description"] %>
+        </div>
+      </div>
+    </div><br/>
+    <% count = 1 %>
+    <% end %>
+    <!-- .strftime("%d-%m-%Y") -->
     <% } %>
     <% end %>
-    </div><br>
-  </div>
+  </div><br>
+</div>
 </div>

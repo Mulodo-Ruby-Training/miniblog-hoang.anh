@@ -1,0 +1,135 @@
+<div class="row" style="margin-top:10px;">
+  <ol class="breadcrumb">
+    <li><%= link_to("Home", {controller: 'posts', action: 'index'}) %></li>
+    <li class="active">Blog</li>
+  </ol>
+  <!--Content-->
+  <div class="row">
+    <form action="" role="form">
+      <div class="col-md-8">
+        <div class="col-md-1" style="padding-top: 6px;">
+          <label for="Sort" class="control-label">Sort</label>
+        </div>
+        <div class="col-md-3">
+          <select id="sort-items" class="form-control">
+            <option value="newest">Newest</option>
+            <option value="most_comment">Most comment</option>
+            <option value="name">Name (A-Z)</option>
+          </select>
+        </div>
+        <div class="col-md-1" style="padding-top: 6px;">
+          <label for="Show" class="control-label">Show</label>
+        </div>
+        <div class="col-md-2">
+          <select id="show-items" class="form-control">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div><br>
+  <div class="container">
+    <% if @data_view.present? %>
+    <% count = 1 %>
+    <% @data_view.each { |v|   %>
+    <% case count %>
+    <% when 1 %>
+    <div class="row">
+      <div class="col-md-2">
+        <a href="#">
+          <!-- <img data-holder-rendered="true" src="http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png" style="" class="img-responsive" alt=""> -->
+          <%=  image_tag("system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
+        </a>  
+      </div>
+      <div class="col-md-4">
+        <div class="title"><a href="#"><%= v["title"] %></a></div>
+        <div class="date"> Wrote: <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %></div>
+        <div class="description">
+          <%= v["description"] %>
+        </div>
+      </div>
+      <% count = count + 1 %>
+      <% when 2 %>
+      <div class="col-md-2">
+        <a href="#">
+          <!-- <img data-holder-rendered="true" src="http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png" style="" class="img-responsive" alt=""> -->
+          <%=  image_tag("system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
+        </a>  
+      </div>
+      <div class="col-md-4">
+        <div class="title"><a href="#"><%= v["title"] %></a></div>
+        <div class="date"> Wrote: <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %></div>
+        <div class="description">
+          <%= v["description"] %>
+        </div>
+      </div>
+    </div><br/>
+    <% count = 1 %>
+    <% end %>
+    <!-- .strftime("%d-%m-%Y") -->
+    <% } %>
+    <% end %>
+  </div>
+  <div class="col-md-12">
+    <ul class="pagination">
+      <!-- checking current page must be not zero or null -->
+      <% if @page == 0 || @page == "" || !@page.present? %>
+      <% @page = 1 %>
+      <% end %>
+
+      <!-- Pre Button -->
+      <% pre_page = @page.to_i %>
+      <% if pre_page <= 1 %>
+      <% pre_page = 1 %>
+      <li class="disabled"><a href="#">Prev</a></li>
+      <% else %>
+      <% pre_page = pre_page - 1 %>
+      <li><a href=<%= "/user-blog/?id=#{@id}&page=#{pre_page}&per_page=#{@per_page}" %>>Pre</a></li>
+      <% end %>
+
+      <!-- List pages -->
+      <% for i in 1..@pagination["pages"].to_i %>
+      <% if @page.to_i == i  %>
+      <li class="active">
+        <a href="#"><%= i %></a>
+      </li>
+      <% else %>
+      <li>
+        <a href=<%= "/user-blog/?id=#{@id}&page=#{i}&per_page=#{@per_page}" %>>
+          <%= i %>
+        </a>
+      </li>
+      <% end %>
+      <% end %>
+
+      <!-- Next button -->
+      <% next_page = @page.to_i %>
+      <% if next_page >= @pagination["pages"].to_i%>
+      <% next_page = @pagination["pages"].to_i %>
+      <li class="disabled"><a href="#">Next</a></li>
+      <% else %>
+      <% next_page = next_page + 1 %>
+      <li><a href=<%= "/user-blog/?id=#{@id}&page=#{next_page}&per_page=#{@per_page}" %>>Next</a></li>
+      <% end %>
+    </ul>
+
+  </div>
+</div>
+<script>
+  jQuery(document).ready(function($) {
+    $("#sort-items").val('<%= @order %>');
+    $("#show-items").val('<%= @per_page %>');
+  });
+
+  $("#sort-items").on('change', function() {
+    v = this.value
+    window.location.href = '<%= "/user-blog/?id=#{@id}&page=#{@page}&per_page=#{@per_page}&order="%>'+v;
+  });
+
+  $("#show-items").on('change', function() {
+    v = this.value
+    window.location.href = '<%= "/user-blog/?id=#{@id}&page=#{@page}&per_page="%>'+v+'<%="&order=#{@order}"%>';
+  });
+</script>
