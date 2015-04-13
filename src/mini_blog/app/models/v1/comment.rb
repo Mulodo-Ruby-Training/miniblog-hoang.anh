@@ -19,8 +19,8 @@ module V1
           description:MSG_CREATE_COMMENT_SUCCESS,
           messages:"Successful",data: nil})
       else
-        V1::User.return_result({code: ERROR_CREATE_COMMENT_FAILED,
-          description:MSG_CREATE_COMMENT_FAILED,
+        V1::User.return_result({code: ERROR_VALIDATE,
+          description:MSG_VALIDATE,
           messages:comment.errors,data: nil})
       end
     end

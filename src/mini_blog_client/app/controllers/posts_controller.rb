@@ -1,6 +1,9 @@
 class PostsController < ApplicationController
   def index
-    response = Net::HTTP.get(URI.parse('http://localhost:3000/v1/posts?limit=10'))
+    page = params[:page]
+    per_page = params[:per_page]
+    order = params[:order]
+    response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/posts?limit=10&page=#{page}&per_page=#{per_page}&order=#{order}"))
     data_output = JSON.parse(response)
     if data_output["meta"]["code"].to_i == 200
       @data_view = data_output["data"]["source"]
@@ -10,9 +13,9 @@ class PostsController < ApplicationController
   end
 
   def all
-    @page = (params[:page] rescue "")
-    @per_page = (params[:per_page] rescue "")
-    @order = (params[:order] rescue "")
+    @page = params[:page]
+    @per_page = params[:per_page]
+    @order = params[:order]
 
     response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/posts?page=#{@page}&per_page=#{@per_page}&order=#{@order}"))
     data_output = JSON.parse(response)
@@ -50,13 +53,24 @@ class PostsController < ApplicationController
   end
 
   def detail
-    response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/posts/"+params[:id].to_s))
-    data_output = JSON.parse(response)
-    if data_output["meta"]["code"].to_i == 200
-      @data_view = data_output["data"]
+    if !request.xhr?
+      response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/posts/"+params[:id].to_s))
+      data_output = JSON.parse(response)
+      if data_output["meta"]["code"].to_i == 200
+        @data_view = data_output["data"]
+      end
+
+      response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/posts/"+params[:id].to_s+"/comments"))
+      data_output = JSON.parse(response)
+      if data_output["meta"]["code"].to_i == 200
+        @data_view2 = data_output["data"]["source"]
+        @pagination = data_output["data"]["pagination"]
+      end
     else
-      @error = data_output["meta"]["description"]
-    end 
+      response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/posts/"+params[:id].to_s+"/comments?page="+params[:page].to_s))
+      data_output = JSON.parse(response)
+      render json:data_output
+    end
   end
 
   #function to build UI create post
