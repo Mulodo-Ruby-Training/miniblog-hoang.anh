@@ -5,8 +5,10 @@ module V1
 
     #function to create a comments
     def create
-      if V1::User.check_login(session[:id],session[:token])
-        user_id = session[:id]
+      session_id = params[:session_id]
+      session_token = params[:session_token]
+      if V1::User.check_login(session_id,session_token)
+        user_id = session_id
         data = {
           user_id: user_id,
           post_id: params[:post_id],
@@ -22,11 +24,12 @@ module V1
 
     #function to edit a comments
     def edit
-      if V1::User.check_login(session[:id],session[:token])
-        user_id = session[:id]
+      session_id = params[:session_id]
+      session_token = params[:session_token]
+      if V1::User.check_login(session_id,session_token)
         comment_id = params[:id]
         data = {
-          user_id: user_id,
+          user_id: session_id,
           post_id: params[:post_id],
           content: params[:content]
         }
@@ -40,10 +43,11 @@ module V1
 
     # function to delete a comments
     def delete
-      if V1::User.check_login(session[:id],session[:token])
-        user_id = session[:id]
+      session_id = params[:session_id]
+      session_token = params[:session_token]
+      if V1::User.check_login(session_id,session_token)
         comment_id = params[:id]
-        render json: V1::Comment.delete_comment(comment_id,user_id), 
+        render json: V1::Comment.delete_comment(comment_id,session_id) 
       else
         render json: V1::User.return_result({code:ERROR_NOT_LOGIN,
           description:MSG_NOT_LOGIN,

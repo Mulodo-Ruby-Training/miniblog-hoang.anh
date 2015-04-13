@@ -24,7 +24,7 @@ module V1
       }
       comment = V1::Comment.create_comment(data)
       actual = comment[:meta][:code]
-      expected = 3002
+      expected = 1001
       puts this_method_name + " - " +assert_equal(expected, actual).to_s
     end
 

@@ -1,0 +1,95 @@
+<!--Tool for commenting -->
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_tag({controller: "comments", action: "create", id: params[:id]}, multipart: true, method: "post", class: "form-horizontal",role: "form") do %>
+        <%= text_area(:comment,:content,id:"text-create-comment",class:"styled-textarea",placeholder:"Type your comment...") %>
+        <div class="container-fluid">
+          <div class="row styled-comment">
+            <div class="col-md-7 col-sm-6 col-xs-12" style="margin-top:7px;">
+              <!-- <span style="color:#85C994">
+                You have created a comment successfully
+              </span>
+              <span style="color:#EF4A36">
+                You have created a comment unsuccessfully
+              </span> -->
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-12 container-menu-icon">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="icon-smiley"></span><span class="caret"></span></a>
+              <ul class="dropdown-menu menu-icon-create-comment" role="menu">
+                <li>
+                  <a role="button">
+                    <span class="icon-smiley"></span>
+                    <span>SMILEY</span>
+                  </a>
+                </li>
+                <li>
+                  <a role="button">
+                    <span class="icon-happy"></span>
+                    <span>HAPPY</span>
+                  </a>
+                </li>
+                <li>
+                  <a role="button">
+                    <span class="icon-tongue"></span>
+                    <span>TONGUE</span>
+                  </a>
+                </li>
+                <li>
+                  <a role="button">
+                    <span class=" icon-sad"></span>
+                    <span>SAD</span>
+                  </a>
+                </li>
+                <li>
+                  <a role="button">
+                    <span class="icon-wink"></span>
+                    <span>WINK</span>
+                  </a>
+                </li>
+                <li>
+                  <a role="button">
+                    <span class="icon-grin"></span>
+                    <span>GRIN</span>
+                  </a>
+                </li>
+                <li>
+                  <a role="button">
+                    <span class="icon-evil"></span>
+                    <span>EVIL</span>
+                  </a>
+                </li>
+                <li>
+                  <a role="button">
+                    <span class="icon-shocked"></span>
+                    <span>SHOCKED</span>
+                  </a>
+                </li>
+                <li>
+                  <a role="button">
+                    <span class="icon-confused"></span>
+                    <span>CONFUSED</span>
+                  </a>
+                </li>
+                <li>
+                  <a role="button">
+                    <span class="icon-neutral"></span>
+                    <span>NEUTRAL</span>
+                  </a>
+                </li>
+                <li>
+                  <a role="button">
+                    <span class="icon-wondering"></span>
+                    <span>WONDERING</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <button type="submit" class="btn btn-primary" style="width:100%;">Create</button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <!-- /*End tool for commenting*/ -->

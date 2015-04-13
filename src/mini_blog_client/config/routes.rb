@@ -16,10 +16,13 @@ Rails.application.routes.draw do
   post "users/login", to: "users#login"
   post "posts/create", to: "posts#create"
   post "posts/delete", to: "posts#delete"
+  post "comments/create", to: "comments#create"
+  post "comments/delete", to: "comments#delete"
 
   put "users/update", to: "users#update"
   put "users/update-password", to: "users#update_password"
   put "posts/update", to: "posts#update"
+  put "comments/update", to: "comments#update"
 
   get "logout", to: "users#logout"
   get "search-user/", to: "users#search"

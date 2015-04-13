@@ -1,0 +1,108 @@
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content"  style="padding:25px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit below comment</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- <div class="col-md-12"> -->
+            <%= form_tag({controller: "comments", action: "update", id: params[:id]}, multipart: true, method: "put", class: "form-horizontal",role: "form") do %>
+
+              <%= text_area(:comment,:content,id:"text-edit-comment",class:"styled-textarea",placeholder:"Type your comment...") %>
+              <%= hidden_field(:comment,:comment_id,id:"id-edit-comment",class:"form-control") %>
+              <div class="container-fluid">
+                <div class="row styled-comment">
+                  <div class="col-md-7 col-xs-12" style="margin-top:7px;">
+                    <!-- <span style="color:#85C994">
+                      You have created a comment successfully
+                    </span> -->
+                  </div>
+                  <div class="col-md-2 col-xs-12 container-menu-icon">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="icon-smiley"></span><span class="caret"></span></a>
+                    <ul class="dropdown-menu menu-icon-edit-comment" role="menu">
+                      <li>
+                        <a role="button">
+                          <span class="icon-smiley"></span>
+                          <span>SMILEY</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button">
+                          <span class="icon-happy"></span>
+                          <span>HAPPY</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button">
+                          <span class="icon-tongue"></span>
+                          <span>TONGUE</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button">
+                          <span class=" icon-sad"></span>
+                          <span>SAD</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button">
+                          <span class="icon-wink"></span>
+                          <span>WINK</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button">
+                          <span class="icon-grin"></span>
+                          <span>GRIN</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button">
+                          <span class="icon-evil"></span>
+                          <span>EVIL</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button">
+                          <span class="icon-shocked"></span>
+                          <span>SHOCKED</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button">
+                          <span class="icon-confused"></span>
+                          <span>CONFUSED</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button">
+                          <span class="icon-neutral"></span>
+                          <span>NEUTRAL</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a role="button">
+                          <span class="icon-wondering"></span>
+                          <span>WONDERING</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3 col-xs-12">
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Update</button>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<%= form_tag({controller: "comments", action: "delete", id: params[:id]}, multipart: true, method: "post", class: "form-horizontal",role: "form") do %>
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content"  style="padding:25px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Comfirm delete?</h4>
+      </div>
+      <div class="modal-body" style="text-align:center">
+        Are you sure delete this comment?
+        <%= hidden_field(:comment,:comment_id,id:"delete-comment",class:"form-control") %>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

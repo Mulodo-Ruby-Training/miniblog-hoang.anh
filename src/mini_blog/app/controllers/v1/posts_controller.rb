@@ -71,17 +71,18 @@ module V1
 
     #function to show all posts
     def index
-      limit = params[:limit]
-      page = params[:page]
-      per_page = params[:per_page]
-      order = params[:order]
+      limit = params[:limit].to_i
+      page = params[:page].to_i
+      per_page = params[:per_page].to_i
+      order = params[:order].to_s
       render json: V1::Post.get_all_post(limit,order,page,per_page)
     end
 
     #function to get all comments of a certain post
     def show_all_comments_post
       post_id = params[:id]
-      render json: V1::Post.get_all_comments_post(post_id)
+      page = params[:page].to_i
+      render json: V1::Post.get_all_comments_post(post_id,page)
     end
 
     #function to get a certain post
@@ -91,10 +92,10 @@ module V1
     end
 
     def search
-      page = params[:page]
-      per_page = params[:per_page]
+      page = params[:page].to_i
+      per_page = params[:per_page].to_i
       keyword = params[:keyword]
-      user_id = params[:id]
+      user_id = params[:id].to_i
       render json: V1::Post.search_posts(user_id,keyword,page,per_page)
     end
 
