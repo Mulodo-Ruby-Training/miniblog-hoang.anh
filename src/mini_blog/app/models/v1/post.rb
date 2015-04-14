@@ -84,7 +84,7 @@ module V1
     def self.get_all_post(limit=10,order=nil,page=1,per_page=10)
 
       page = 1 if page == 0
-      per_page = 10 if per_page == 0
+      per_page = 10 if per_page.to_i == 0
 
       case order
       when 'newest'
