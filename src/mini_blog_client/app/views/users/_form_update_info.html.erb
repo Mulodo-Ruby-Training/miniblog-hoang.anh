@@ -46,7 +46,7 @@
         <span>Upload Avatar</span>
         <%= file_field(:user,:avatar,class:"upload",onchange:"handlerInputFileChange(this)") %>
       </div>
-      <%=  image_tag("system/200x200.gif",class:"img-thumbnail",id:"image-upload",style:"width:150px;height:150px;",alt:"Avatar User") %>
+      <%=  image_tag(@data_view['avatar'] ? DOMAIN_HOST+@data_view['avatar'] : "system/200x200.gif",class:"img-thumbnail",id:"image-upload",style:"width:150px;height:150px;",alt:"Avatar User") %>
     </div>
   </div>
 

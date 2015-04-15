@@ -175,7 +175,7 @@ module V1
           username:user.username,
           firstname:user.firstname,
           lastname:user.lastname,
-          avatar:user.avatar,
+          avatar:user.avatar.url,
           birthday:user.birthday,
           gender:user.gender,
           email:user.email,
@@ -331,7 +331,7 @@ module V1
       posts = (V1::Post.where("posts.user_id = #{user_id}")
         .where("status = 1")
         .joins(:user)
-        .select("posts.id, posts.user_id,title,description,image,status,posts.updated_at,posts.created_at,firstname, lastname")
+        .select("posts.id, posts.user_id,title,description,image,status,posts.updated_at,posts.created_at,firstname, lastname, users.avatar")
         .order(order)
         .page(page)
         .per(per_page) rescue nil)
@@ -344,6 +344,7 @@ module V1
       end
 
       if posts
+        # posts[:post][:avatar] = posts[:post][:avatar][:url]
         return_result({code:STATUS_OK,description:"Get all post successfully",
           messages:"Successful",data:posts,pagination:{items:count_total_items,pages:count_total_pages}})
       else
