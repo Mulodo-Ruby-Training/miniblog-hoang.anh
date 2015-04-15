@@ -1,10 +1,17 @@
 module V1
   class UsersController < ApplicationController
+    include Utility
     respond_to :json
     skip_before_filter :verify_authenticity_token
 
     #function to create a user account
     def create
+      if params[:avatar]
+        io = V1::FileStringUpload.new(Base64.decode64(params[:avatar]))
+        io.original_filename = params[:name_original_avatar].to_s
+        params[:avatar] = io
+      end
+
       data_input = {
         username: params[:username],
         password: params[:password],
@@ -21,6 +28,7 @@ module V1
       }
       #Call function insert_user from model V1:User and render result to json
       render json: V1::User.insert_user(data_input)
+      # render json: {test: params[:avatar]}
     end
 
     #function to login for user
@@ -46,6 +54,13 @@ module V1
     def update
       session_id = params[:session_id]
       session_token = params[:session_token]
+      
+      if params[:avatar]
+        io = V1::FileStringUpload.new(Base64.decode64(params[:avatar]))
+        io.original_filename = params[:name_original_avatar].to_s
+        params[:avatar] = io
+      end
+
       data_input = {
         firstname: params[:firstname],
         lastname: params[:lastname],

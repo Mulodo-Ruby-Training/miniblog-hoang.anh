@@ -8,8 +8,7 @@ class CommentsController < ApplicationController
     params[:comment][:session_token] = session[:token]
     params[:comment][:post_id] = params[:id]
     data_input = params[:comment]
-    resp = Net::HTTP.post_form(URI.parse('http://localhost:3000/v1/comments'),data_input)
-    data_output = JSON.parse(resp.body)
+    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION+"/"+COMMENTS_TABLE,data_input)
 
     if data_output["meta"]["code"].to_i == 1001
       flash[:errors] = data_output["meta"]["messages"]
@@ -32,13 +31,7 @@ class CommentsController < ApplicationController
     params[:comment][:session_token] = session[:token]
     params[:comment][:post_id] = params[:id]
     data_input = params[:comment]
-
-    uri = URI.parse('http://localhost:3000/v1/comments/'+params[:comment][:comment_id].to_s)
-    http = Net::HTTP.new(uri.host,uri.port)
-    request = Net::HTTP::Put.new(uri.path)
-    request.set_form_data(data_input)
-    response = http.request(request)
-    data_output = JSON.parse(response.body)
+    data_output = ::Utility.send_request_to_host_api("put",DOMAIN_HOST+VERSION+"/"+COMMENTS_TABLE+"/"+params[:comment][:comment_id].to_s,data_input)
 
     if data_output["meta"]["code"].to_i == 1001
       flash[:errors] = data_output["meta"]["messages"]
@@ -61,14 +54,8 @@ class CommentsController < ApplicationController
     params[:comment][:session_token] = session[:token]
     params[:comment][:post_id] = params[:id]
     data_input = params[:comment]
-
-    uri = URI.parse('http://localhost:3000/v1/comments/'+params[:comment][:comment_id].to_s)
-    http = Net::HTTP.new(uri.host,uri.port)
-    request = Net::HTTP::Delete.new(uri.path)
-    request.set_form_data(data_input)
-    response = http.request(request)
-    data_output = JSON.parse(response.body)
-
+    data_output = ::Utility.send_request_to_host_api("delete",DOMAIN_HOST+VERSION+"/"+COMMENTS_TABLE+"/"+params[:comment][:comment_id].to_s,data_input)
+   
     if data_output["meta"]["code"].to_i == 1001
       flash[:errors] = data_output["meta"]["messages"]
     else
