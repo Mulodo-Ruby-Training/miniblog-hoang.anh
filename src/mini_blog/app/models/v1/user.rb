@@ -213,7 +213,7 @@ module V1
         data = []
         for user in users
           temp_data = {id: user.id, username: user.username, firstname: user.firstname,
-            lastname: user.lastname, avatar: user.avatar, created_at: user.created_at.strftime("%d-%m-%Y")}
+            lastname: user.lastname, avatar: user.avatar.url, created_at: user.created_at.strftime("%d-%m-%Y")}
             data << temp_data
           end
           return_result({code:STATUS_OK,description:"Get users successfully",
@@ -229,7 +229,7 @@ module V1
           data = []
           for user in users
             temp_data = {id: user.id, username: user.username, firstname: user.firstname,
-              lastname: user.lastname, avatar: user.avatar, created_at: user.created_at.strftime("%d-%m-%Y")}
+              lastname: user.lastname, avatar: user.avatar.url, created_at: user.created_at.strftime("%d-%m-%Y")}
               data << temp_data
             end
             return_result({code:STATUS_OK,description:"Get user info successfully",

@@ -12,6 +12,8 @@ module V1
       end
     end
 
+    mount_uploader :image, ImageUploader
+
     validates_presence_of :title
     validates_presence_of :content
     validates_presence_of :user_id, on: :create
@@ -133,14 +135,14 @@ module V1
       end
     end
 
-    #function to get a certain post
+    #function to get a certain post that have status is enable where("posts.status=1")
     def self.get_a_post(post_id)
       posts = self.where("posts.id=#{post_id}")
-      .where("posts.status=1")
       .joins(:user)
       .limit(1)
       .select("posts.id, posts.user_id,title,content,image,status,posts.created_at,
         firstname, lastname,avatar,users.created_at as joined_at")
+
       if posts
         V1::User.return_result({code:STATUS_OK,description:"Get a post successfully",
           messages:"Successful",data:posts})
@@ -149,6 +151,7 @@ module V1
           messages:"Unuccessful",data:nil})
       end
     end
+
     #function to search posts
     def self.search_posts(user_id,keyword,page=1,per_page=10)
       page = 1 if page == 0
