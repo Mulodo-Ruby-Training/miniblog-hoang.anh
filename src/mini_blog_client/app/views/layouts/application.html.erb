@@ -5,6 +5,13 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <style>
+    #go-to-top:hover > i{
+      font-size: 1.2em;
+      color: #222;
+      opacity: 0.7;
+    }
+  </style>
 </head>
 <body style="padding-bottom:70px">
   <div class="container-fluid" style="background-color: #28AAE0;border-color: #28AAE0;">
@@ -41,10 +48,16 @@
   <div class="navbar navbar-fixed-bottom" style="background-color: #28AAE0;border-color: #28AAE0;padding:15px;">
     <div class="container">
       <span style="color:#fff;margin:5px;font-size:1em">Mulodo 2015</span>
-      <i id="go-to-top" class="glyphicon glyphicon-arrow-up pull-right" style="color:#fff;margin:5px;"></i>
+      <a role="button" href="#" id="go-to-top" class="pull-right" style="color:#fff;margin:5px;"><i class="glyphicon glyphicon-arrow-up"></i></a>
     </div>
   </div>
- 
+ <script>
+ $("#go-to-top").click(function(event) {
+  event.preventDefault();
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    return false;
+ });
+ </script>
 
 </body>
 </html>

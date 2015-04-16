@@ -15,7 +15,8 @@
       <div class="col-md-2">
         <a href="#">
           <!-- <img data-holder-rendered="true" src="http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png" style="" class="img-responsive" alt=""> -->
-          <%=  image_tag("system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
+          
+           <%=  image_tag(v['image']['url'] ? DOMAIN_HOST+"/"+v['image']['url'].to_s : "system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
         </a>  
       </div>
       <div class="col-md-4">
@@ -38,7 +39,7 @@
       <div class="col-md-2">
         <a href="#">
           <!-- <img data-holder-rendered="true" src="http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png" style="" class="img-responsive" alt=""> -->
-          <%=  image_tag("system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
+          <%=  image_tag(v['image']['url'] ? DOMAIN_HOST+"/"+v['image']['url'].to_s : "system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
         </a>  
       </div>
       <div class="col-md-4">

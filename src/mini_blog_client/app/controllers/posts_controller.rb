@@ -55,9 +55,16 @@ class PostsController < ApplicationController
   def detail
     if !request.xhr?
       data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"/"+params[:id].to_s)
+      
+      if data_output["data"][0].nil? || data_output["data"][0]["status"] == false
+        redirect_to({action:'index'})
+        return false
+      end
+
       if data_output["meta"]["code"].to_i == 200
         @data_view = data_output["data"]
       end
+
       data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"/"+params[:id].to_s+"/"+COMMENTS_TABLE)
       if data_output["meta"]["code"].to_i == 200
         @data_view2 = data_output["data"]["source"]
@@ -82,6 +89,17 @@ class PostsController < ApplicationController
       redirect_to({controller:'users', action:'signin'})
     end
 
+    if params[:post][:image]
+      url_image = Post::upload(params[:post][:image])
+      if url_image != false
+        string_encode = Base64.encode64(File.open(Rails.root.to_s + "/public" + url_image.to_s,"rb").read)
+        original_image = params[:post][:image].original_filename
+        params[:post][:image] = string_encode
+        params[:post][:name_original_image] = original_image
+        # File.delete(Rails.root.to_s + "/public" + url_image.to_s)
+      end
+    end
+    
     params[:post][:session_id] = session[:id]
     params[:post][:session_token] = session[:token]
     data_input = params[:post]
@@ -107,23 +125,30 @@ class PostsController < ApplicationController
       user_id = session[:id]
       data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"/"+post_id.to_s)
 
-      if data_output["meta"]["code"].to_i != 200
+      if data_output["meta"]["code"].to_i != 200 || data_output["data"][0]["user_id"] != user_id
         redirect_to({action:'index'})
         return false
       end
 
-      if data_output["data"]["user_id"] != user_id
-        redirect_to({action:'index'})
-        return false
-      end
-
-      @data_view = data_output["data"]
+      @data_view = data_output["data"][0]
     end
   end
 
   def update
     if !session[:id] && !session[:token]
       redirect_to({controller:'users', action:'signin'})
+      return false
+    end
+
+    if params[:post][:image]
+      url_image = Post::upload(params[:post][:image])
+      if url_image != false
+        string_encode = Base64.encode64(File.open(Rails.root.to_s + "/public" + url_image.to_s,"rb").read)
+        original_image = params[:post][:image].original_filename
+        params[:post][:image] = string_encode
+        params[:post][:name_original_image] = original_image
+        # File.delete(Rails.root.to_s + "/public" + url_image.to_s)
+      end
     end
 
     params[:post][:session_id] = session[:id]

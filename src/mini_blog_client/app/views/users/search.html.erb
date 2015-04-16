@@ -20,7 +20,7 @@
             <div class="col-md-5">
               <a href="#">
 
-              <img data-holder-rendered="true" src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" style="" class="img-responsive" alt="">
+              <%=  image_tag(v['avatar'] ? DOMAIN_HOST+"/"+v['avatar'].to_s : "system/200x200.gif",class:"img-responsive",alt:"Image User") %>
 
              </a>
            </div>
@@ -39,7 +39,7 @@
             <div class="col-md-5">
               <a href="#">
 
-               <img data-holder-rendered="true" src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" style="" class="img-responsive" alt="">
+               <%=  image_tag(v['avatar'] ? DOMAIN_HOST+"/"+v['avatar'].to_s : "system/200x200.gif",class:"img-responsive",alt:"Image User") %>
 
              </a>
            </div>
@@ -58,7 +58,7 @@
             <div class="col-md-5">
               <a href="#">
 
-               <img data-holder-rendered="true" src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" style="" class="img-responsive" alt="">
+              <%=  image_tag(v['avatar'] ? DOMAIN_HOST+"/"+v['avatar'].to_s : "system/200x200.gif",class:"img-responsive",alt:"Image User") %>
 
              </a>
            </div>

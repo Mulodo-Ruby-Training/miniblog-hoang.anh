@@ -8,6 +8,11 @@ module V1
       session_id = params[:session_id]
       session_token = params[:session_token]
       if V1::User.check_login(session_id,session_token)
+        if params[:image]
+          io = V1::FileStringUpload.new(Base64.decode64(params[:image]))
+          io.original_filename = params[:name_original_image].to_s
+          params[:image] = io
+        end
         user_id = session_id
         data = {
           title: params[:title],
@@ -29,6 +34,11 @@ module V1
       session_id = params[:session_id]
       session_token = params[:session_token]
       if V1::User.check_login(session_id,session_token)
+        if params[:image]
+          io = V1::FileStringUpload.new(Base64.decode64(params[:image]))
+          io.original_filename = params[:name_original_image].to_s
+          params[:image] = io
+        end
         post_id = params[:id]
         data = {
           title: params[:title],

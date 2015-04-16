@@ -34,7 +34,11 @@
         <% @data_view.each { |v| %>
         <tr>
           <td><%= v["id"] %></td>
-          <td><a href="edit-post.html"><%= v["title"] %></a></td>
+          <td>
+            <%= link_to({controller:"posts",action:"edit",id:v["id"]}) do %>
+              <%= v["title"] %>
+            <% end %>
+          </td>
           <td><%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %></td>
           <td><%= Date.parse(v["updated_at"]).strftime("%d-%m-%Y") %></td>
           <td>
@@ -53,7 +57,11 @@
               <%= hidden_field(:post, :post_id, value: v["id"] ) %>
             <% end %>
             </a>
-            
+            <% if v["status"] %>
+              <span class="label label-success">Enable</span>
+            <% else %>
+              <span class="label label-warning">Disable</span>
+            <% end %>   
           </td>
         </tr>
         <% } %>
