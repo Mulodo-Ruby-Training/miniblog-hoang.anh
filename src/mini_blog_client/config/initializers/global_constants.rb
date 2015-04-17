@@ -1,5 +1,5 @@
 DOMAIN_HOST = "http://localhost:3000/"
-VERSION = "v1"
+VERSION_API = "v1"
 USERS_TABLE = "users"
 POSTS_TABLE = "posts"
 COMMENTS_TABLE = "comments"

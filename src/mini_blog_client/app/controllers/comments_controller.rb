@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     params[:comment][:session_token] = session[:token]
     params[:comment][:post_id] = params[:id]
     data_input = params[:comment]
-    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION+"/"+COMMENTS_TABLE,data_input)
+    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION_API+"/"+COMMENTS_TABLE,data_input)
 
     if data_output["meta"]["code"].to_i == 1001
       flash[:errors] = data_output["meta"]["messages"]
@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
     params[:comment][:session_token] = session[:token]
     params[:comment][:post_id] = params[:id]
     data_input = params[:comment]
-    data_output = ::Utility.send_request_to_host_api("put",DOMAIN_HOST+VERSION+"/"+COMMENTS_TABLE+"/"+params[:comment][:comment_id].to_s,data_input)
+    data_output = ::Utility.send_request_to_host_api("put",DOMAIN_HOST+VERSION_API+"/"+COMMENTS_TABLE+"/"+params[:comment][:comment_id].to_s,data_input)
 
     if data_output["meta"]["code"].to_i == 1001
       flash[:errors] = data_output["meta"]["messages"]
@@ -54,7 +54,7 @@ class CommentsController < ApplicationController
     params[:comment][:session_token] = session[:token]
     params[:comment][:post_id] = params[:id]
     data_input = params[:comment]
-    data_output = ::Utility.send_request_to_host_api("delete",DOMAIN_HOST+VERSION+"/"+COMMENTS_TABLE+"/"+params[:comment][:comment_id].to_s,data_input)
+    data_output = ::Utility.send_request_to_host_api("delete",DOMAIN_HOST+VERSION_API+"/"+COMMENTS_TABLE+"/"+params[:comment][:comment_id].to_s,data_input)
    
     if data_output["meta"]["code"].to_i == 1001
       flash[:errors] = data_output["meta"]["messages"]

@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     end
   
     data_input = params[:user]
-    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION+"/"+USERS_TABLE,data_input)
+    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION_API+"/"+USERS_TABLE,data_input)
     
     if data_output["meta"]["code"].to_i == 1001
       flash[:errors] = data_output["meta"]["messages"]
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   def edit
     if session[:id] && session[:token]
       
-      data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+USERS_TABLE+"/"+session[:id].to_s)
+      data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION_API+"/"+USERS_TABLE+"/"+session[:id].to_s)
       
       if data_output["meta"]["code"].to_i == 200
         @data_view = data_output["data"]
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
       params[:user][:session_id] = session[:id]
       params[:user][:session_token] = session[:token]
       data_input = params[:user]
-      data_output = ::Utility.send_request_to_host_api("put",DOMAIN_HOST+VERSION+"/"+USERS_TABLE+"/"+session[:id].to_s)
+      data_output = ::Utility.send_request_to_host_api("put",DOMAIN_HOST+VERSION_API+"/"+USERS_TABLE+"/"+session[:id].to_s,data_input)
 
       if data_output["meta"]["code"].to_i == 1001
         flash[:errors] = data_output["meta"]["messages"]
@@ -100,13 +100,8 @@ class UsersController < ApplicationController
       params[:user][:session_id] = session[:id]
       params[:user][:session_token] = session[:token]
       data_input = params[:user]
-      data_output = ::Utility.send_request_to_host_api("put",DOMAIN_HOST+VERSION+"/"+USERS_TABLE+"/"+session[:id].to_s+"/password")
-      # uri = URI.parse('http://localhost:3000/v1/users/'+session[:id].to_s+'/password')
-      # http = Net::HTTP.new(uri.host,uri.port)
-      # request = Net::HTTP::Put.new(uri.path)
-      # request.set_form_data(data_input)
-      # response = http.request(request)
-      # data_output = JSON.parse(response.body)
+      data_output = ::Utility.send_request_to_host_api("put",DOMAIN_HOST+VERSION_API+"/"+USERS_TABLE+"/"+session[:id].to_s+"/password",data_input)
+
       if data_output["meta"]["code"].to_i == 200
         flash[:notice] = data_output["meta"]["description"]
       else
@@ -126,7 +121,7 @@ class UsersController < ApplicationController
     @keyword = (params[:user][:keyword] rescue "")
     @page = (params[:page].to_s rescue "")
     @per_page = (params[:per_page].to_s rescue "")
-    result = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+USERS_TABLE+"/search/?"+KEYWORD+"="+@keyword+"&"+PAGE+"="+@page+"&"+PER_PAGE+"="+@per_page)
+    result = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION_API+"/"+USERS_TABLE+"/search/?"+KEYWORD+"="+@keyword+"&"+PAGE+"="+@page+"&"+PER_PAGE+"="+@per_page)
     @data_view = result["data"]["source"]
     @pagination = result["data"]["pagination"]
   end
@@ -141,7 +136,7 @@ class UsersController < ApplicationController
       redirect_to({action:'all',controller:'posts'})
     end
 
-    data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+USERS_TABLE+"/"+@id.to_s+"/posts_status_true/?"+PAGE+"="+@page.to_s+"&"+PER_PAGE+"="+@per_page.to_s+"&"+ORDER+"="+@order.to_s)
+    data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION_API+"/"+USERS_TABLE+"/"+@id.to_s+"/posts_status_true/?"+PAGE+"="+@page.to_s+"&"+PER_PAGE+"="+@per_page.to_s+"&"+ORDER+"="+@order.to_s)
     if data_output["meta"]["code"].to_i == 200
       @data_view = data_output["data"]["source"]
       @pagination = data_output["data"]["pagination"]
@@ -154,7 +149,7 @@ class UsersController < ApplicationController
     params[:user][:session_id] = session[:id]
     params[:user][:session_token] = session[:token]
     data_input = params[:user]
-    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION+"/"+USERS_TABLE+"/login",data_input)
+    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION_API+"/"+USERS_TABLE+"/login",data_input)
   
     if data_output["meta"]["code"].to_i == 200
       session[:id] = data_output["data"]["id"]
@@ -171,7 +166,7 @@ class UsersController < ApplicationController
       redirect_to({action:'signin'})
       return false
     end
-    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION+"/"+USERS_TABLE+"/logout",{session_id:session[:id]})
+    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION_API+"/"+USERS_TABLE+"/logout",{session_id:session[:id]})
     if data_output["meta"]["code"].to_i == 200
       session.clear
       flash[:notice] = data_output["meta"]["description"]

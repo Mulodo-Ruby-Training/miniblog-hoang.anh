@@ -3,6 +3,7 @@
     <li><%= link_to("Home", {controller: 'posts', action: 'index'}) %></li>
     <li class="active">Blog</li>
   </ol>
+
   <!--Content-->
   <div class="row">
     <form action="" role="form">
@@ -38,13 +39,16 @@
     <% when 1 %>
     <div class="row">
       <div class="col-md-2">
-        <a href="#">
-          <!-- <img data-holder-rendered="true" src="http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png" style="" class="img-responsive" alt=""> -->
-          <%=  image_tag(v['avatar'] ? DOMAIN_HOST+"uploads/v1/user/avatar/"+v['user_id'].to_s+"/"+v['avatar'] : "system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
-        </a>  
+        <%= link_to({controller:"posts",action:"detail",id:v["id"]}) do %>
+          <%=  image_tag(v["image"]["url"] ? DOMAIN_HOST+"/"+v["image"]["url"].to_s : "system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
+        <% end %>
       </div>
       <div class="col-md-4">
-        <div class="title"><a href="#"><%= v["title"] %></a></div>
+        <div class="title">
+          <%= link_to({controller:"posts",action:"detail",id:v["id"]}) do %>
+            <%= v["title"] %>
+          <% end %>
+        </div>
         <div class="date"> Wrote: <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %></div>
         <div class="description">
           <%= v["description"] %>
@@ -53,13 +57,16 @@
       <% count = count + 1 %>
       <% when 2 %>
       <div class="col-md-2">
-        <a href="#">
-          <!-- <img data-holder-rendered="true" src="http://thuthuat365.com/wp-content/uploads/2014/08/photo_default_0.png" style="" class="img-responsive" alt=""> -->
-          <%=  image_tag(v['avatar'] ? DOMAIN_HOST+"uploads/v1/user/avatar/"+v['user_id'].to_s+"/"+v['avatar'] : "system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
-        </a>  
+        <%= link_to({controller:"posts",action:"detail",id:v["id"]}) do %>
+          <%=  image_tag(v["image"]["url"] ? DOMAIN_HOST+"/"+v["image"]["url"].to_s : "system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
+        <% end %>
       </div>
       <div class="col-md-4">
-        <div class="title"><a href="#"><%= v["title"] %></a></div>
+        <div class="title">
+        <%= link_to({controller:"posts",action:"detail",id:v["id"]}) do %>
+          <%= v["title"] %>
+        <% end %>
+        </div>
         <div class="date"> Wrote: <%= Date.parse(v["created_at"]).strftime("%d-%m-%Y") %></div>
         <div class="description">
           <%= v["description"] %>
@@ -68,7 +75,6 @@
     </div><br/>
     <% count = 1 %>
     <% end %>
-    <!-- .strftime("%d-%m-%Y") -->
     <% } %>
     <% end %>
   </div>

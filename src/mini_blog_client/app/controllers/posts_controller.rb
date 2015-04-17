@@ -3,7 +3,7 @@ class PostsController < ApplicationController
     page = params[:page]
     per_page = params[:per_page]
     order = params[:order]
-    data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"?"+LIMIT+"=10&"+PAGE+"="+page.to_s+"&"+PER_PAGE+"="+per_page.to_s+"&"+ORDER+"="+order.to_s)
+    data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION_API+"/"+POSTS_TABLE+"?"+LIMIT+"=10&"+PAGE+"="+page.to_s+"&"+PER_PAGE+"="+per_page.to_s+"&"+ORDER+"="+order.to_s)
     if data_output["meta"]["code"].to_i == 200
       @data_view = data_output["data"]["source"]
     else
@@ -18,7 +18,7 @@ class PostsController < ApplicationController
 
     # response = Net::HTTP.get(URI.parse("http://localhost:3000/v1/posts?page=#{@page}&per_page=#{@per_page}&order=#{@order}"))
     # data_output = JSON.parse(response)
-    data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"?"+PAGE+"="+@page.to_s+"&"+PER_PAGE+"="+@per_page.to_s+"&"+ORDER+"="+@order.to_s)
+    data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION_API+"/"+POSTS_TABLE+"?"+PAGE+"="+@page.to_s+"&"+PER_PAGE+"="+@per_page.to_s+"&"+ORDER+"="+@order.to_s)
     if data_output["meta"]["code"].to_i == 200
       @data_view = data_output["data"]["source"]
       @pagination = data_output["data"]["pagination"]
@@ -38,9 +38,9 @@ class PostsController < ApplicationController
     @per_page = params[:per_page]
     @keyword_posts = params[:keyword_posts]
     if !@keyword_posts.nil? || @keyword_posts.present?
-      response = Net::HTTP.get(URI.parse(DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"/search/?"+ID+"="+id.to_s+"&"+KEYWORD+"="+@keyword_posts.to_s+"&"+PAGE+"="+@page.to_s+"&"+PER_PAGE+"="+@per_page.to_s))
+      response = Net::HTTP.get(URI.parse(DOMAIN_HOST+VERSION_API+"/"+POSTS_TABLE+"/search/?"+ID+"="+id.to_s+"&"+KEYWORD+"="+@keyword_posts.to_s+"&"+PAGE+"="+@page.to_s+"&"+PER_PAGE+"="+@per_page.to_s))
     else
-      response = Net::HTTP.get(URI.parse(DOMAIN_HOST+VERSION+"/"+USERS_TABLE+"/"+id.to_s+"/"+POSTS_TABLE+"?"+PAGE+"="+@page.to_s+"&"+PER_PAGE+"="+@per_page.to_s))
+      response = Net::HTTP.get(URI.parse(DOMAIN_HOST+VERSION_API+"/"+USERS_TABLE+"/"+id.to_s+"/"+POSTS_TABLE+"?"+PAGE+"="+@page.to_s+"&"+PER_PAGE+"="+@per_page.to_s))
     end
     data_output = JSON.parse(response)
     if data_output["meta"]["code"].to_i == 200
@@ -54,7 +54,7 @@ class PostsController < ApplicationController
 
   def detail
     if !request.xhr?
-      data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"/"+params[:id].to_s)
+      data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION_API+"/"+POSTS_TABLE+"/"+params[:id].to_s)
       
       if data_output["data"][0].nil? || data_output["data"][0]["status"] == false
         redirect_to({action:'index'})
@@ -65,13 +65,13 @@ class PostsController < ApplicationController
         @data_view = data_output["data"]
       end
 
-      data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"/"+params[:id].to_s+"/"+COMMENTS_TABLE)
+      data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION_API+"/"+POSTS_TABLE+"/"+params[:id].to_s+"/"+COMMENTS_TABLE)
       if data_output["meta"]["code"].to_i == 200
         @data_view2 = data_output["data"]["source"]
         @pagination = data_output["data"]["pagination"]
       end
     else
-      data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"/"+params[:id].to_s+"/"+COMMENTS_TABLE+"?"+PAGE+"="+params[:page].to_s)
+      data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION_API+"/"+POSTS_TABLE+"/"+params[:id].to_s+"/"+COMMENTS_TABLE+"?"+PAGE+"="+params[:page].to_s)
       render json:data_output
     end
   end
@@ -103,7 +103,7 @@ class PostsController < ApplicationController
     params[:post][:session_id] = session[:id]
     params[:post][:session_token] = session[:token]
     data_input = params[:post]
-    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE,data_input)
+    data_output = ::Utility.send_request_to_host_api("post",DOMAIN_HOST+VERSION_API+"/"+POSTS_TABLE,data_input)
 
     if data_output["meta"]["code"].to_i == 1001
       flash[:errors] = data_output["meta"]["messages"]
@@ -123,7 +123,7 @@ class PostsController < ApplicationController
     else
       post_id = params[:id]
       user_id = session[:id]
-      data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"/"+post_id.to_s)
+      data_output = ::Utility.send_request_to_host_api("get",DOMAIN_HOST+VERSION_API+"/"+POSTS_TABLE+"/"+post_id.to_s)
 
       if data_output["meta"]["code"].to_i != 200 || data_output["data"][0]["user_id"] != user_id
         redirect_to({action:'index'})
@@ -155,7 +155,7 @@ class PostsController < ApplicationController
     params[:post][:session_token] = session[:token]
     post_id = params[:id]
     data_input = params[:post]
-    data_output = ::Utility.send_request_to_host_api("put",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"/"+post_id.to_s,data_input)
+    data_output = ::Utility.send_request_to_host_api("put",DOMAIN_HOST+VERSION_API+"/"+POSTS_TABLE+"/"+post_id.to_s,data_input)
 
     if data_output["meta"]["code"].to_i == 1001
       flash[:errors] = data_output["meta"]["messages"]
@@ -181,7 +181,7 @@ class PostsController < ApplicationController
     params[:post][:session_token] = session[:token]
 
     data_input = params[:post]
-    data_output = ::Utility.send_request_to_host_api("delete",DOMAIN_HOST+VERSION+"/"+POSTS_TABLE+"/"+post_id.to_s,data_input)
+    data_output = ::Utility.send_request_to_host_api("delete",DOMAIN_HOST+VERSION_API+"/"+POSTS_TABLE+"/"+post_id.to_s,data_input)
 
     if data_output["meta"]["code"].to_i == 200
       flash[:notice] = data_output["meta"]["description"]
