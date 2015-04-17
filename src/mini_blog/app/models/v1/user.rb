@@ -23,7 +23,7 @@ module V1
     validates_presence_of :password
     validates_presence_of :firstname
     validates_presence_of :lastname
-    validates_presence_of :gender
+    # validates_presence_of :gender
     validates_presence_of :email
 
     #validate min & max length of values
@@ -331,7 +331,7 @@ module V1
       posts = (V1::Post.where("posts.user_id = #{user_id}")
         .where("status = 1")
         .joins(:user)
-        .select("posts.id, posts.user_id,title,description,image,status,posts.updated_at,posts.created_at,firstname, lastname, users.avatar")
+        .select("posts.id, posts.user_id,title,image,posts.created_at")
         .order(order)
         .page(page)
         .per(per_page) rescue nil)

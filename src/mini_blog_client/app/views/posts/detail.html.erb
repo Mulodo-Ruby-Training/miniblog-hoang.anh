@@ -97,7 +97,8 @@
 
       <div class="col-md-5">
         <a href="/user-blog?id=<%= @data_view[0]["user_id"] %>">
-          <img data-holder-rendered="true" src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" alt="Avatar" class="img-thumbnail img-responsive" style="width:100px;height:100px;">
+          <%=  image_tag(@data_view[0]['avatar'] ? DOMAIN_HOST+"uploads/"+VERSION_API+"/user/avatar/"+@data_view[0]['user_id'].to_s+"/"+@data_view[0]['avatar'].to_s : "system/200x200.gif",class:"img-responsive",alt:"Image Post") %>
+          <!-- <img data-holder-rendered="true" src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" alt="Avatar" class="img-thumbnail img-responsive" style="width:100px;height:100px;"> -->
         </a>
       </div>
       <div class="col-md-7" style="margin-left:-35px">  
@@ -137,7 +138,9 @@
     <div class="row" style="margin-top:20px;">
       <div class="col-md-12 container-content-comment">
         <div class="avatar-user-comment">
-          <img src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" alt="Avatar"style="width:80px;height:80px;">
+
+          <!-- <img src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" alt="Avatar"style="width:80px;height:80px;"> -->
+          <%=  image_tag(v['avatar'] ? DOMAIN_HOST+"uploads/"+VERSION_API+"/user/avatar/"+v['user_id'].to_s+"/"+v['avatar'].to_s : "system/200x200.gif",class:"img-responsive",alt:"Image Post", style:"width:80px;height:80px;") %>
           <span class="name-user-comment-mobile">
             <a href="/user-blog?id=<%= v["user_id"] %>"><%= v["lastname"]+" "+v["firstname"] %></a>
           </span>
@@ -203,7 +206,7 @@
             div_row = $('<div class="row" style="margin-top:20px;"></div>');
             div_container_content_comment = $('<div class="col-md-12 container-content-comment"></div>');
             div_avatar_user_comment = $('<div class="avatar-user-comment"></div>');
-            div_img = $('<img src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" alt="Avatar"style="width:80px;height:80px;">');
+            div_img = $('<img>', {src:"<%= DOMAIN_HOST %>uploads/<%= VERSION_API %>/user/avatar/"+data_output[i]["user_id"]+"/"+data_output[i]["avatar"],alt:"Avatar",style:"width:80px;height:80px;"});
             div_span_name_user_comment_mobile = $('<span class="name-user-comment-mobile"></span>');
             div_content_user_comment = $('<div class="content-user-comment"></div>');
             div_span_name_user_comment_desktop = $('<span class="name-user-comment-desktop"></span>');
