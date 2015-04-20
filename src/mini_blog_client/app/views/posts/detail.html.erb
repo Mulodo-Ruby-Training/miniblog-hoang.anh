@@ -101,7 +101,7 @@
           <!-- <img data-holder-rendered="true" src="http://insight.venturebeat.com/sites/all/modules/features/vb_intel_analysts/assets/images/analyst-placeholder-avatar.png" alt="Avatar" class="img-thumbnail img-responsive" style="width:100px;height:100px;"> -->
         </a>
       </div>
-      <div class="col-md-7" style="margin-left:-35px">  
+      <div class="col-md-7">  
         <a href="/user-blog?id=<%= @data_view[0]["user_id"] %>">
           <%= @data_view[0]["lastname"] +" "+ @data_view[0]["firstname"]  %>
         </a><br/>
@@ -116,7 +116,7 @@
   <!-- Content blog -->
   <div class="row">
     <div class="col-md-12">
-      <%= @data_view[0]["content"] %>
+      <%= @data_view[0]["content"].html_safe %>
       <hr>
     </div>
   </div>
@@ -150,7 +150,7 @@
             <a href="/user-blog?id=<%= v["user_id"] %>"><%= v["lastname"]+" "+v["firstname"] %></a>
           </span>
           <span class="content-comment">
-            <%= v["content"] %>
+            <%= v["content"].html_safe %>
           </span>
           <% if v["user_id"] == session[:id] %>
           <p>
