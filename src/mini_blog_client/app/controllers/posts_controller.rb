@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  include Utility
   def index
     page = params[:page]
     per_page = params[:per_page]
@@ -89,6 +90,8 @@ class PostsController < ApplicationController
       redirect_to({controller:'users', action:'signin'})
     end
 
+    params[:post][:content] = ::Utility.remove_style_and_script_tag(params[:post][:content])
+
     if params[:post][:image]
       url_image = Post::upload(params[:post][:image])
       if url_image != false
@@ -139,6 +142,8 @@ class PostsController < ApplicationController
       redirect_to({controller:'users', action:'signin'})
       return false
     end
+
+    params[:post][:content] = ::Utility.remove_style_and_script_tag(params[:post][:content])
 
     if params[:post][:image]
       url_image = Post::upload(params[:post][:image])

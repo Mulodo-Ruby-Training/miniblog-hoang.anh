@@ -34,4 +34,13 @@ module Utility
       return data_output
     end
   end
+  def self.remove_style_and_script_tag(input_content)
+    if !input_content.nil? && input_content.length >= 5
+      output_content = Nokogiri::HTML(input_content)
+      output_content.xpath("//script").remove
+      output_content.xpath("//style").remove
+      output_content.xpath("@style|.//@style").remove
+      return output_content
+    end
+  end
 end

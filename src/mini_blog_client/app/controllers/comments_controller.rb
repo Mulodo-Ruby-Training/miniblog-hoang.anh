@@ -1,8 +1,11 @@
 class CommentsController < ApplicationController
+  include Utility
   def create
     if !session[:id] && !session[:token]
       redirect_to({controller:'users', action:'signin'})
     end
+
+    params[:comment][:content] = ::Utility.remove_style_and_script_tag(params[:comment][:content])
 
     params[:comment][:session_id] = session[:id]
     params[:comment][:session_token] = session[:token]
@@ -26,6 +29,8 @@ class CommentsController < ApplicationController
     if !session[:id] && !session[:token]
       redirect_to({controller:'users', action:'signin'})
     end
+    
+    params[:comment][:content] = ::Utility.remove_style_and_script_tag(params[:comment][:content])
 
     params[:comment][:session_id] = session[:id]
     params[:comment][:session_token] = session[:token]
